@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20140118073948) do
 
   create_table "users", force: true do |t|
     t.string   "username"
-    t.integer  "user_id",                default: 0,     null: false
     t.string   "email",                  default: "",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -34,6 +33,15 @@ ActiveRecord::Schema.define(version: 20140118073948) do
     t.string   "lname"
     t.string   "lab"
     t.integer  "studentnumber"
+  end
+
+  create_table "dragActions", force: true do |t|
+    t.integer "user_id"
+    t.string  "item_id"
+    t.integer "start_x"
+    t.integer "start_y"
+    t.integer "end_x"
+    t.integer "end_y"
   end
 
 end
