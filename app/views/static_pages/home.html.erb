@@ -1,12 +1,76 @@
 
+<!DOCTYPE HTML>
 <html>
 <head>
+<script>
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}
+</script>
 </head>
-<body class = "portfolio">
-	<h1>Welcome</h1>
-	<% if user_signed_in? %>
-		<p><%= @user.fname %></p>	
-	<%end%>
+<body>
+	<div id="container"></div>
+    <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
+    <script defer="defer">
+      var boxCount = 1;
+      var remove = false;
+      addBox();
+
+      var stage = new Kinetic.Stage({
+        container: 'container',
+        width: 578,
+        height: 200
+      });
+
+      function removeBox(){
+      		remove = true;
+      }
+
+      function addBox(){
+      	var layer = new Kinetic.Layer();
+      
+	    var box = new Kinetic.Rect({
+	        x: 289,
+	        y: 100,
+	        offset: [50, 25],
+	        width: 100,
+	        height: 50,
+	        fill: '#00D2FF',
+	        stroke: 'black',
+	        strokeWidth: 4,
+	        draggable: true,
+	        id: "box"+ boxCount++
+	    });
+	    layer.add(box);
+      	stage.add(layer);
+      	box.on('dragstart', function() {
+        	console.log(box);
+      	});
+      	box.on('dragend', function() {
+        	console.log(box.attrs.id + " " + box.attrs.x + "  " + box.attrs.y);
+      	});
+      	box.on('click', function(){
+      		if(remove){
+      			layer.remove(box);
+      			stage.remove(layer);
+      		}
+      		remove = false;
+      	});	
+      }
+    </script>
+
+    <button type="button", class ="btn btn-primary btn-success", onClick = "addBox()">Add a Box</button>
+    <button type="button", class ="btn btn-primary btn-danger", onClick = "removeBox()">Remove a Box</button>
 </body>
 </html>
 
