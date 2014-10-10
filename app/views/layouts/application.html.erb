@@ -7,6 +7,15 @@
     <%= javascript_include_tag "autocomplete-rails.js" %>
     <%= csrf_meta_tags %>
     <link rel="icon" href="images/favicon.ico" type="image/ico" />
+    <script type = "text/javascript">
+      window.onload = function online(){
+        $.ajax({
+            type:'GET',
+            url:"/"
+          });
+        setTimeout(online, 10000);
+      }
+    </script>
   </head>
   <body>
     <%= render 'layouts/responsiveheader' %>

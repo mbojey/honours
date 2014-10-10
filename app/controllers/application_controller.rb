@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_filter :set_last_seen_at, if: proc { |p| user_signed_in? }
 
   protected
 
@@ -17,5 +18,9 @@ class ApplicationController < ActionController::Base
   # Overwriting the sign_out redirect path method
   def after_sign_out_path_for(resource_or_scope)
     root_path
+  end
+
+  def set_last_seen_at
+    current_user.update_attribute(:last_seen_at, Time.now-7.hours)
   end
 end

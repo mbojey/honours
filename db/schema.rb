@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20140118073948) do
     t.string   "lname"
     t.string   "lab"
     t.integer  "studentnumber"
+    t.datetime "last_seen_at"
   end
 
   create_table "dragActions", force: true do |t|
