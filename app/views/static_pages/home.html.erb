@@ -2,21 +2,6 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<script>
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-}
-</script>
 </head>
 <body>
 	<div id="container"></div>
@@ -24,13 +9,14 @@ function drop(ev) {
     <script defer="defer">
       var boxCount = 1;
       var remove = false;
-      addBox();
+      
 
       var stage = new Kinetic.Stage({
         container: 'container',
         width: 578,
         height: 200
       });
+      addBox();
 
       function removeBox(){
       		remove = true;
@@ -51,7 +37,7 @@ function drop(ev) {
 	        draggable: true,
 	        id: "box"+ boxCount++
 	    });
-	    layer.add(box);
+	     layer.add(box);
       	stage.add(layer);
       	box.on('dragstart', function() {
         	console.log(box);
