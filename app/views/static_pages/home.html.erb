@@ -51,7 +51,7 @@
         function addBox(){
           var layer = new Kinetic.Layer();
           //Make the group that will hold the node and the next and previous pointers
-    	    var group = new Kinetic.Group({x: 289, y: 100, offset: [50, 25], width: width, height: 2*height, draggable: true, id: "node"+ boxCount++, name: "" });
+    	    var group = new Kinetic.Group({x: 289, y: 100, offset: [50, 25], width: width, height: 2*height, draggable: true, id: "node"+ boxCount++ });
           //The box that represents the node
           var box = new Kinetic.Rect({ width: width, height: height, fill: '#00D2FF', stroke: 'black', strokeWidth: 4});
           group.add(box);
@@ -71,15 +71,13 @@
             else if(nextP){
               //If there is not already a next field add one
               if(group.find("#next").length == 0){
-                var next = new Kinetic.Rect({y: 75, width: width, height: height/2, fill: nextColor, stroke: 'black', strokeWidth: 4, id: "next"});
+                var next = new Kinetic.Rect({y: 50, width: width, height: height/2, fill: nextColor, stroke: 'black', strokeWidth: 4, id: "next"});
                 group.add(next);
-                group.attrs.name += "next";
               }
-              //If there is not a prev pointer move move the next pointer up so it is touching the node
-              if(group.find("#prev").length == 0){
-                group.children[1].attrs.y = 50;
+              //If there is a prev pointer move it down
+              if(group.find("#prev").length != 0){
+                group.find("#prev")[0].setY(75);
               }
-              layer.draw();
               nextP = false;
             }
             else if(prevP){
@@ -87,32 +85,34 @@
               if(group.find("#prev").length == 0){
                 var prev = new Kinetic.Rect({y: 75, width: width, height: height/2, fill: prevColor, stroke: 'black', strokeWidth: 4, id: "prev"});
                 group.add(prev);
-                group.attrs.name += "prev";
               }
               //If there is not a next pointer move move the prev pointer up so it is touching the node
               if(group.find("#next").length == 0){
-                group.children[1].attrs.y = 50;
+                group.children[1].attrs.y(50);
               }
-              layer.draw();
               prevP = false;
             }
-            // else if(removenextP){
-            //   //If there  is a next field remove it
-            //   if(group.find("#next").length != 0){
-            //     var next = group.find("#next");
-            //     next.remove();
-            //     group.attrs.name.replace("next", " ");
-            //   }
-            //   //If there is a prev pointer move it up so it is touching the node
-            //   if(group.find("#prev").length != 0){
-            //     var prev = group.find("#prev")[0];
-            //     prev.attrs.y = 5000;
-            //     prev.remove();
-            //     group.add(prev);
-            //   }
-            //   layer.draw();
-            //   removenextP = false;
-            // }
+            else if(removenextP){
+              //If there  is a next field remove it
+              if(group.find("#next").length != 0){
+                var next = group.find("#next");
+                next.remove();
+              }
+              //If there is a prev field move it up so it is touching the node
+              if(group.find("#prev").length != 0){
+                group.find("#prev")[0].setY(50);
+              }
+              removenextP = false;
+            }
+            else if(removeprevP){
+              //If there  is a next field remove it
+              if(group.find("#prev").length != 0){
+                var next = group.find("#prev");
+                next.remove();
+              }
+              removeprevP = false;
+            }
+            layer.draw();
         	});	
         }
       </script>
