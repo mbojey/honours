@@ -1,0 +1,116 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+<body>
+  <div class = "row">
+    <div class = "col-lg-2">
+      <div class = "row button-row">
+        <button type="button", class ="btn btn-primary btn-success", onClick = "addBox()">Add a Node</button>
+      </div>
+      <div class = "row button-row", style = "display: none", id = "removeButton">
+        <button type="button", class ="btn btn-primary btn-danger", onClick = "removeBox()">Remove Node</button>
+      </div>
+      <div class = "row button-row", style = "display: none", id = "addPointerButton" >
+        <button type="button", class ="btn btn-primary btn-success", onClick = "addPointer()">Add a Pointer</button>
+      </div>
+      <div class = "row button-row", style = "display: none", id = "removePointerButton" >
+        <button type="button", class ="btn btn-primary btn-danger", onClick = "removePointer()">Remove a Pointer</button>
+      </div>
+    </div>
+    <div class = "col-lg-10" id = "body-col">
+  	  <div id="container" style = "border: 1px solid black;"></div>
+      <script src="https://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
+      <script defer="defer">
+        var boxCount = 1;
+        var focus = 0;
+        var pointerColor = "#FF0000";
+        var height = 50;
+        var width = 100;
+        var opacity = 0.45;
+        
+        var stage = new Kinetic.Stage({container: 'container', width: $('#body-col').width(), height: window.innerHeight-185, stroke: 'black', strokeWidth: 4 });
+        var layer = new Kinetic.Layer();
+        addBox();
+
+        function addBox(){
+          //Make the group that will hold the node and the next and previous pointers
+    	    var group = new Kinetic.Group({x: 289, y: 100, width: width, height: 2*height, draggable: true, id: "node"+ boxCount++ , opacity: opacity});
+          //The box that represents the node
+          var box = new Kinetic.Rect({ width: width, height: height, fill: '#00D2FF', stroke: 'black', strokeWidth: 2});
+          group.add(box);
+  	      layer.add(group);
+        	stage.add(layer);
+        	
+          group.on('dragstart', function() { 
+            focusOff();
+            focusOn(group);
+            console.log(group); });
+        	
+          group.on('dragend', function() { });
+        	
+          group.on('click', function(){
+            focusOff();
+            focusOn(group);
+          })
+        }
+
+        function focusOff(){
+          if(focus != 0){
+              focus.opacity(opacity);
+              $("#removeButton").hide();
+              $("#addPointerButton").hide();
+              $("#removePointerButton").hide();
+              focus.getLayer().draw();
+            }
+        }
+
+        function focusOn(group){
+          focus = group;
+          focus.opacity(1);
+          $("#removeButton").show();
+          if(focus.children.length > 1){
+            $("#removePointerButton").show();
+          }
+          if(focus.children.length < 3){
+            $("#addPointerButton").show();
+          }  
+          focus.getLayer().draw();
+        }
+
+        function addPointer(){
+          if(focus.children.length == 1){
+            var box = new Kinetic.Rect({ y: height, width: width, height: height/2, fill: pointerColor, stroke: 'black', strokeWidth: 2});
+          }else{
+            var box = new Kinetic.Rect({ y: height*3/2, width: width, height: height/2, fill: pointerColor, stroke: 'black', strokeWidth: 2});
+            $("#addPointerButton").hide();
+          }
+          $("#removePointerButton").show();
+          focus.add(box);
+          focus.getLayer().draw();
+        }
+
+        function removePointer(){
+          if(focus.children.length == 2){
+            $("#removePointerButton").hide();
+          }
+          focus.children[focus.children.length-1].destroy();
+          $("#addPointerButton").show();
+          focus.getLayer().draw();
+        }
+        function removeBox(){
+          focus.destroy();
+          $("#removeButton").hide();
+          $("#addPointerButton").hide();
+          $("#removePointerButton").hide();
+          stage.draw();
+          focus = 0;
+        }
+      </script>
+    </div>
+</body>
+</html>
+
+
+

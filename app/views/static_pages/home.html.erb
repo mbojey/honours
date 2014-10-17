@@ -9,111 +9,162 @@
       <div class = "row button-row">
         <button type="button", class ="btn btn-primary btn-success", onClick = "addBox()">Add a Node</button>
       </div>
-      <div class = "row button-row">
-        <button type="button", class ="btn btn-primary btn-danger", onClick = "removeBox()">Remove a Node</button>
+      <div class = "row button-row", style = "display: none", id = "removeButton">
+        <button type="button", class ="btn btn-primary btn-danger", onClick = "removeBox()">Remove Node</button>
       </div>
-      <div class = "row button-row" >
-        <button type="button", class ="btn btn-primary btn-success", onClick = "addNext()">Add a Next Field</button>
+      <div class = "row button-row", style = "display: none", id = "addPointerButton" >
+        <button type="button", class ="btn btn-primary btn-success", onClick = "addPointer()">Add a Pointer</button>
       </div>
-      <div class = "row button-row" >
-        <button type="button", class ="btn btn-primary btn-danger", onClick = "removeNext()">Remove a Next Field</button>
+      <div class = "row button-row", style = "display: none", id = "removePointerButton" >
+        <button type="button", class ="btn btn-primary btn-danger", onClick = "removePointer()">Remove a Pointer</button>
       </div>
-      <div class = "row button-row">
-        <button type="button", class ="btn btn-primary btn-success", onClick = "addPrev()">Add a Prev Field</button>
+      <div class = "row button-row", style = "display: none", id = "addArrowButton" >
+        <button type="button", class ="btn btn-primary btn-success", onClick = "addArrow()">Add an Arrow</button>
       </div>
-      <div class = "row button-row" >
-        <button type="button", class ="btn btn-primary btn-danger", onClick = "removePrev()">Remove a Prev Field</button>
+      <div class = "row button-row", style = "display: none", id = "removeArrowButton" >
+        <button type="button", class ="btn btn-primary btn-danger", onClick = "removePointer()">Remove an Arrow</button>
       </div>
     </div>
     <div class = "col-lg-10" id = "body-col">
-  	  <div id="container" style = "border: 1px solid black;"></div>
+      <div id="container" style = "border: 1px solid black;"></div>
       <script src="https://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
       <script defer="defer">
         var boxCount = 1;
-        var remove = false; 
-        var nextP = false; 
-        var prevP = false;
-        var removenextP = false;
-        var removeprevP = false;
-        var nextColor = "#FF0000";
-        var prevColor = "#00FF00";
-        var height = 50;
+        var focus = 0;
+        var target = 0;
+        var connect = false;
+        var pointerColor = "#FF0000";
+        var height = 100;
         var width = 100;
+        var opacity = 0.45;
         
         var stage = new Kinetic.Stage({container: 'container', width: $('#body-col').width(), height: window.innerHeight-185, stroke: 'black', strokeWidth: 4 });
+        var layer = new Kinetic.Layer();
+        
         addBox();
-
-        function removeBox(){ remove = true; }
-        function addNext(){ nextP = true; }
-        function addPrev(){ prevP = true; }
-        function removeNext() { removenextP = true; }
-        function removePrev() { removeprevP = true; }
         function addBox(){
-          var layer = new Kinetic.Layer();
-          //Make the group that will hold the node and the next and previous pointers
-    	    var group = new Kinetic.Group({x: 289, y: 100, offset: [50, 25], width: width, height: 2*height, draggable: true, id: "node"+ boxCount++ });
+          //Make the group that will hold the node and the pointers
+          var group = new Kinetic.Group({x: 289, y: 100, width: 2*width, height: height, draggable: true, id: "node"+ boxCount++ , opacity: opacity});
           //The box that represents the node
-          var box = new Kinetic.Rect({ width: width, height: height, fill: '#00D2FF', stroke: 'black', strokeWidth: 4});
+          var box = new Kinetic.Rect({x: width/2, width: width, height: height, fill: '#00D2FF', stroke: 'black', strokeWidth: 2});
           group.add(box);
-  	      layer.add(group);
-        	stage.add(layer);
-        	
-          group.on('dragstart', function() { console.log(group); });
-        	
-          group.on('dragend', function() { console.log(group.attrs.id + " " + group.attrs.x + "  " + group.attrs.y); });
-        	
+          layer.add(group);
+          stage.add(layer);
+          
+          group.on('dragstart', function() { 
+            focusOff();
+            focusOn(group);});
+          
+          group.on('dragend', function() { focusOn(group); });
+          
           group.on('click', function(){
-        		if(remove){
-        			layer.remove(group);
-        			stage.remove(layer);
-              remove = false;
-        		}
-            else if(nextP){
-              //If there is not already a next field add one
-              if(group.find("#next").length == 0){
-                var next = new Kinetic.Rect({y: 50, width: width, height: height/2, fill: nextColor, stroke: 'black', strokeWidth: 4, id: "next"});
-                group.add(next);
-              }
-              //If there is a prev pointer move it down
-              if(group.find("#prev").length != 0){
-                group.find("#prev")[0].setY(75);
-              }
-              nextP = false;
+            if(connect){
+              target = group;
+              makeConnection();
+            }else{
+              focusOff();
+              focusOn(group);
             }
-            else if(prevP){
-              //If there  is not already a prev field add one
-              if(group.find("#prev").length == 0){
-                var prev = new Kinetic.Rect({y: 75, width: width, height: height/2, fill: prevColor, stroke: 'black', strokeWidth: 4, id: "prev"});
-                group.add(prev);
-              }
-              //If there is not a next pointer move move the prev pointer up so it is touching the node
-              if(group.find("#next").length == 0){
-                group.children[1].attrs.y(50);
-              }
-              prevP = false;
+          })
+        }
+
+        function focusOff(){
+          if(focus != 0){
+              focus.opacity(opacity);
+              $("#removeButton").hide();
+              $("#addPointerButton").hide();
+              $("#removePointerButton").hide();
+              $("#addArrowButton").hide();
+              layer.drawScene();
             }
-            else if(removenextP){
-              //If there  is a next field remove it
-              if(group.find("#next").length != 0){
-                var next = group.find("#next");
-                next.remove();
-              }
-              //If there is a prev field move it up so it is touching the node
-              if(group.find("#prev").length != 0){
-                group.find("#prev")[0].setY(50);
-              }
-              removenextP = false;
-            }
-            else if(removeprevP){
-              //If there  is a next field remove it
-              if(group.find("#prev").length != 0){
-                var next = group.find("#prev");
-                next.remove();
-              }
-              removeprevP = false;
-            }
-            layer.draw();
-        	});	
+        }
+
+        function focusOn(group){
+          focus = group;
+          focus.opacity(1);
+          $("#removeButton").show();
+          if(focus.children.length > 1){
+            $("#removePointerButton").show();
+            $("#addArrowButton").show();
+          }
+          if(focus.children.length < 3){
+            $("#addPointerButton").show();
+          }  
+          focus.drawScene();
+        }
+
+        function addPointer(){
+          if(focus.children.length == 1){
+            var box = new Kinetic.Rect({width: width/2, height: height, fill: pointerColor, stroke: 'black', strokeWidth: 2});
+          }else{
+            var box = new Kinetic.Rect({ x: width*3/2, width: width/2, height: height, fill: pointerColor, stroke: 'black', strokeWidth: 2});
+            $("#addPointerButton").hide();
+          }
+          $("#removePointerButton").show();
+          $("#addArrowButton").show();
+          focus.add(box);
+          layer.drawScene();
+        }
+
+        function removePointer(){
+          if(focus.children.length == 2){
+            $("#removePointerButton").hide();
+            $("#addArrowButton").hide();
+          }
+          focus.children[focus.children.length-1].destroy();
+          $("#addPointerButton").show();
+          layer.drawScene();
+        }
+        
+        function removeBox(){
+          focus.destroy();
+          $("#removeButton").hide();
+          $("#addArrowButton").hide();
+          $("#addPointerButton").hide();
+          $("#removePointerButton").hide();
+          layer.drawScene();
+          focus = 0;
+        }
+
+        function addArrow(){
+          connect = true;
+        }
+
+        function makeConnection(){
+          console.log("trying to make connection")
+          var con = addConnection(focus, target);
+          console.log(con);
+          layer.add(con);
+          stage.draw();
+          connect = false;
+        }
+
+        function addConnection(parentNode, childNode){
+          var connector = new Kinetic.Shape({
+                sceneFunc: function (context) {
+                    var rectParent = parentNode.children[0];
+                    var rectChild = childNode.children[0];
+                    var ctx = context;
+                    var x1 = parentNode.getX() + rectParent.getWidth()/2;
+                    var y1 = parentNode.getY() + rectParent.getHeight()/2;
+                    var x2 = childNode.getX() + rectChild.getWidth()/2; 
+                    var y2 = childNode.getY() + rectChild.getHeight()/2;
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.lineTo(x2, y2+5);
+                    ctx.lineTo(x1, y1+5);
+                    ctx.lineTo(x1, y1);
+                    ctx.closePath();
+                    ctx.fillStrokeShape(this);
+                },
+                points: [1, 1, 1, 3],
+                opacity: 0.5,
+                fill: pointerColor,
+                strokeWidth: 2,
+                draggable: false
+          });
+          return connector;
         }
       </script>
     </div>
