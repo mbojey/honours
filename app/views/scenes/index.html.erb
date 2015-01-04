@@ -56,11 +56,11 @@
           var layer = new Kinetic.Layer();
 
           function addHead(){
-          	// $.ajax({
-           //  	type:'POST',
-           //  	url:"/nodes",
-           //  	data: {id: scene_id, scene_count: boxCount, head: true}
-          	// });
+          	$.ajax({
+            	type:'POST',
+            	url:"/nodes",
+            	data: {id: scene_id, scene_count: boxCount, head: true}
+          	});
           	var group = new Kinetic.Group({x: 289, y: 100, width: 2*width/3, height: height/2, draggable: true, id: boxCount++ , opacity: opacity, datatype1: "", data1: "", datatype2: "", data2: "", pointer: false, head: true});
             //The box that represents the node
             var box = new Kinetic.Rect({x: width/2, width: 2*width/3, height: height/2, fill: '#CC0099', stroke: 'black', strokeWidth: 2, id: "node"});
@@ -77,11 +77,11 @@
             
             group.on('dragend', function() { 
             	focusOn(group);
-            	// $.ajax({
-            	// type: "GET",
-            	// url: "/actions",
-            	// data: {id: scene_id, scene_count: focus.id(), start_x: old_x, start_y: old_y, end_x: focus.attrs.x, end_y: focus.attrs.y}
-             // 	}); 
+            	$.ajax({
+            	type: "GET",
+            	url: "/actions",
+            	data: {id: scene_id, scene_count: focus.id(), start_x: old_x, start_y: old_y, end_x: focus.attrs.x, end_y: focus.attrs.y}
+             	}); 
             });
             
             group.on('click', function(){
@@ -97,11 +97,11 @@
           }
           
           function addBox(){
-          	// $.ajax({
-           //  	type:'POST',
-           //  	url:"/nodes",
-           //  	data: {id: scene_id, scene_count: boxCount, head: false}
-          	// });
+          	$.ajax({
+            	type:'POST',
+            	url:"/nodes",
+            	data: {id: scene_id, scene_count: boxCount, head: false}
+          	});
             //Make the group that will hold the node and the pointers
             var group = new Kinetic.Group({x: 289, y: 100, width: 2*width, height: height, draggable: true, id: boxCount++ , opacity: opacity, datatype1: "", data1: "", datatype2: "", data2: "", pointer: false, head: false});
             //The box that represents the node
@@ -119,11 +119,11 @@
             
             group.on('dragend', function() { 
             	focusOn(group);
-            	// $.ajax({
-            	// type: "GET",
-            	// url: "/actions",
-            	// data: {id: scene_id, scene_count: focus.id(), start_x: old_x, start_y: old_y, end_x: focus.attrs.x, end_y: focus.attrs.y}
-             // 	}); 
+            	$.ajax({
+            	type: "GET",
+            	url: "/actions",
+            	data: {id: scene_id, scene_count: focus.id(), start_x: old_x, start_y: old_y, end_x: focus.attrs.x, end_y: focus.attrs.y}
+             	}); 
             });
             
             group.on('click', function(){
@@ -226,11 +226,11 @@
           	if(focus.attrs.datatype2 != "")
           		focus.add(secondText);
           	layer.drawScene();
-          	// $.ajax({
-           //  	type: "GET",
-           //  	url: "/nodes",
-           //  	data: {id: scene_id, scene_count: focus.id(), datatype1: focus.attrs.datatype1, datatype2: focus.attrs.datatype2, data1: focus.attrs.data1, data2: focus.attrs.data2}
-           //   	}); 
+          	$.ajax({
+            	type: "GET",
+            	url: "/nodes",
+            	data: {id: scene_id, scene_count: focus.id(), datatype1: focus.attrs.datatype1, datatype2: focus.attrs.datatype2, data1: focus.attrs.data1, data2: focus.attrs.data2}
+             	}); 
           }
 
           function addPointer(){
@@ -245,20 +245,20 @@
 	            align: 'center',    
 	            fill: 'white'
 	          });
-             //  $.ajax({
-            	// type: "GET",
-            	// url: "/nodes",
-            	// data: {id: scene_id, scene_count: focus.id(), next_pointer: true}
-             //  });
-            // }else{
-            //   var box = new Kinetic.Rect({width: width/2, height: height, fill: pointerColor, stroke: 'black', strokeWidth: 2});
-            //   $.ajax({
-            // 	type: "GET",
-            // 	url: "/nodes",
-            // 	data: {id: scene_id, scene_count: focus.id(), prev_pointer: true}
-            //   });
-            //   $("#addPointerButton").hide();
-            // }
+              $.ajax({
+            	type: "GET",
+            	url: "/nodes",
+            	data: {id: scene_id, scene_count: focus.id(), next_pointer: true}
+              });
+            }else{
+              var box = new Kinetic.Rect({width: width/2, height: height, fill: pointerColor, stroke: 'black', strokeWidth: 2});
+              $.ajax({
+            	type: "GET",
+            	url: "/nodes",
+            	data: {id: scene_id, scene_count: focus.id(), prev_pointer: true}
+              });
+              $("#addPointerButton").hide();
+            }
             $("#removePointerButton").show();
             $("#addArrowButton").show();
             $("#addPointerButton").hide();
@@ -270,22 +270,22 @@
           }
 
           function removePointer(){
-            // if(focus.children.length == 2){
-            //   $("#removePointerButton").hide();
-            //   $("#addArrowButton").hide();
-            //   $.ajax({
-            // 	type: "GET",
-            // 	url: "/nodes",
-            // 	data: {id: scene_id, scene_count: focus.id(), next_pointer: false}
-            //   });
-            // }
-            // else{
-            	// $.ajax({
-            	// type: "GET",
-            	// url: "/nodes",
-            	// data: {id: scene_id, scene_count: focus.id(), prev_pointer: false}
-             //  });
-            // }
+            if(focus.children.length == 2){
+              $("#removePointerButton").hide();
+              $("#addArrowButton").hide();
+              $.ajax({
+            	type: "GET",
+            	url: "/nodes",
+            	data: {id: scene_id, scene_count: focus.id(), next_pointer: false}
+              });
+            }
+            else{
+            	$.ajax({
+            	type: "GET",
+            	url: "/nodes",
+            	data: {id: scene_id, scene_count: focus.id(), prev_pointer: false}
+              });
+            }
             focus.children[focus.children.length-1].destroy();
             $("#addPointerButton").show();
             $("#removePointerButton").hide();
@@ -313,11 +313,11 @@
             layer.moveToTop(con);
             stage.draw();
             connect = false;
-            // $.ajax({
-            // 	type: "GET",
-            // 	url: "/nodes",
-            // 	data: {id: scene_id, scene_count: focus.id(), next_pointer_target: target.id()}
-            // });
+            $.ajax({
+            	type: "GET",
+            	url: "/nodes",
+            	data: {id: scene_id, scene_count: focus.id(), next_pointer_target: target.id()}
+            });
           }
 
           function addConnection(parentNode, childNode){
