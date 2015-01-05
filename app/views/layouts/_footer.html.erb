@@ -1,4 +1,60 @@
-<footer class="footer">
- <div class = "row" style ="text-align:center;padding-bottom:3em;">
- </div>
-</footer>
+<head>
+  <script language = "javascript">
+  
+  function change_chatbox1(){
+    var NAME = document.getElementById("chatbox1");
+    var currentClass = NAME.className;
+    if (currentClass == "dropup open") { // Check the current class name
+        NAME.className = "dropup";   // Set other class name
+    } else {
+        NAME.className = "dropup open";  // Otherwise, use `second_name`
+    }
+}
+
+function change_chatbox2(){
+    var NAME = document.getElementById("chatbox12");
+    var currentClass = NAME.className;
+    if (currentClass == "dropup open") { // Check the current class name
+        NAME.className = "dropup";   // Set other class name
+    } else {
+        NAME.className = "dropup open";  // Otherwise, use `second_name`
+    }
+}
+  function hold(){
+
+    document.getElementsByTagName("html")[0].setAttribute("style","overflow:hidden");
+  }
+
+  function scroll(){
+
+    document.getElementsByTagName("html")[0].setAttribute("style","overflow:scroll");
+  }
+  </script>  
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style = "border: 0px solid white; width: 100%" >
+      <div class = "container" style= "width: 100%; padding: 0px">
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style = "background-color:black; width: 100%;margin-top:10px;">
+              <ul class="nav pull-right">
+                  <% if user_signed_in?%>  
+                    <li id = "testchat2">
+                      
+                    </li>
+                    <li id = "testchat1">
+                      
+                    </li>
+                    <li class="dropup marker" style = "width: 160px; text-align: right; background: black">  
+                      	<a class="dropdown-toggle marker" id = "brand" data-toggle="dropdown" style = "text-shadow: none;  cursor:pointer; background: black"> 
+                      		Chat<b class="caret"></b>
+                      	</a>  
+                      	<ul class="dropdown-menu flist" style = "text-align: left; width: 120px;"> 
+                          <%= render("layouts/online") %>
+      					        </ul>
+                    </li>
+                  <% end %>
+              </ul>
+          </div><!-- /.navbar-collapse -->
+      </div>
+  </nav>
+</body>

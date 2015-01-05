@@ -9,7 +9,11 @@
     Sign in plz, thanks.
   </div>
   <% else %>
-    <%= link_to "Start practicing with lists now!", {:controller => "scenes", :action => "index", :question => 1 }, class: "btn btn-lg btn-success" %>
+    <%= link_to "Start practicing with lists now!", {:controller => "scenes", :action => "tutorial" }, class: "btn btn-lg btn-success" %>
+    <%= link_to "Add a node to the front of a list", {:controller => "scenes", :action => "addtofront" }, class: "btn btn-lg btn-success" %>
+    <%= link_to "Add a node to the middle of a list", {:controller => "scenes", :action => "addtomiddle" }, class: "btn btn-lg btn-success" %>
+    <%= link_to "Remove a node from the end of a list", {:controller => "scenes", :action => "removefromback" }, class: "btn btn-lg btn-success" %>
+    <%= link_to "Remove a node from a list", {:controller => "scenes", :action => "removefromlist" }, class: "btn btn-lg btn-success" %>
   <% end %> 
   </body>
 </html>

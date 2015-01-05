@@ -1,0 +1,7 @@
+<div>
+	<% @online.each do |r| %>
+  		<li style = "color: black;">
+  			<%= link_to r.fname+" "+r.lname, {controller: "layouts", action: "privatechat", id1: @user.id, id2: r.id}, remote: true%>
+  		</li>
+	<% end %>
+</div>

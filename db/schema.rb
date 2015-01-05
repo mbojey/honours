@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.datetime "created_at"
     t.integer  "scene_count"
     t.boolean  "head"
+    t.boolean  "temp", default: false, null: false
   end
 
   create_table "scenes", force: true do |t|

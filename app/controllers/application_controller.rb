@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
   before_filter :set_last_seen_at, if: proc { |p| user_signed_in? }
+  before_filter :set_online_users, if: proc { |p| user_signed_in? }
 
   protected
 
@@ -22,5 +23,9 @@ class ApplicationController < ActionController::Base
 
   def set_last_seen_at
     current_user.update_attribute(:last_seen_at, Time.now-7.hours)
+  end
+
+  def set_online_users
+    @online = User.where(last_seen_at: (Time.now-7.hours-15.seconds..Time.now-7.hours)).where.not(id: current_user.id)
   end
 end

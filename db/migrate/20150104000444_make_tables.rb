@@ -45,6 +45,7 @@ class MakeTables < ActiveRecord::Migration
     t.datetime "created_at"
     t.integer "scene_count"
     t.boolean "head"
+    t.boolean "temp", default: false, null: false
   end
 
   create_table "actions", force: true do |t|
