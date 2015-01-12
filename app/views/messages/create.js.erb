@@ -1,0 +1,3 @@
+$("#chatfield").load('messages/_privatechat.html.erb').append("<%= escape_javascript render(@message) %>");
+$("#chatbox_div").load('layouts/_chat.html.erb').scrollTop($("#chatbox_div").load('layouts/_chat.html.erb')[0].scrollHeight);
+$("#new_message")[0].reset();

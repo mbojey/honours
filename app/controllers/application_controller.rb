@@ -21,7 +21,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_last_seen_at
+    #once a user has logged back in reset them to available
+    if(current_user.last_seen_at <=> Time.now-7.hours-15.seconds) == -1
+      current_user.update_attribute(:available, true)
+    end
     current_user.update_attribute(:last_seen_at, Time.now-7.hours)
+    
   end
 
 end

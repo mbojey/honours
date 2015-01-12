@@ -70,6 +70,15 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.string   "lab"
     t.integer  "studentnumber"
     t.datetime "last_seen_at"
+    t.boolean  "available", default: true, null: false
+  end
+
+  create_table "messages", force: true do |t|
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.string "message"
+    t.boolean "seen", default: false, null: false
+    t.datetime "sent_at"
   end
 
 end

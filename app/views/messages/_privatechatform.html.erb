@@ -1,0 +1,10 @@
+<div class = "row" style = "width:99%; padding:0px; height: auto;">
+  <%= simple_form_for Message.new, :id => "new_message", :controller => "messages", :action => "create", :remote => true do |f| %>
+  <div class = "col-md-12" style = "padding-left: 30px; padding-right: 0px; height: auto;">
+    <%= f.text_field :message, :autocomplete => "off", :autofocus => true, style: "height: 10px;" %>
+  </div>
+  <%= f.hidden_field :sender_id, :value => @user.id %>
+  <%= f.hidden_field :receiver_id, :value => @other.id %>
+  <%= f.hidden_field :sent_at, :value => Time.now %>
+  <% end %>
+</div>

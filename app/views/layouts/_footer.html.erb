@@ -1,41 +1,39 @@
 <head>
   <script language = "javascript">
+
+    function change_chatbox1(){
+      var NAME = document.getElementById("chatbox");
+      var currentClass = NAME.className;
+      if (currentClass == "dropup open") { // Check the current class name
+          NAME.className = "dropup";   // Set other class name
+      } else {
+          NAME.className = "dropup open";  // Otherwise, use `second_name`
+      }
+    }
   
-  function change_chatbox1(){
-    var NAME = document.getElementById("chatbox1");
-    var currentClass = NAME.className;
-    if (currentClass == "dropup open") { // Check the current class name
-        NAME.className = "dropup";   // Set other class name
-    } else {
-        NAME.className = "dropup open";  // Otherwise, use `second_name`
+    function hold(){
+
+      document.getElementsByTagName("html")[0].setAttribute("style","overflow:hidden");
     }
-}
 
-function change_chatbox2(){
-    var NAME = document.getElementById("chatbox12");
-    var currentClass = NAME.className;
-    if (currentClass == "dropup open") { // Check the current class name
-        NAME.className = "dropup";   // Set other class name
-    } else {
-        NAME.className = "dropup open";  // Otherwise, use `second_name`
+    function scroll(){
+
+      document.getElementsByTagName("html")[0].setAttribute("style","overflow:scroll");
     }
-}
-  function hold(){
-
-    document.getElementsByTagName("html")[0].setAttribute("style","overflow:hidden");
-  }
-
-  function scroll(){
-
-    document.getElementsByTagName("html")[0].setAttribute("style","overflow:scroll");
-  }
-      window.onload = function online(){
+    window.onload = function checkOnline(){
+      if ($("#chat").is(':visible')){
         $.ajax({
             type:'GET',
             url:"layouts/show.js",
           });
-        setTimeout(online, 1000);
+      } else{
+        $.ajax({
+            type:'GET',
+            url:"layouts/show.js",
+          });
       }
+      setTimeout(checkOnline, 500);
+    }
   </script>  
 </head>
 
@@ -45,11 +43,9 @@ function change_chatbox2(){
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style = "background-color:black; width: 100%;margin-top:10px;">
               <ul class="nav pull-right">
                   <% if user_signed_in?%>  
-                    <li id = "testchat2">
-                      
-                    </li>
-                    <li id = "testchat1">
-                      
+                    <li id = "chat">
+                      <div id = "chat_div">
+                      </div>
                     </li>
                     <li class="dropup marker" style = "width: 160px; text-align: right; background: black">  
                       	<a class="dropdown-toggle marker" id = "brand" data-toggle="dropdown" style = "text-shadow: none;  cursor:pointer; background: black"> 

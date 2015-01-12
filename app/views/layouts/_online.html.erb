@@ -4,7 +4,7 @@
 	<% else %>
 		<% @online.each do |r| %>
 	  		<li style = "color: black;">
-	  			<%= link_to r.fname+" "+r.lname, {controller: "layouts", action: "show", id1: @user.id, id2: r.id}, remote: true%>
+	  			<%= link_to r.fname+" "+r.lname, {controller: "layouts", action: "openchat", id1: @user.id, id2: r.id}, remote: true%>
 	  		</li>
 		<% end %>
 	<% end %>

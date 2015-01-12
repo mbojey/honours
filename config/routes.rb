@@ -4,6 +4,7 @@ devise_for :users
 resources :scenes
 resources :nodes
 resources :actions
+resources :messages
  
 root to: 'static_pages#home'
 
@@ -14,8 +15,9 @@ match '/addtomiddle', to: 'scenes#addtomiddle', via:'get'
 match '/removefromback', to: 'scenes#removefromback', via:'get'
 match '/removefromlist', to: 'scenes#removefromlist', via:'get'
 match '/nodes/data', to: 'nodes#data', via: 'get'
-get 'privatechat', to: "layouts#privatechat", via: 'get'
 match '/layouts/show', to: 'layouts#show', via: 'get'
+match '/layouts/openchat', to: 'layouts#openchat', via: 'get'
+
 
 mount Ckeditor::Engine => '/ckeditor'
 
