@@ -32,7 +32,7 @@
             url:"layouts/show.js",
           });
       }
-      setTimeout(checkOnline, 500);
+      setTimeout(checkOnline, 5000);
     }
   </script>  
 </head>
@@ -47,12 +47,12 @@
                       <div id = "chat_div">
                       </div>
                     </li>
-                    <li class="dropup marker" style = "width: 160px; text-align: right; background: black">  
-                      	<a class="dropdown-toggle marker" id = "brand" data-toggle="dropdown" style = "text-shadow: none;  cursor:pointer; background: black"> 
+                    <li class="dropup marker" id = "chat_element" style = "width: 240px; text-align: right; background: black">  
+                      	<a class="dropdown-toggle marker" id = "chat_link" data-toggle="dropdown" style = "text-shadow: none;  cursor:pointer; background: black;"> 
                       		Chat<b class="caret"></b>
                       	</a>  
                       	<ul class="dropdown-menu flist" style = "text-align: left; width: 120px;"> 
-                          <div id = "online_div">
+                          <div id = "online_div" style = "width: 120px;">
                           </div>
       					        </ul>
                     </li>

@@ -2,7 +2,7 @@
 	<% if @messages.nil? %>
 		<%	@messages = Message.where(sender_id: @other.id, receiver_id: @user.id)
 	      @messages = @messages + (Message.where(sender_id: @user.id, receiver_id: @other.id))
-	      @messages.sort_by { |obj| obj.sent_at } %>
+	      @messages = @messages.sort_by { |obj| obj.sent_at } %>
 	<% end %>
   	<%= render @messages %>
 </ul>

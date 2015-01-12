@@ -14,6 +14,7 @@ class LayoutsController < ApplicationController
 		    	@user.update_attribute(:available, false)
 		    	#find the sender of the most recent unread message
 		    	@other = User.find(@messagesreceived.first.sender_id)
+		    	@user.update_attribute(:partner_id, @other.id)
 		    	#find all messages send to current user
 		    	@messagesreceived = Message.where(sender_id: @other.id, receiver_id: @user.id).order(:sent_at)
 		    	#find all messages sent from user to other messager
@@ -39,6 +40,8 @@ class LayoutsController < ApplicationController
 		if user_signed_in?
 			@user = current_user
 			@other = User.find(params[:id2])
+			@user.update_attribute(:available, false)
+			@user.update_attribute(:partner_id, @other.id)
 		    @online = User.where(last_seen_at: (Time.now-7.hours-15.seconds..Time.now-7.hours), available: true).where.not(id: @user.id)
 		end
 		respond_to do |format|

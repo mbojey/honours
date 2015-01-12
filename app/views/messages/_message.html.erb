@@ -6,7 +6,6 @@
 				<div class = "message-time-sender"> 
 					<% if message.sent_at > Date.yesterday %>
 						Sent at: <%= message.sent_at.strftime("%H:%M") %>
-						From: <%= message.sender_id %>
 					<% else %>
 						Sent on: <%= message.sent_at.strftime("%b . %-d") %>
 					<% end %>
@@ -18,7 +17,6 @@
 				<div class = "message-time-reciever"> 
 					<% if message.sent_at > Date.yesterday %>
 						Sent at: <%= message.sent_at.strftime("%H:%M") %>
-						From: <%= message.sender_id %>
 					<% else %>
 						Sent on: <%= message.sent_at.strftime("%b . %-d") %>
 					<% end %>

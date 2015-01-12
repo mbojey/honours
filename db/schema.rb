@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.integer  "studentnumber"
     t.datetime "last_seen_at"
     t.boolean  "available", default: true, null: false
+    t.integer  "partner_id"
   end
 
   create_table "messages", force: true do |t|

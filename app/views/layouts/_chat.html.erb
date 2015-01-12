@@ -1,9 +1,10 @@
 <li class="dropup open" id="chatbox">  
-  <a id = "brand" style = "text-shadow: none; cursor:pointer;", onClick = "change_chatbox()" > 
+  <a class="dropdown-toggle marker" id = "brand" data-toggle="dropdown" style = "text-shadow: none;  cursor:pointer; background: black;" onClick = "change_chatbox()" > 
     <%= @other.fname + " " + @other.lname%>
     <b class="caret"></b>
   </a> 
-  <div class = "dropdown-menu dropdown-menu-chat" style = "max-height: 440px; border: 1px solid black;"> 
+  <div class = "dropdown-menu dropdown-menu-chat" style = "max-height: 440px; border: 1px solid black;">
+
       <div onmouseover = "hold();" onmouseout = "scroll();" style = "overflow: scroll; max-height: 400px; margin: 0px; padding: 0px;", id = "chatbox_div">
         <%= render 'messages/privatechat' %>
       </div>
