@@ -29,6 +29,13 @@ function change_chatbox2(){
 
     document.getElementsByTagName("html")[0].setAttribute("style","overflow:scroll");
   }
+      window.onload = function online(){
+        $.ajax({
+            type:'GET',
+            url:"layouts/show.js",
+          });
+        setTimeout(online, 1000);
+      }
   </script>  
 </head>
 
@@ -49,7 +56,8 @@ function change_chatbox2(){
                       		Chat<b class="caret"></b>
                       	</a>  
                       	<ul class="dropdown-menu flist" style = "text-align: left; width: 120px;"> 
-                          <%= render("layouts/online") %>
+                          <div id = "online_div">
+                          </div>
       					        </ul>
                     </li>
                   <% end %>

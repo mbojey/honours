@@ -15,6 +15,7 @@ match '/removefromback', to: 'scenes#removefromback', via:'get'
 match '/removefromlist', to: 'scenes#removefromlist', via:'get'
 match '/nodes/data', to: 'nodes#data', via: 'get'
 get 'privatechat', to: "layouts#privatechat", via: 'get'
+match '/layouts/show', to: 'layouts#show', via: 'get'
 
 mount Ckeditor::Engine => '/ckeditor'
 
