@@ -457,7 +457,13 @@
             $("#addPointerButton").hide();
             $("#removePointerButton").hide();
             layer.drawScene();
+            $.ajax({
+              type: "GET",
+              url: "/nodes",
+              data: {id: scene_id, scene_count: focus.id(), visible: false}
+              });
             focus = 0;
+
           }
 
           function addArrow(){

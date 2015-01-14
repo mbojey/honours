@@ -1,0 +1,40 @@
+var nodes = []
+  <% if !(@nodes.nil? || @nodes.empty?) %>
+  nodes = <%= @nodes.to_s.html_safe %>;
+  <% end %>
+update();
+function update(){
+		layer.removeChildren();
+		stage.draw();
+		//Now move onto adding and positioning all the nodes, filling in any data and putting and connections in place make sure to not make duplicates in the db
+	  for (i = 0; i < nodes.length; i++) { 
+	    var current = nodes[i];
+	    if(current.head){
+	    	addHeadOld(current.scene_count);
+	    	moveFocus(current.x, current.y);
+	    }
+	    else{
+	    	addBoxOld(current.scene_count);
+	    	moveFocus(current.x, current.y);
+	    	if(current.next_pointer)
+	    		addPointerOld();
+	    	if(current.datatype1 != null){
+	  			focus.attrs.datatype1 = current.datatype1;
+	  			focus.attrs.data1 = current.data1;
+		  		focus.attrs.datatype2 = current.datatype2;
+	  			focus.attrs.data2 = current.data2;
+	    	}
+	    }
+	    if(current.next_pointer_target_id != null){
+	    	for(j = 0; j < layer.children.length; j++){
+	    		if (layer.children[j].attrs.id = current.next_pointer_target_id){
+	    			var target = layer.children[j];
+	    			break;
+	    		}
+	    	}
+	    	forceConnection(focus, target)
+	    }
+	    focusOff()
+	    boxCount++;
+	  }
+}

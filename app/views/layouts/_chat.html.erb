@@ -1,14 +1,16 @@
 <li class="dropup open" id="chatbox">  
-  <a class="dropdown-toggle marker" id = "brand" data-toggle="dropdown" style = "text-shadow: none;  cursor:pointer; background: black;" onClick = "change_chatbox()" > 
+  <a class="dropdown-toggle marker" id = "brand" onclick = "open_chatbox()" style = "text-shadow: none;  cursor:pointer; background: black;" > 
     <%= @other.fname + " " + @other.lname%>
     <b class="caret"></b>
   </a> 
-  <div class = "dropdown-menu dropdown-menu-chat" style = "max-height: 440px; border: 1px solid black;">
-
+  <div class = "dropdown-menu dropdown-menu-chat" style = "max-height: 440px; border: 1px solid black; width: 200px; padding-bottom: -10px;">
       <div onmouseover = "hold();" onmouseout = "scroll();" style = "overflow: scroll; max-height: 400px; margin: 0px; padding: 0px;", id = "chatbox_div">
         <%= render 'messages/privatechat' %>
       </div>
-      <div style = "border-top: 1px solid black; padding: 2px;">
+      <% if @user.pending_invitation %>
+        <%= link_to "Accept Invitation", {:controller => "scenes", :action => "accept_inv"}, class: "btn btn-sm btn-success"%>
+      <% end %>
+      <div style = "border-top: 1px solid black; padding: 2px; width: 100%;">
         <%= render 'messages/privatechatform' %>
       </div>
   </div>

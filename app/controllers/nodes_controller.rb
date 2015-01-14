@@ -14,6 +14,8 @@ class NodesController < ApplicationController
     	      @node.created_at = DateTime.now
             @node.scene_count = params[:scene_count]
             @node.head = params[:head]
+            @node.x = params[:x]
+            @node.y = params[:y]
     	      @node.save
       	end
       }
@@ -38,6 +40,11 @@ class NodesController < ApplicationController
       @node.datatype2 = params[:datatype2]
       @node.data1 = params[:data1]
       @node.data2 = params[:data2]
+    elsif params[:visible]
+      @node.visible = false
+    elsif params[:x]
+      @node.x = params[:x]
+      @node.y = params[:y]
     end
     @node.save
   end

@@ -10,7 +10,26 @@ class ScenesController < ApplicationController
       @scene.created_at = DateTime.now
       @scene.save
       @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
     end
+  end
+
+  def show
+    @scene = Scene.find(params[:id])
+    if(@scene.question == 1)
+      update_tutorial
+    end
+  end
+
+  def update_tutorial
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :tutorial
+        }
+      end
   end
 
   def addtofront 
@@ -22,6 +41,7 @@ class ScenesController < ApplicationController
       @scene.created_at = DateTime.now
       @scene.save
       @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
     end
   end
 
@@ -34,6 +54,7 @@ class ScenesController < ApplicationController
       @scene.created_at = DateTime.now
       @scene.save
       @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
     end
   end
 
@@ -46,6 +67,7 @@ class ScenesController < ApplicationController
       @scene.created_at = DateTime.now
       @scene.save
       @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
     end
   end
 
@@ -58,6 +80,35 @@ class ScenesController < ApplicationController
       @scene.created_at = DateTime.now
       @scene.save
       @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def add_collab
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.find(params[:scene])
+      User.find(@user.partner_id).update_attribute(:pending_invitation, true)
+      User.find(@user.partner_id).update_attribute(:inviter, @user.id)
+      @online = User.where(last_seen_at: (Time.now-7.hours-15.seconds..Time.now-7.hours), available: true).where.not(id: @user.id)    
+      @node = Node.new
+      respond_to do |format|
+        format.js { 
+            render "layouts/online"
+        }
+      end
+    end
+  end
+
+  def accept_inv
+    if user_signed_in?
+      @user = current_user
+      @inviter = User.find(@user.inviter)
+      @scene = Scene.find(@inviter.current_scene)
+      @scene.update_attribute(:collab_id, @user.id)
+      @online = User.where(last_seen_at: (Time.now-7.hours-15.seconds..Time.now-7.hours), available: true).where.not(id: @user.id)    
+      @node = Node.new
+      render :tutorial
     end
   end
 

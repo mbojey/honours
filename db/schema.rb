@@ -38,13 +38,15 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.datetime "created_at"
     t.integer  "scene_count"
     t.boolean  "head"
+    t.integer  "x"
+    t.integer  "y"
     t.boolean  "temp", default: false, null: false
+    t.boolean  "visible", default: true, null: false
   end
 
   create_table "scenes", force: true do |t|
     t.integer  "creator_id",        default: 0, null: false
-    t.integer  "collaborator_1_id", default: 0, null: false
-    t.integer  "collaborator_2_id", default: 0, null: false
+    t.integer  "collab_id", default: 0, null: false
     t.datetime "created_at"
     t.integer  "question"
   end
@@ -72,6 +74,9 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.datetime "last_seen_at"
     t.boolean  "available", default: true, null: false
     t.integer  "partner_id"
+    t.integer  "current_scene"
+    t.boolean  "pending_invitation", default: false, null: false
+    t.integer  "inviter"
   end
 
   create_table "messages", force: true do |t|

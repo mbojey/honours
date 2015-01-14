@@ -1,10 +1,24 @@
-<div class = "row" style = "width:99%; padding:0px; height: auto;">
-  <%= simple_form_for Message.new, :id => "new_message", :controller => "messages", :action => "create", :remote => true do |f| %>
-  <div class = "col-md-12" style = "padding-left: 30px; padding-right: 0px; height: auto;">
-    <%= f.text_field :message, :autocomplete => "off", :autofocus => true, style: "height: 10px;" %>
-  </div>
-  <%= f.hidden_field :sender_id, :value => @user.id %>
-  <%= f.hidden_field :receiver_id, :value => @other.id %>
-  <%= f.hidden_field :sent_at, :value => Time.now %>
-  <% end %>
+<div class = "row" style = "width:100%; padding:0px; height: 35px;">
+	<% if @user.current_scene.nil? %>
+		<div class = "col-md-12" style = "padding-left: 25px; padding-right: 0px; height: 35px; margin: 0px;">
+		  <%= simple_form_for Message.new, :id => "new_message", :controller => "messages", :action => "create",  :remote => true do |f| %>
+		  <%= f.text_field :message, :autocomplete => "off", :autofocus => true %>
+		  <%= f.hidden_field :sender_id, :value => @user.id %>
+		  <%= f.hidden_field :receiver_id, :value => @other.id %>
+		  <%= f.hidden_field :sent_at, :value => Time.now %>
+		  <% end %>
+	  	</div>
+	<% else %>
+		<div class = "col-md-8" style = "padding-left: 25px; padding-right: 0px; height: 35px; margin: 0px;">
+		  <%= simple_form_for Message.new, :id => "new_message", :controller => "messages", :action => "create", :remote => true, :style => "margin: 0px;" do |f| %>
+		  <%= f.text_field :message, :autocomplete => "off", :autofocus => true, style: "height: 10px; margin-bottom: 0px;" %>
+		  <%= f.hidden_field :sender_id, :value => @user.id %>
+		  <%= f.hidden_field :receiver_id, :value => @other.id %>
+		  <%= f.hidden_field :sent_at, :value => Time.now %>
+		  <% end %>
+	  	</div>
+	  	<div class = "col-md-3" style = "margin: 0px; top: -5px; padding-right: 20px;">
+	  	  <%= link_to "Invite", {:controller => "scenes", :action => "add_collab", :scene => @user.current_scene }, class: "btn btn-sm btn-success", :remote => true%>
+	  	</div>
+	<% end %>
 </div>

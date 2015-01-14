@@ -1,7 +1,7 @@
 <head>
   <script language = "javascript">
 
-    function change_chatbox1(){
+    function open_chatbox(){
       var NAME = document.getElementById("chatbox");
       var currentClass = NAME.className;
       if (currentClass == "dropup open") { // Check the current class name
@@ -20,7 +20,16 @@
 
       document.getElementsByTagName("html")[0].setAttribute("style","overflow:scroll");
     }
-    window.onload = function checkOnline(){
+    
+    window.onload = function SetUp(){
+      $.ajax({
+            type:'GET',
+            url:"layouts/chat.js",
+          });
+      checkOnline();
+    }
+
+    function checkOnline(){
       if ($("#chat").is(':visible')){
         $.ajax({
             type:'GET',
@@ -47,7 +56,7 @@
                       <div id = "chat_div">
                       </div>
                     </li>
-                    <li class="dropup marker" id = "chat_element" style = "width: 240px; text-align: right; background: black">  
+                    <li class="dropup marker" id = "chat_element" style = "width: 100px; text-align: right; background: black">  
                       	<a class="dropdown-toggle marker" id = "chat_link" data-toggle="dropdown" style = "text-shadow: none;  cursor:pointer; background: black;"> 
                       		Chat<b class="caret"></b>
                       	</a>  
