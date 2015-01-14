@@ -156,24 +156,24 @@
     })
   }
 
-  function addBoxOld(id){
+  function addBoxOld(oldboxid){
     //Make the group that will hold the node and the pointers
-    var group = new Kinetic.Group({x: 289, y: 100, width: 2*width, height: height, draggable: true, id: id , opacity: opacity, datatype1: "", data1: "", datatype2: "", data2: "", pointer: false, head: false});
+    var boxgroup = new Kinetic.Group({x: 289, y: 100, width: 2*width, height: height, draggable: true, id: oldboxid , opacity: opacity, datatype1: "", data1: "", datatype2: "", data2: "", pointer: false, head: false});
     //The box that represents the node
     var box = new Kinetic.Rect({x: width/2, width: width, height: height, fill: '#00D2FF', stroke: 'black', strokeWidth: 2, id: "node"});
-    group.add(box);
-    layer.add(group);
+    boxgroup.add(box);
+    layer.add(boxgroup);
     stage.add(layer);
     
-    group.on('dragstart', function() {
+    boxgroup.on('dragstart', function() {
       focusOff();
-      focusOn(group);
+      focusOn(boxgroup);
       old_x = focus.attrs.x;
       old_y = focus.attrs.y;
   	});
     
-    group.on('dragend', function() { 
-    	focusOn(group);
+    boxgroup.on('dragend', function() { 
+    	focusOn(boxgroup);
     	$.ajax({
     	type: "GET",
     	url: "/actions",
@@ -186,17 +186,17 @@
       }); 
     });
     
-    group.on('click', function(){
+    boxgroup.on('click', function(){
       if(connect){
-        target = group;
+        target = boxgroup;
         makeConnection();
       }else{
         focusOff();
-        focusOn(group);
+        focusOn(boxgroup);
       }
     });
     focusOff();
-    focusOn(group);
+    focusOn(boxgroup);
   }
 
   function moveFocus(newX, newY){
