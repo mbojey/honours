@@ -1,1 +1,60 @@
-<%= @error %>
+<div class = "row">
+	<h4><%= @error %></h4>
+</div>
+<div class = "row">
+	<% if @correct %>
+		<%= link_to "Return Home", root_path, class: "btn btn-md btn-success" %>
+	<% else %>
+		<%= link_to "Return Home", root_path, class: "btn btn-md btn-success" %>
+		<% case @scene.question %>
+		<% when 2 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "addtofront" }, class: "btn btn-md btn-info" %>
+        <% when 3 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "addtofront2" }, class: "btn btn-md btn-info" %>
+        <% when 4 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "addtofront3" }, class: "btn btn-md btn-info" %>
+        <% when 5 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "addtomiddle" }, class: "btn btn-md btn-info" %>
+        <% when 6 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "addtomiddle2" }, class: "btn btn-md btn-info" %>
+        <% when 7 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "addtomiddle3" }, class: "btn btn-md btn-info" %>
+        <% when 8 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "addtoback" }, class: "btn btn-md btn-info" %>
+        <% when 9 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "addtoback2" }, class: "btn btn-md btn-info" %>
+        <% when 10 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "addtoback3" }, class: "btn btn-md btn-info" %>
+        <% when 11 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "removefromback" }, class: "btn btn-md btn-info" %>
+        <% when 12 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "removefromback2" }, class: "btn btn-md btn-info" %>
+        <% when 13 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "removefromback3" }, class: "btn btn-md btn-info" %>
+        <% when 14 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "removefromlist" }, class: "btn btn-md btn-info" %>
+        <% when 15 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "removefromlist2" }, class: "btn btn-md btn-info" %>
+        <% when 16 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "removefromlist3" }, class: "btn btn-md btn-info" %>
+        <% when 17 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "removefromfront" }, class: "btn btn-md btn-info" %>
+        <% when 18 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "removefromfront2" }, class: "btn btn-md btn-info" %>
+        <% when 19 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "removefromfront3" }, class: "btn btn-md btn-info" %>
+        <% when 20 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "sort" }, class: "btn btn-md btn-info" %>
+        <% when 21 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "sort2" }, class: "btn btn-md btn-info" %>
+        <% when 22 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "sort3" }, class: "btn btn-md btn-info" %>
+        <% when 23 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "reverse" }, class: "btn btn-md btn-info" %>
+        <% when 24 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "reverse2" }, class: "btn btn-md btn-info" %>
+        <% when 25 %>
+	        <%= link_to "Try Again", {:controller => "scenes", :action => "reverse3" }, class: "btn btn-md btn-info" %>
+		<% end %>
+	<% end %>
+</div>

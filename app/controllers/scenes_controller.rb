@@ -59,6 +59,18 @@ class ScenesController < ApplicationController
       update_removefromfront2
     when 19
       update_removefromfront3
+    when 20
+      update_sort
+    when 21
+      update_sort2
+    when 22
+      update_sort3
+    when 23
+      update_reverse
+    when 24
+      update_reverse2
+    when 25
+      update_reverse3
     end
   end
 
@@ -511,7 +523,7 @@ class ScenesController < ApplicationController
     @nodes = @nodes.to_json
     respond_to do |format|
         format.js { 
-          render :addtofront
+          render :sort
         }
       end
   end
@@ -535,7 +547,7 @@ class ScenesController < ApplicationController
     @nodes = @nodes.to_json
     respond_to do |format|
         format.js { 
-          render :addtofront
+          render :sort2
         }
       end
   end
@@ -559,7 +571,7 @@ class ScenesController < ApplicationController
     @nodes = @nodes.to_json
     respond_to do |format|
         format.js { 
-          render :addtofront
+          render :sort3
         }
       end
   end
@@ -583,7 +595,7 @@ class ScenesController < ApplicationController
     @nodes = @nodes.to_json
     respond_to do |format|
         format.js { 
-          render :addtofront
+          render :reverse
         }
       end
   end
@@ -607,7 +619,7 @@ class ScenesController < ApplicationController
     @nodes = @nodes.to_json
     respond_to do |format|
         format.js { 
-          render :addtofront
+          render :reverse2
         }
       end
   end
@@ -631,7 +643,7 @@ class ScenesController < ApplicationController
     @nodes = @nodes.to_json
     respond_to do |format|
         format.js { 
-          render :addtofront
+          render :reverse3
         }
       end
   end
@@ -725,6 +737,18 @@ class ScenesController < ApplicationController
         @error, @correct = checkRemoveFromFront2(@scene)
       when 19
         @error, @correct = checkRemoveFromFront3(@scene)
+      when 20
+        @error, @correct = checkSort(@scene)
+      when 21
+        @error, @correct = checkSort2(@scene)
+      when 22
+        @error, @correct = checkSort3(@scene)
+      when 23
+        @error, @correct = checkReverse(@scene)
+      when 24
+        @error, @correct = checkReverse2(@scene)
+      when 25
+        @error, @correct = checkReverse3(@scene)
       end
       @scene.update_attribute(:correct, @correct)
     end
@@ -1745,6 +1769,342 @@ class ScenesController < ApplicationController
         end
         if @correct
           @error = "Correct, way to go"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkSort(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        #Check that there are 3 nodes in the list
+        @nodes = Node.where(scene_id: @scene.id, head: false)
+        if @nodes.nil? || @nodes.length < 3
+          @error = "You need to have 3 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        elsif
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id)
+          if @firstnode.nil?
+            @secondnode = nil
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          end
+          if !(@firstnode.data1.to_i < @secondnode.data1.to_i && @secondnode.data1.to_i < @thirdnode.data1.to_i)
+            @error = "Make sure that the nodes are in the correct numerical order"
+            @correct = false
+          end
+          if @correct
+            @error = "You nailed it! Way to go!"
+          else
+            @error = "SOMETHING WENT WRONG"
+          end
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkSort2(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        #Check that there are 3 nodes in the list
+        @nodes = Node.where(scene_id: @scene.id, head: false)
+        if @nodes.nil? || @nodes.length < 3
+          @error = "You need to have 3 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        elsif
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id)
+          if @firstnode.nil?
+            @secondnode = nil
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          elsif !(@firstnode.data1.to_i < @secondnode.data1.to_i && @secondnode.data1.to_i < @thirdnode.data1.to_i)
+            @error = "Make sure that the nodes are in the correct numerical order"
+            @correct = false
+          end
+          if @correct
+            @error = "You nailed it! Way to go!"
+          end
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkSort3(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        #Check that there are 3 nodes in the list
+        @nodes = Node.where(scene_id: @scene.id, head: false)
+        if @nodes.nil? || @nodes.length < 4
+          @error = "You need to have 4 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        elsif
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id)
+          if @firstnode.nil?
+            @secondnode = nil
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id)
+          end
+          if @thirdnode.nil?
+            @fourthnode = nil
+          else
+            @fourthnode = Node.find_by(scene_id: @scene.id, scene_count: @thirdnode.next_pointer_target_id)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil? || @fourthnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          elsif (@firstnode.data1 <=> @secondnode.data1) != -1 && (@secondnode.data1 <=> @thirdnode.data1) != -1 && (@thirdnode.data1 <=> @fourthnode.data1) != -1
+            @error = "Make sure that the nodes are in the correct alphabetical order"
+            @correct = false
+          end
+          if @correct
+            @error = "You nailed it! Way to go!"
+          end
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkReverse(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        #Check that there are 3 nodes in the list
+        @nodes = Node.where(scene_id: @scene.id, head: false)
+        if @nodes.nil? || @nodes.length < 3
+          @error = "You need to have 3 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        elsif
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id)
+          if @firstnode.nil?
+            @secondnode = nil
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          end
+          if !(@firstnode.data1.to_i < @secondnode.data1.to_i && @secondnode.data1.to_i < @thirdnode.data1.to_i)
+            @error = "Make sure that the nodes are in the correct numerical order"
+            @correct = false
+          end
+          if @correct
+            @error = "You nailed it! Way to go!"
+          else
+            @error = "SOMETHING WENT WRONG"
+          end
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkReverse2(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        #Check that there are 3 nodes in the list
+        @nodes = Node.where(scene_id: @scene.id, head: false)
+        if @nodes.nil? || @nodes.length < 3
+          @error = "You need to have 3 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        elsif
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id)
+          if @firstnode.nil?
+            @secondnode = nil
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id)
+          end
+          if @thirdnode.nil?
+            @fourthnode = nil
+          else
+            @fourthnode = Node.find_by(scene_id: @scene.id, scene_count: @thirdnode.next_pointer_target_id)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil? || @fourthnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          end
+          if !(@firstnode.data1.to_i > @secondnode.data1.to_i && @secondnode.data1.to_i > @thirdnode.data1.to_i && @thirdnode.data1.to_i > @fourthnode.data1.to_i)
+            @error = "Make sure that the nodes are in the correct numerical order"
+            @correct = false
+          end
+          if @correct
+            @error = "You nailed it! Way to go!"
+          else
+            @error = "SOMETHING WENT WRONG"
+          end
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkReverse3(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        #Check that there are 3 nodes in the list
+        @nodes = Node.where(scene_id: @scene.id, head: false)
+        if @nodes.nil? || @nodes.length < 4
+          @error = "You need to have 4 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        elsif
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id)
+          if @firstnode.nil?
+            @secondnode = nil
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id)
+          end
+          if @thirdnode.nil?
+            @fourthnode = nil
+          else
+            @fourthnode = Node.find_by(scene_id: @scene.id, scene_count: @thirdnode.next_pointer_target_id)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil? || @fourthnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          elsif (@firstnode.data1 <=> @secondnode.data1) != -1 && (@secondnode.data1 <=> @thirdnode.data1) != -1 && (@thirdnode.data1 <=> @fourthnode.data1) != -1
+            @error = "Make sure that the nodes are in the correct alphabetical order"
+            @correct = false
+          end
+          if @correct
+            @error = "You nailed it! Way to go!"
+          end
         end
       end
     else

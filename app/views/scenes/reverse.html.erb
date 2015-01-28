@@ -1,0 +1,67 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <script type = "text/javascript">
+    var scene_id = <%=@scene.id%>;
+    //window.onload = firstrun();
+    function firstrun(){
+      setTimeout(update_reverse(),20000);
+    }
+    function update_reverse(){
+        $.ajax({
+              type:'GET',
+              url:"scenes/"+scene_id+".js",
+            });
+         setTimeout(update_reverse(), 10000);
+      }
+  </script>
+</head>
+  <body>
+    <% if !user_signed_in? %>
+    <div class ="welcome">
+      Sign in plz, thanks.
+    </div>
+    <% else %>
+      <div class = "row">
+        <h5> In this exercise you need to reverse the order of the nodes in the list.  That is, make the nodes in the list be sorted by ascending numerical order.</h5>
+      </div>
+      <div class = "row button-row">
+        <div class = "col-lg-2">
+          <div class = "row button-row", id = "addTemp" >
+            <button type="button", class ="btn btn-primary btn-success", onClick = "addTemp()">Add a Temporary Variable</button>
+          </div>
+          <div class = "row button-row", style = "display: none", id = "addArrowButton" >
+            <button type="button", class ="btn btn-primary btn-success", onClick = "addArrow()">Add an Arrow</button>
+          </div>
+          <div class = "row button-row" style = "display: none", id = "moveArrowButton">
+            <button type="button", class ="btn btn-primary btn-warning", onClick = "moveArrow()">Move an Arrow</button>
+          </div>
+          <div class = "row button-row" style = "display: none", id = "removeArrowButton">
+            <button type="button", class ="btn btn-primary btn-danger", onClick = "removeArrow()">Remove an Arrow</button>
+          </div>
+          <div class = "row button-row", style = "display: none", id = "removeButton">
+            <button type="button", class ="btn btn-primary btn-danger", onClick = "removeBox()">Remove Selected</button>
+          </div>
+        </div>
+        <div class = "col-lg-10" id = "body-col" style = "padding-bottom: 3px">
+          <div id="container" style = "border: 1px solid black;"></div>
+          <script defer="defer">
+            var stage = new Kinetic.Stage({container: 'container', width: $('#body-col').width(), height: window.innerHeight-235, stroke: 'black', strokeWidth: 4 });
+            var layer = new Kinetic.Layer();
+          </script>
+          <div id = "clearme">
+            <%= render 'scenes/reverseview' %>
+          </div>
+        </div>
+      </div>
+    <%end%>
+    <div class = "row">
+      <div class = "col-md-1 col-md-offset-10">
+        <%= simple_form_for @scene, :html => { :method => :put} do |f| %>
+        <%= f.submit "Submit", class: "btn btn-medium btn-success" %>
+        <% end %>
+      </div>
+    </div>
+  </body>
+</html>
