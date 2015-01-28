@@ -1,0 +1,5 @@
+<% @step = @scene.step %>
+<% @instruction = ["Start by creating a list head. ", "Create 3 nodes. "] %>
+<% @correction = ["You can create a list head by clicking the add list head button.", 
+	"You create nodes by clicking the add node button.  You can move the nodes once you have created them by dragging them with your mouse."] %>
+$("#instructions").html("<%= j @instruction[@step]+@correction[@step]%>")

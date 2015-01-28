@@ -1,0 +1,697 @@
+<script defer="defer">
+	var boxCount = 1;
+	var scene_id = <%=@scene.id%>;
+	var focus = 0;
+	var lastfocus = 0;
+	var target = 0;
+	var connect = false;
+	var pointerColor = "#FF0000";
+	var height = 100;
+	var width = 100;
+	var opacity = 0.45;
+	var old_x = 0;
+	var old_y = 0;
+	setUp();
+
+	function setUp(){
+		var even = Math.floor((Math.random()*5)+1)*2;
+        var odd = Math.floor((Math.random()*5)+1)*2+1;
+        var random = Math.floor((Math.random()*12)+1);
+        while(random == even || random == odd){
+          random = Math.floor((Math.random()*12)+1);
+        }
+        addHead();
+        moveFocus(50, 200);
+        addBox();
+        moveFocus(150, 200);
+        addPointer();
+        //Add connection between first node and list head
+        forceConnection(lastfocus, focus);
+        //Set data of first node
+        focus.attrs.datatype1 = "int"
+        focus.attrs.data1 = even;
+        var firstText = new Kinetic.Text({
+          x: focus.children[0].getX() + width/10,
+          y: focus.children[0].getY() + height/4,
+          text: focus.attrs.datatype1 + " - " + focus.attrs.data1,
+          fontSize: 14,
+          fontFamily: 'Calibri',
+          width: width-width/5,
+          align: 'left',    
+          fill: 'black'
+        });   
+        focus.add(firstText);
+        layer.drawScene(); 
+        $.ajax({
+          type: "GET",
+          url: "/nodes",
+          data: {id: scene_id, scene_count: focus.id(), datatype1: focus.attrs.datatype1, datatype2: focus.attrs.datatype2, data1: focus.attrs.data1, data2: focus.attrs.data2}
+          });         
+        addBox();
+        addPointer();
+        moveFocus(350, 200);
+        //Add connection between second node and first 
+        forceConnection(lastfocus, focus);
+        //Set data of second node
+        focus.attrs.datatype1 = "int"
+        focus.attrs.data1 = odd;
+        var firstText = new Kinetic.Text({
+          x: focus.children[0].getX() + width/10,
+          y: focus.children[0].getY() + height/4,
+          text: focus.attrs.datatype1 + " - " + focus.attrs.data1,
+          fontSize: 14,
+          fontFamily: 'Calibri',
+          width: width-width/5,
+          align: 'left',    
+          fill: 'black'
+        });   
+        focus.add(firstText);
+        layer.drawScene(); 
+        $.ajax({
+          type: "GET",
+          url: "/nodes",
+          data: {id: scene_id, scene_count: focus.id(), datatype1: focus.attrs.datatype1, datatype2: focus.attrs.datatype2, data1: focus.attrs.data1, data2: focus.attrs.data2}
+          }); 
+        addBox();
+        addPointer();
+        moveFocus(550, 200);
+        //Add connection between third node and second 
+        forceConnection(lastfocus, focus);
+        //Set data of final node
+        focus.attrs.datatype1 = "int"
+        focus.attrs.data1 = random;
+        var firstText = new Kinetic.Text({
+          x: focus.children[0].getX() + width/10,
+          y: focus.children[0].getY() + height/4,
+          text: focus.attrs.datatype1 + " - " + focus.attrs.data1,
+          fontSize: 14,
+          fontFamily: 'Calibri',
+          width: width-width/5,
+          align: 'left',    
+          fill: 'black'
+        });   
+        focus.add(firstText);
+        layer.drawScene(); 
+        $.ajax({
+          type: "GET",
+          url: "/nodes",
+          data: {id: scene_id, scene_count: focus.id(), datatype1: focus.attrs.datatype1, datatype2: focus.attrs.datatype2, data1: focus.attrs.data1, data2: focus.attrs.data2}
+          }); 
+      }
+
+	function removeArrow(){
+		focus.parent.children.each(function(i){
+			  if(i.attrs.parentid == focus.attrs.id){
+			    i.destroy();
+			    checkLost(i.attrs.childid);
+			  }
+		});
+		$.ajax({
+		  type: "GET",
+		  url: "/nodes",
+		  data: {id: scene_id, scene_count: focus.id(), next_pointer_target: null}
+		});
+		layer.drawScene()
+	}
+
+	function addTemp(){
+            $.ajax({
+              type:'POST',
+              url:"/nodes",
+              data: {id: scene_id, scene_count: boxCount, head: false, temp: true}
+            });
+            var group = new Kinetic.Group({x: 289, y: 100, width: 2*width/3, height: height/2, draggable: true, id: boxCount++ , opacity: opacity, datatype1: "", data1: "", datatype2: "", data2: "", pointer: false, head: true, arrow: false, temp: true});
+            //The box that represents the node
+            var box = new Kinetic.Rect({x: width/2, width: 2*width/3, height: height/2, fill: '#FF9933', stroke: 'black', strokeWidth: 2, id: "node"});
+            group.add(box);
+            layer.add(group);
+            stage.add(layer);
+            
+            group.on('dragstart', function() { 
+              focusOff();
+              focusOn(group);
+              old_x = focus.attrs.x;
+              old_y = focus.attrs.y;
+            });
+            
+            group.on('dragend', function() { 
+              focusOn(group);
+              $.ajax({
+              type: "GET",
+              url: "/actions",
+              data: {id: scene_id, scene_count: focus.id(), start_x: old_x, start_y: old_y, end_x: focus.attrs.x, end_y: focus.attrs.y}
+              }); 
+            });
+            
+            group.on('click', function(){
+              if(connect){
+                target = group;
+                makeConnection();
+              }else{
+                focusOff();
+                focusOn(group);
+              }
+            })
+            $("#headButton").hide();
+            lastFocus();
+            focusOff();
+            focusOn(group);
+          }
+
+	function addHead(setx, sety){
+		console.log($.ajax({
+			type:'POST',
+			url:"/nodes",
+			data: {id: scene_id, scene_count: boxCount, head: true, x: setx, y: sety}
+		}))
+		var group = new Kinetic.Group({x: setx, y: sety, width: 2*width/3, height: height/2, draggable: true, id: boxCount++ , opacity: opacity, datatype1: "", data1: "", datatype2: "", data2: "", pointer: false, head: true, arrow: false});
+		//The box that represents the node
+		var box = new Kinetic.Rect({x: width/2, width: 2*width/3, height: height/2, fill: '#CC0099', stroke: 'black', strokeWidth: 2, id: "node"});
+		group.add(box);
+		layer.add(group);
+		stage.add(layer);
+
+		group.on('dragstart', function() { 
+			focusOff();
+			focusOn(group);
+			old_x = focus.attrs.x;
+			old_y = focus.attrs.y;
+		});
+
+		group.on('dragend', function() { 
+			focusOn(group);
+			$.ajax({
+				type: "GET",
+				url: "/actions",
+				data: {id: scene_id, scene_count: focus.id(), start_x: old_x, start_y: old_y, end_x: focus.attrs.x, end_y: focus.attrs.y}
+			}); 
+		});
+
+		group.on('click', function(){
+			if(connect){
+				target = group;
+				makeConnection();
+			}else{
+				focusOff();
+				focusOn(group);
+			}
+		})
+		$("#headButton").hide();
+		lastFocus();
+		focusOff();
+		focusOn(group);
+		return group;
+	}
+
+	function addHeadOld(oldid){
+  	var group = new Kinetic.Group({x: 289, y: 100, width: 2*width/3, height: height/2, draggable: true, id: oldid , opacity: opacity, datatype1: "", data1: "", datatype2: "", data2: "", pointer: true, head: true});
+    //The box that represents the node
+    var box = new Kinetic.Rect({x: width/2, width: 2*width/3, height: height/2, fill: '#CC0099', stroke: 'black', strokeWidth: 2, id: "node"});
+    group.add(box);
+    layer.add(group);
+    stage.add(layer);
+
+    group.on('dragstart', function() { 
+      focusOff();
+      focusOn(group);
+      old_x = focus.attrs.x;
+      old_y = focus.attrs.y;
+  	});
+    
+    group.on('dragend', function() { 
+    	focusOn(group);
+    	$.ajax({
+    	type: "GET",
+    	url: "/actions",
+    	data: {id: scene_id, scene_count: focus.id(), start_x: old_x, start_y: old_y, end_x: focus.attrs.x, end_y: focus.attrs.y}
+     	}); 
+     	$.ajax({
+      type: "GET",
+      url: "/nodes",
+      data: {id: scene_id, scene_count: focus.id(), x: focus.attrs.x, y: focus.attrs.y}
+      }); 
+    });
+    
+    group.on('click', function(){
+      if(connect){
+        target = group;
+        makeConnection();
+      }else{
+        focusOff();
+        focusOn(group);
+      }
+    });
+    $("#headButton").hide();
+    focusOff();
+    focusOn(group);
+  }
+
+	function addBox(setx, sety){
+		$.ajax({
+			type:'POST',
+			url:"/nodes",
+			data: {id: scene_id, scene_count: boxCount, head: false, x: setx, y: sety, next_pointer: true}
+		});
+		//Make the group that will hold the node and the pointers
+		var group = new Kinetic.Group({x: setx, y: sety, width: 2*width, height: height, draggable: true, id: boxCount++ , opacity: opacity, datatype1: "", data1: "", datatype2: "", data2: "", pointer: true, head: false, arrow: false});
+		//The box that represents the node
+		var box = new Kinetic.Rect({x: width/2, width: width, height: height, fill: '#00D2FF', stroke: 'black', strokeWidth: 2, id: "node"});
+		group.add(box);
+		layer.add(group);
+		stage.add(layer);
+
+		group.on('dragstart', function() { 
+			focusOff();
+			focusOn(group);
+			old_x = focus.attrs.x;
+			old_y = focus.attrs.y;
+		});
+
+		group.on('dragend', function() { 
+			focusOn(group);
+			$.ajax({
+				type: "GET",
+				url: "/actions",
+				data: {id: scene_id, scene_count: focus.id(), start_x: old_x, start_y: old_y, end_x: focus.attrs.x, end_y: focus.attrs.y}
+				}); 
+		});
+
+		group.on('click', function(){
+			if(connect){
+				target = group;
+				makeConnection();
+			}else{
+				focusOff();
+				focusOn(group);
+			}
+		})
+		lastFocus();
+		focusOff();
+		focusOn(group);
+		addPointer();
+		return group;
+	}
+
+	function addBoxOld(oldboxid){
+    //Make the group that will hold the node and the pointers
+    var boxgroup = new Kinetic.Group({x: 289, y: 100, width: 2*width, height: height, draggable: true, id: oldboxid , opacity: opacity, datatype1: "", data1: "", datatype2: "", data2: "", pointer: false, head: false});
+    //The box that represents the node
+    var box = new Kinetic.Rect({x: width/2, width: width, height: height, fill: '#00D2FF', stroke: 'black', strokeWidth: 2, id: "node"});
+    boxgroup.add(box);
+    layer.add(boxgroup);
+    stage.add(layer);
+    
+    boxgroup.on('dragstart', function() {
+      focusOff();
+      focusOn(boxgroup);
+      old_x = focus.attrs.x;
+      old_y = focus.attrs.y;
+  	});
+    
+    boxgroup.on('dragend', function() { 
+    	focusOn(boxgroup);
+    	$.ajax({
+    	type: "GET",
+    	url: "/actions",
+    	data: {id: scene_id, scene_count: focus.id(), start_x: old_x, start_y: old_y, end_x: focus.attrs.x, end_y: focus.attrs.y}
+     	});
+      $.ajax({
+      type: "GET",
+      url: "/nodes",
+      data: {id: scene_id, scene_count: focus.id(), x: focus.attrs.x, y: focus.attrs.y}
+      }); 
+    });
+    
+    boxgroup.on('click', function(){
+      if(connect){
+        target = boxgroup;
+        makeConnection();
+      }else{
+        focusOff();
+        focusOn(boxgroup);
+      }
+    });
+    focusOff();
+    focusOn(boxgroup);
+  }
+
+	function lastFocus(){
+		lastfocus = focus;
+	}
+
+	function moveFocus(newX, newY){
+		focus.setX(newX);
+		focus.setY(newY);
+		$.ajax({
+	      type: "GET",
+	      url: "/nodes",
+	      data: {id: scene_id, scene_count: focus.id(), x: focus.attrs.x, y: focus.attrs.y}
+	     }); 
+		layer.draw()
+	}
+
+	function focusOff(){
+	    if(focus != 0){
+	        focus.opacity(opacity);
+	        $("#removeButton").hide();
+	        $("#addPointerButton").hide();
+	        $("#removePointerButton").hide();
+	        $("#addArrowButton").hide();
+	        $("#moveArrowButton").hide();
+	        $("#removeArrowButton").hide();
+	        layer.drawScene();
+	      }
+  	}
+
+  function focusOn(group){
+    focus = group;
+    focus.opacity(1);
+    if(!focus.attrs.head){
+      if(focus.attrs.pointer){
+        $("#removePointerButton").show();
+        $("#addArrowButton").show();
+        if(focus.attrs.arrow){
+          $("#addArrowButton").hide();
+          $("#moveArrowButton").show();
+          $("#removeArrowButton").show();
+        }
+      }else{
+        $("#addPointerButton").show();
+      }  
+      $("#dataForm").show();
+      setDataForm();
+    }
+    else if (!focus.attrs.temp){
+      $("#dataForm").hide();
+      if(focus.attrs.arrow){
+        $("#addArrowButton").hide();
+        $("#moveArrowButton").show();
+        $("#removeArrowButton").show();
+      }
+      $("#removeButton").hide();
+      $("#addPointerButton").hide();
+    }
+    else{
+      if(focus.attrs.arrow){
+        $("#addArrowButton").hide();
+        $("#moveArrowButton").show();
+        $("#removeArrowButton").show();
+      }
+      else{
+        $("#addArrowButton").show();
+      }
+      $("#removeButton").show();
+    }
+    focus.drawScene();
+  }
+
+	function setDataForm(){
+	if(focus.attrs.datatype1 != ""){
+		$("#datatype1").val(focus.attrs.datatype1);
+		$("#data1").val(focus.attrs.data1);
+	}else{
+		$("#datatype1").prop("selectedIndex", -1)
+		$("#data1").val("");
+	}
+	if(focus.attrs.datatype2 != ""){
+		$("#datatype2").val(focus.attrs.datatype2);
+		$("#data2").val(focus.attrs.data2);
+	}else{
+		$("#datatype2").prop("selectedIndex", -1)
+		$("#data2").val("");
+	}
+	}
+
+	function saveData(){
+	if($("#datatype1").prop("selectedIndex") != -1){
+		if($("#data1").val() != ""){
+			focus.attrs.datatype1 = $("#datatype1").val();
+			focus.attrs.data1 = $("#data1").val();
+		}
+	}
+	if($("#datatype2").prop("selectedIndex") != -1){
+		if($("#data2").val() != ""){
+			focus.attrs.datatype2 = $("#datatype2").val();
+			focus.attrs.data2 = $("#data2").val();
+		}
+	}
+	var firstText = new Kinetic.Text({
+	x: focus.children[0].getX() + width/10,
+	y: focus.children[0].getY() + height/4,
+	text: focus.attrs.datatype1 + " - " + focus.attrs.data1,
+	fontSize: 14,
+	fontFamily: 'Calibri',
+	width: width-width/5,
+	align: 'left',    
+	fill: 'black'
+	});
+	var secondText = new Kinetic.Text({
+	x: focus.children[0].getX() + width/10,
+	y: focus.children[0].getY() + height/2,
+	text: focus.attrs.datatype2 + " - " + focus.attrs.data2,
+	fontSize: 14,
+	fontFamily: 'Calibri',
+	width: width,
+	align: 'left',    
+	fill: 'black'
+	});
+	if(focus.attrs.datatype1 != "")
+		focus.add(firstText);
+	if(focus.attrs.datatype2 != "")
+		focus.add(secondText);
+	layer.drawScene();
+	$.ajax({
+	type: "GET",
+	url: "/nodes",
+	data: {id: scene_id, scene_count: focus.id(), datatype1: focus.attrs.datatype1, datatype2: focus.attrs.datatype2, data1: focus.attrs.data1, data2: focus.attrs.data2}
+		}); 
+	}
+
+	function addPointer(){
+	var box = new Kinetic.Rect({ x: width*3/2, width: width/2, height: height, fill: pointerColor, stroke: 'black', strokeWidth: 2});
+	var simpleText = new Kinetic.Text({
+	x: box.getX(),
+	y: box.getY()+height/2-35,
+	text: 'Next',
+	fontSize: 20,
+	fontFamily: 'Calibri',
+	width:box.getWidth() ,
+	align: 'center',    
+	fill: 'white'
+	});
+	// $.ajax({
+	// type: "GET",
+	// url: "/nodes",
+	// data: {id: scene_id, scene_count: focus.id(), next_pointer: true}
+	// });
+	$("#removePointerButton").show();
+	$("#addArrowButton").show();
+	$("#addPointerButton").hide();
+	focus.add(box);
+	focus.add(simpleText);
+	focus.attrs.pointer = true;
+	layer.drawScene();
+
+	}
+
+	function removePointer(){
+	if(focus.children.length == 2){
+	$("#removePointerButton").hide();
+	$("#addArrowButton").hide();
+	focus.attrs.arrow = false;
+	focus.attrs.pointer = false;
+	$.ajax({
+	type: "GET",
+	url: "/nodes",
+	data: {id: scene_id, scene_count: focus.id(), next_pointer: false}
+	});
+	}
+	else{
+	$.ajax({
+	type: "GET",
+	url: "/nodes",
+	data: {id: scene_id, scene_count: focus.id(), prev_pointer: false}
+	});
+	}
+	focus.children[focus.children.length-1].destroy();
+	$("#addPointerButton").show();
+	$("#removePointerButton").hide();
+	$("#addArrowButton").hide();
+	layer.drawScene();
+	}
+
+	function removeBox(){
+            if(focus.attrs.arrow){
+              removeArrow();
+            }
+            focus.destroy();
+            $("#removeButton").hide();
+            $("#addArrowButton").hide();
+            $("#addPointerButton").hide();
+            $("#removePointerButton").hide();
+            layer.drawScene();
+            $.ajax({
+              type: "GET",
+              url: "/nodes",
+              data: {id: scene_id, scene_count: focus.id(), visible: false}
+              });
+            focus = 0;
+
+          }
+
+	function addArrow(){
+	connect = true;
+	}
+
+	function moveArrow(){
+	connect = true;
+	focus.parent.children.each(function(i){
+	if(i.attrs.parentid == focus.attrs.id){
+	i.destroy();
+	checkLost(i.attrs.childid);
+	}
+	});
+	$.ajax({
+	type: "GET",
+	url: "/nodes",
+	data: {id: scene_id, scene_count: focus.id(), next_pointer_target: null}
+	});
+	layer.drawScene()
+	}
+	function checkLost(nodeid){
+	var lost = true;
+	focus.parent.children.each(function(i){
+	if(i.attrs.childid == nodeid){
+	lost = false;
+	}
+	});
+	if(lost){
+	var node = 0;
+	focus.parent.children.each(function(i){
+	if(i.attrs.id == nodeid){
+	  node = i;
+	}
+	});
+	console.log(node);
+	node.parent.children.each(function(i){
+	if(i.attrs.parentid == node.attrs.id){
+	  i.destroy();
+	  checkLost(i.attrs.childid);
+	}
+	});
+	$.ajax({
+				type: "GET",
+				url: "/nodes",
+				data: {id: scene_id, scene_count: nodeid, visible: false}
+			});
+	node.destroy();
+	}
+	}
+
+	function makeConnection(){
+	var con = addConnection(focus, target);
+	layer.add(con);
+	layer.moveToTop(con);
+	stage.draw();
+	connect = false;
+	focus.attrs.arrow = true;
+	$.ajax({
+	type: "GET",
+	url: "/nodes",
+	data: {id: scene_id, scene_count: focus.id(), next_pointer_target: target.id()}
+	});
+	}
+
+	function forceConnection(lastfocus, focus){
+	    var con = addConnection(lastfocus, focus);
+	    layer.add(con);
+	    layer.moveToTop(con);
+	    stage.draw();
+	    connect = false;
+	    lastfocus.attrs.arrow = true;
+  	}
+
+	function forceConnectionnew(lastfocus, focus){
+		var con = addConnection(lastfocus, focus);
+		layer.add(con);
+		layer.moveToTop(con);
+		stage.draw();
+		connect = false;
+		lastfocus.attrs.arrow = true;
+		console.log(focus.id());
+		$.ajax({
+			type: "GET",
+			url: "/nodes",
+			data: {id: scene_id, scene_count: lastfocus.id(), next_pointer_target: focus.id()}
+		});
+	}
+
+	function addConnection(parentNode, childNode){
+	if(parentNode.attrs.head){
+		parentNode.attrs.pointer = true;
+		var connector = new Kinetic.Shape({
+	      sceneFunc: function (context) {
+	          var rectParent = parentNode.children[0];
+	          var rectChild = childNode.children[0];
+	          var ctx = context;
+	          var x1 = parentNode.getX() + 116;
+	          var y1 = parentNode.getY() + rectParent.getHeight()/2;
+	          var x2 = childNode.getX() + rectChild.getWidth()/2; 
+	          var y2 = childNode.getY() + rectChild.getHeight()/2;
+	          ctx.beginPath();
+	          ctx.moveTo(x1, y1);
+	          ctx.lineTo(x2-10, y2);
+	          ctx.lineTo(x2-10, y2-7.5);
+	          ctx.lineTo(x2, y2+2.5);
+	          ctx.lineTo(x2-10, y2+12.5);
+	          ctx.lineTo(x2-10, y2+5);
+	          ctx.lineTo(x1, y1+5);
+	          ctx.lineTo(x1, y1);
+	          ctx.closePath();
+	          ctx.fillStrokeShape(this);
+	      },
+	      points: [1, 1, 1, 3],
+	      opacity: 0.5,
+	      fill: pointerColor,
+	      strokeWidth: 2,
+	      stroke: 'black',
+	      draggable: false,
+	    parentid: parentNode.attrs.id,
+	    childid: childNode.attrs.id
+	});
+	}
+	else{
+	var connector = new Kinetic.Shape({
+	      sceneFunc: function (context) {
+	          var rectParent = parentNode.children[0];
+	          var rectChild = childNode.children[0];
+	          var ctx = context;
+	          var x1 = parentNode.getX() + 2*rectParent.getWidth();
+	          var y1 = parentNode.getY() + rectParent.getHeight()/2;
+	          var x2 = childNode.getX() + rectChild.getWidth()/2; 
+	          var y2 = childNode.getY() + rectChild.getHeight()/2;
+	          ctx.beginPath();
+	          ctx.moveTo(x1, y1);
+	          ctx.lineTo(x2-10, y2);
+	          ctx.lineTo(x2-10, y2-7.5);
+	          ctx.lineTo(x2, y2+2.5);
+	          ctx.lineTo(x2-10, y2+12.5);
+	          ctx.lineTo(x2-10, y2+5);
+	          ctx.lineTo(x1, y1+5);
+	          ctx.lineTo(x1, y1);
+	          ctx.closePath();
+	          ctx.fillStrokeShape(this);
+	      },
+	      points: [1, 1, 1, 3],
+	      opacity: 0.5,
+	      fill: pointerColor,
+	      strokeWidth: 2,
+	      stroke: 'black',
+	      draggable: false,
+	    parentid: parentNode.attrs.id,
+	    childid: childNode.attrs.id
+	});
+	}
+	return connector;
+	}
+	</script>

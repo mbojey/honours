@@ -6,14 +6,14 @@
     var scene_id = <%=@scene.id%>;
     //window.onload = firstrun();
     function firstrun(){
-      setTimeout(update_removefromback(),20000);
+      setTimeout(update_removefromfront2(),20000);
     }
-    function update_removefromback(){
+    function update_removefromfront2(){
         $.ajax({
               type:'GET',
               url:"scenes/"+scene_id+".js",
             });
-         setTimeout(update_removefromback, 10000);
+         setTimeout(update_removefromfront2(), 10000);
       }
   </script>
 </head>
@@ -24,10 +24,13 @@
     </div>
     <% else %>
       <div class = "row">
-        <h5> In this exercise you need to remove the last node from the list</h5>
+        <h5> In this exercise you need to remove the node in the list with the smallest integer as instance data.</h5>
       </div>
       <div class = "row button-row">
         <div class = "col-lg-2">
+          <div class = "row button-row", id = "addTemp" >
+            <button type="button", class ="btn btn-primary btn-success", onClick = "addTemp()">Add a Temporary Variable</button>
+          </div>
           <div class = "row button-row", style = "display: none", id = "addArrowButton" >
             <button type="button", class ="btn btn-primary btn-success", onClick = "addArrow()">Add an Arrow</button>
           </div>
@@ -37,6 +40,9 @@
           <div class = "row button-row" style = "display: none", id = "removeArrowButton">
             <button type="button", class ="btn btn-primary btn-danger", onClick = "removeArrow()">Remove an Arrow</button>
           </div>
+          <div class = "row button-row", style = "display: none", id = "removeButton">
+            <button type="button", class ="btn btn-primary btn-danger", onClick = "removeBox()">Remove Selected</button>
+          </div>
         </div>
         <div class = "col-lg-10" id = "body-col" style = "padding-bottom: 3px">
           <div id="container" style = "border: 1px solid black;"></div>
@@ -45,7 +51,7 @@
             var layer = new Kinetic.Layer();
           </script>
           <div id = "clearme">
-            <%= render 'scenes/removefrombackview' %>
+            <%= render 'scenes/removefromfront2view' %>
           </div>
         </div>
       </div>

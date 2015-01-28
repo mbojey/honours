@@ -29,14 +29,14 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.integer  "scene_id",               default: 0, null: false
     t.boolean  "next_pointer"
     t.boolean  "prev_pointer"
-    t.integer  "next_pointer_target_id"
+    t.integer  "next_pointer_target_id", default: 0, null: false
     t.integer  "prev_pointer_target_id"
     t.string   "datatype1"
     t.string   "data1"
     t.string   "datatype2"
     t.string   "data2"
     t.datetime "created_at"
-    t.integer  "scene_count"
+    t.integer  "scene_count", default: 0, null: false
     t.boolean  "head"
     t.integer  "x"
     t.integer  "y"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.integer  "collab_id", default: 0, null: false
     t.datetime "created_at"
     t.integer  "question"
+    t.integer  "step"
+    t.boolean  "correct"
   end
 
   create_table "users", force: true do |t|

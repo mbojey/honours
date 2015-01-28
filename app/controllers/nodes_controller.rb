@@ -16,6 +16,7 @@ class NodesController < ApplicationController
             @node.head = params[:head]
             @node.x = params[:x]
             @node.y = params[:y]
+            @node.next_pointer = params[:next_pointer]
     	      @node.save
       	end
       }

@@ -1,0 +1,12 @@
+<% @step = @scene.step %>
+<% @instruction = ["In this exercise you need to make a list with a list head and 3 
+      nodes that are all connected via pointers. Start by creating a list head.", "Good job!  Now create 3 nodes.",
+      "Awesome, now add pointers to all 3 nodes by selecting the node and clicking the add pointer button.",
+      "Great work!  Now for the final step connect all the components of the list.  To do this, select a node of the list head
+      and click the add arrow button.  Then click on the element of the list that you want the arrow to point to.",
+      "Excellent, you are now done with the tutorial and can start completing the other exercises.  Return to the home page to get started."] %>
+<% if @step == 4 %>
+	$("#instructions").html("<%= j @instruction[@step] %>").append("<%= j link_to "Home", root_path, class: "btn btn-medium btn-success" %>")
+<% else %>
+	$("#instructions").html("<%= j @instruction[@step] %>")
+<% end %>

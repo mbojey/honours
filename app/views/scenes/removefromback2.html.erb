@@ -6,14 +6,14 @@
     var scene_id = <%=@scene.id%>;
     //window.onload = firstrun();
     function firstrun(){
-      setTimeout(update_removefromback(),20000);
+      setTimeout(update_removefromback2(),20000);
     }
-    function update_removefromback(){
+    function update_removefromback2(){
         $.ajax({
               type:'GET',
               url:"scenes/"+scene_id+".js",
             });
-         setTimeout(update_removefromback, 10000);
+         setTimeout(update_removefromback2(), 10000);
       }
   </script>
 </head>
@@ -45,7 +45,7 @@
             var layer = new Kinetic.Layer();
           </script>
           <div id = "clearme">
-            <%= render 'scenes/removefrombackview' %>
+            <%= render 'scenes/removefromback2view' %>
           </div>
         </div>
       </div>

@@ -13,88 +13,59 @@
       }
   </script>
 </head>
-<body>
-  <% if !user_signed_in? %>
-  <div class ="welcome">
-    Sign in plz, thanks.
-  </div>
-  <% else %>
-  	<div class = "row">
-  		<h5> In this exercise you need to make a list with a list head, 3 nodes that are connected via pointers and each node needs to hold a String that stores the name of the associated item.</h5>
-  	</div>
-    <div class = "row button-row">
-      <div class = "col-lg-2">
-      	<div class = "row button-row" id = "headButton">
-          <button type="button", class ="btn btn-primary btn-success", onClick = "addHead()">Add List Head</button>
+  <body>
+    <% if !user_signed_in? %>
+      <div class ="welcome">
+        Please sign in.
+      </div>
+    <% else %>
+    	<div class = "row">
+    		<h5 id = "instructions"> <%= @instruction[@step] %></h5>
+    	</div>
+      <div class = "row">
+        <div class = "col-md-2">
+          <div class = "row button-row" id = "headButton">
+            <button type="button", class ="btn btn-primary btn-success", onClick = "addHead()">Add List Head</button>
+          </div>
+          <div class = "row button-row">
+            <button type="button", class ="btn btn-primary btn-success", onClick = "addBox()">Add a Node</button>
+          </div>
+          <div class = "row button-row", style = "display: none", id = "removeButton">
+            <button type="button", class ="btn btn-primary btn-danger", onClick = "removeBox()">Remove Node</button>
+          </div>
+          <div class = "row button-row", style = "display: none", id = "addPointerButton" >
+            <button type="button", class ="btn btn-primary btn-success", onClick = "addPointer()">Add a Pointer</button>
+          </div>
+          <div class = "row button-row", style = "display: none", id = "removePointerButton" >
+            <button type="button", class ="btn btn-primary btn-danger", onClick = "removePointer()">Remove a Pointer</button>
+          </div>
+          <div class = "row button-row", style = "display: none", id = "addArrowButton" >
+            <button type="button", class ="btn btn-primary btn-success", onClick = "addArrow()">Add an Arrow</button>
+          </div>
+          <div class = "row button-row", style = "display: none", id = "removeArrowButton" >
+            <button type="button", class ="btn btn-primary btn-danger", onClick = "removePointer()">Remove an Arrow</button>
+          </div>
         </div>
-        <div class = "row button-row">
-          <button type="button", class ="btn btn-primary btn-success", onClick = "addBox()">Add a Node</button>
-        </div>
-        <div class = "row button-row", style = "display: none", id = "removeButton">
-          <button type="button", class ="btn btn-primary btn-danger", onClick = "removeBox()">Remove Node</button>
-        </div>
-        <div class = "row button-row", style = "display: none", id = "addPointerButton" >
-          <button type="button", class ="btn btn-primary btn-success", onClick = "addPointer()">Add a Pointer</button>
-        </div>
-        <div class = "row button-row", style = "display: none", id = "removePointerButton" >
-          <button type="button", class ="btn btn-primary btn-danger", onClick = "removePointer()">Remove a Pointer</button>
-        </div>
-        <div class = "row button-row", style = "display: none", id = "addArrowButton" >
-          <button type="button", class ="btn btn-primary btn-success", onClick = "addArrow()">Add an Arrow</button>
-        </div>
-        <div class = "row button-row", style = "display: none", id = "removeArrowButton" >
-          <button type="button", class ="btn btn-primary btn-danger", onClick = "removePointer()">Remove an Arrow</button>
+        <div class = "col-md-10" id = "body-col" style = "padding-bottom: 3px">
+          <div id="container" style = "border: 1px solid black;"></div>
+            <script src="https://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
+            <script defer="defer">
+            var stage = new Kinetic.Stage({container: 'container', width: $('#body-col').width(), height: window.innerHeight-235, stroke: 'black', strokeWidth: 4 });
+            var layer = new Kinetic.Layer();
+            </script>
+          <div id = "clearme">
+            <%= render 'scenes/tutorialview' %>
+          </div>
+          <div class = "row">
+            <div class = "col-md-1 col-md-offset-10">
+              <%= simple_form_for @scene, :html => { :method => :put}, :remote => true do |f| %>
+              <%= f.submit "Next", class: "btn btn-medium btn-success" %>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
-      <div class = "col-lg-10" id = "body-col" style = "padding-bottom: 3px">
-      <div id="container" style = "border: 1px solid black;"></div>
-      <script src="https://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
-      <script defer="defer">
-      var stage = new Kinetic.Stage({container: 'container', width: $('#body-col').width(), height: window.innerHeight-235, stroke: 'black', strokeWidth: 4 });
-      var layer = new Kinetic.Layer();
-      </script>
-      <div id = "clearme">
-        <%= render 'scenes/tutorialview' %>
-      </div>
-      <div id = "dataForm" style = "display: none">
-  <div class = "row">
-    <div class = "col-md-1 col-md-offset-2">
-      <button type="button", class ="btn btn-primary btn-success", onClick = "saveData()">Save data</button>
-    </div>
-    <div class = "col-md-2">
-      <select id="datatype1">
-      <option value="String">String</option>
-      <option value="int">int</option>
-      <option value="boolean">boolean</option>
-      <option value="double">double</option>
-  </select>
-    </div>
-    <div class = "col-md-2">
-      <input type="text" id="data1">
-    </div>
-  </div>
-  <div class = "row">
-    <div class = "col-md-2 col-md-offset-3">
-      <select id="datatype2">
-      <option value="String">String</option>
-      <option value="int">int</option>
-      <option value="boolean">boolean</option>
-      <option value="double">double</option>
-  </select>
-    </div>
-    <div class = "col-md-2">
-      <input type="text" id="data2">
-    </div>
-  </div>
-</div>
-<div class = "row">
-  <div class = "col-md-1 col-md-offset-10">
-    <%= simple_form_for @scene, :html => { :method => :put} do |f| %>
-    <%= f.submit "Submit", class: "btn btn-medium btn-success" %>
-    <% end %>
-  </div>
-</div>
-  <%end%>
+    <%end%>
   </body>
 </html>
 

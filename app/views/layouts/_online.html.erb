@@ -3,7 +3,7 @@
 		No one is available right now
 	<% else %>
 		<% @online.each do |r| %>
-	  		<li style = "color: black;">
+	  		<li style = "color: black;" onclick = "hidechatelement()">
 	  			<%= link_to r.fname+" "+r.lname, {controller: "layouts", action: "openchat", id1: @user.id, id2: r.id}, remote: true%>
 	  		</li>
 		<% end %>

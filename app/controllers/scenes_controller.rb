@@ -8,16 +8,57 @@ class ScenesController < ApplicationController
       @scene.creator_id = @user.id
       @scene.question = 1
       @scene.created_at = DateTime.now
+      @scene.step = 0
       @scene.save
       @node = Node.new
       @user.update_attribute(:current_scene, @scene.id)
+      @instruction = ["In this exercise you need to make a list with a list head and 3 
+      nodes that are all connected via pointers. Start by creating a list head.", "Good job!  Now create 3 nodes."]
+      @step = 0
     end
   end
 
   def show
     @scene = Scene.find(params[:id])
-    if(@scene.question == 1)
+    case @scene.question
+    when 1
       update_tutorial
+    when 2
+      update_addtofront
+    when 3
+      update_addtofront2
+    when 4
+      update_addtofront3
+    when 5
+      update_addtomiddle
+    when 6
+      update_addtomiddle2
+    when 7
+      update_addtomiddle3
+    when 8
+      update_addtoback
+    when 9
+      update_addtoback2
+    when 10
+      update_addtoback3
+    when 11
+      update_removefromback
+    when 12
+      update_removefromback2
+    when 13
+      update_removefromback3
+    when 14
+      update_removefromlist
+    when 15
+      update_removefromlist2
+    when 16
+      update_removefromlist3
+    when 17
+      update_removefromfront
+    when 18
+      update_removefromfront2
+    when 19
+      update_removefromfront3
     end
   end
 
@@ -28,6 +69,17 @@ class ScenesController < ApplicationController
     respond_to do |format|
         format.js { 
           render :tutorial
+        }
+      end
+  end
+
+  def update_addtofront
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtofront
         }
       end
   end
@@ -45,7 +97,18 @@ class ScenesController < ApplicationController
     end
   end
 
-  def addtomiddle 
+  def update_addtofront2
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtofront2
+        }
+      end
+  end
+
+  def addtofront2 
     if user_signed_in?
       @user = current_user
       @scene = Scene.new
@@ -57,8 +120,19 @@ class ScenesController < ApplicationController
       @user.update_attribute(:current_scene, @scene.id)
     end
   end
+  
+  def update_addtofront3
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtofront3
+        }
+      end
+  end
 
-  def removefromback 
+  def addtofront3 
     if user_signed_in?
       @user = current_user
       @scene = Scene.new
@@ -71,12 +145,503 @@ class ScenesController < ApplicationController
     end
   end
 
-  def removefromlist 
+  def update_addtomiddle
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtomiddle
+        }
+      end
+  end
+
+  def addtomiddle 
     if user_signed_in?
       @user = current_user
       @scene = Scene.new
       @scene.creator_id = @user.id
       @scene.question = 5
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+  
+  def update_addtomiddle2
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtomiddle2
+        }
+      end
+  end
+
+  def addtomiddle2 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 6
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_addtomiddle3
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtomiddle3
+        }
+      end
+  end
+
+  def addtomiddle3
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 7
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_addtoback
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtoback
+        }
+      end
+  end
+
+  def addtoback 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 8
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+  
+  def update_addtoback2
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtoback2
+        }
+      end
+  end
+
+  def addtoback2 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 9
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_addtoback3
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtoback3
+        }
+      end
+  end
+
+  def addtoback3
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 10
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_removefromback
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :removefromback
+        }
+      end
+  end
+
+  def removefromback 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 11
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_removefromback2
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :removefromback3
+        }
+      end
+  end
+  
+  def removefromback2
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 12
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_removefromback3
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :removefromback3
+        }
+      end
+  end
+  
+  def removefromback3 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 13
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_removefromlist
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :removefromlist
+        }
+      end
+  end
+
+  def removefromlist 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 14
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_removefromlist2
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :removefromlist2
+        }
+      end
+  end
+
+  def removefromlist2
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 15
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_removefromlist3
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :removefromlist3
+        }
+      end
+  end
+
+  def removefromlist3
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 16
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_removefromfront
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :removefromfront
+        }
+      end
+  end
+
+  def removefromfront 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 17
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_removefromfront2
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :removefromfront2
+        }
+      end
+  end
+  
+  def removefromfront2
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 18
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_removefromfront3
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :removefromfront3
+        }
+      end
+  end
+  
+  def removefromfront3 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 19
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_sort
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtofront
+        }
+      end
+  end
+
+  def sort 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 20
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_sort2
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtofront
+        }
+      end
+  end
+  
+  def sort2
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 21
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_sort3
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtofront
+        }
+      end
+  end
+  
+  def sort3 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 22
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_reverse
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtofront
+        }
+      end
+  end
+
+  def reverse 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 23
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_reverse2
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtofront
+        }
+      end
+  end
+  
+  def reverse2
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 24
+      @scene.created_at = DateTime.now
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+    end
+  end
+
+  def update_reverse3
+    @scene = Scene.find(params[:id])
+    @nodes = Node.where(scene_id: @scene.id, visible: true)
+    @nodes = @nodes.to_json
+    respond_to do |format|
+        format.js { 
+          render :addtofront
+        }
+      end
+  end
+  
+  def reverse3 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 25
       @scene.created_at = DateTime.now
       @scene.save
       @node = Node.new
@@ -108,24 +673,60 @@ class ScenesController < ApplicationController
       @scene.update_attribute(:collab_id, @user.id)
       @online = User.where(last_seen_at: (Time.now-7.hours-15.seconds..Time.now-7.hours), available: true).where.not(id: @user.id)    
       @node = Node.new
-      render :tutorial
+      if(@scene.question == 1)
+        render :tutorial
+      elsif(@scene.question == 2)
+        render :addtofront
+      end
     end
   end
 
   def update
-    @scene = Scene.find(params[:id])
-    @error = ""
-    @correct = true
-    if @scene.question == 1
-      @error, @correct = checkTutorial(@scene)
-    elsif @scene.question == 2
-      @error, @correct = checkAddToFront(@scene)
-    elsif @scene.question == 3
-      @error, @correct = checkAddToMiddle(@scene)
-    elsif @scene.question == 4
-      @error, @correct = checkRemoveFromBack(@scene)
-    elsif @scene.question == 5
-      @error, @correct = checkRemoveFromList(@scene)
+    if params[:id]
+      @scene = Scene.find(params[:id])
+      @error = ""
+      @correct = true
+      case @scene.question
+      when 1
+        @error, @correct = checkTutorial(@scene)
+      when 2
+        @error, @correct = checkAddToFront(@scene)
+      when 3
+        @error, @correct = checkAddToFront2(@scene)
+      when 4
+        @error, @correct = checkAddToFront3(@scene)
+      when 5
+        @error, @correct = checkAddToMiddle(@scene)
+      when 6
+        @error, @correct = checkAddToMiddle2(@scene)
+      when 7
+        @error, @correct = checkAddToMiddle3(@scene) 
+      when 8
+        @error, @correct = checkAddToBack(@scene)
+      when 9
+        @error, @correct = checkAddToBack2(@scene) 
+      when 10
+        @error, @correct = checkAddToBack3(@scene)   
+      when 11
+        @error, @correct = checkRemoveFromBack(@scene)
+      when 12
+        @error, @correct = checkRemoveFromBack2(@scene)
+      when 13
+        @error, @correct = checkRemoveFromBack3(@scene)
+      when 14
+        @error, @correct = checkRemoveFromList(@scene)
+      when 15
+        @error, @correct = checkRemoveFromList2(@scene)
+      when 16
+        @error, @correct = checkRemoveFromList3(@scene)
+      when 17
+        @error, @correct = checkRemoveFromFront(@scene)
+      when 18
+        @error, @correct = checkRemoveFromFront2(@scene)
+      when 19
+        @error, @correct = checkRemoveFromFront3(@scene)
+      end
+      @scene.update_attribute(:correct, @correct)
     end
   end
 
@@ -133,50 +734,125 @@ class ScenesController < ApplicationController
     @scene = scene
     @correct = true
     @error = ""
-    if user_signed_in? && @scene.creator_id == current_user.id
-      #Check if there is a list head
+    if(@scene.step == 0)
+      @error, @correct = checkTutorialStep0(scene)
+        respond_to do |format|
+        format.js { 
+          if @correct
+            @scene.update_attribute(:step, 1)
+            render :next_step 
+          else
+            render :incorrect
+          end
+        }
+      end
+    elsif(@scene.step == 1)
+      @error, @correct = checkTutorialStep1(scene)
+        respond_to do |format|
+        format.js { 
+          if @correct
+            @scene.update_attribute(:step, 2)
+            render :next_step 
+          else
+            render :incorrect
+          end
+        }
+      end
+    elsif(@scene.step == 2)
+      @error, @correct = checkTutorialStep2(scene)
+        respond_to do |format|
+        format.js { 
+          if @correct
+            @scene.update_attribute(:step, 3)
+            render :next_step 
+          else
+            render :incorrect
+          end
+        }
+      end
+    elsif(@scene.step == 3)
+      @error, @correct = checkTutorialStep3(scene)
+        respond_to do |format|
+        format.js { 
+          if @correct
+            @scene.update_attribute(:step, 4)
+            render :next_step 
+          else
+            render :incorrect
+          end
+        }
+      end
+    end
+  end
+  def checkTutorialStep0(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in?
       @head = Node.find_by(scene_id: @scene.id, head: true)
       if @head.nil?
         @error = "You need a list head"
         @correct = false
-      #Check that the list head points to something
-      elsif @head.next_pointer_target_id.nil?
-        @error = "Make sure that you list head is pointing to the beginning of your list"
-        @correct = false
-        #Check that there are 3 nodes in the list
-          @nodes = Node.where(scene_id: @scene.id, head: false)
-
+      end
+    end
+    return @error, @correct
+  end
+  def checkTutorialStep1(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in?
+      #Check that there are 3 nodes in the list
+        @nodes = Node.where(scene_id: @scene.id, head: false)
         if @nodes.nil? || @nodes.length < 3
           @error = "You need to have 3 nodes in your list"
           @correct = false
         end
-        #Check that nodes are in order
+    end
+    return @error, @correct
+  end
+  def checkTutorialStep2(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in?
+      #Check that there are 3 nodes in the list
+        @nodes = Node.where(scene_id: @scene.id, head: false, next_pointer: true)
+        if @nodes.nil? || @nodes.length < 3
+          @error = "You need to have 3 nodes in your list"
+          @correct = false
+        end
+    end
+    return @error, @correct
+  end
+  def checkTutorialStep3(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in?
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      #Check that there are 3 nodes in the list
+      @nodes = Node.where(scene_id: @scene.id, head: false, next_pointer: true)
+      if @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list"
+        @correct = false
+      else
         @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id)
-
         if @firstnode.nil?
-          p "First!!!!!~~~~~"
           @secondnode = nil
         else
           @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
         end
         if @secondnode.nil?
-          p "Second!!!!!~~~~~"
           @thirdnode = nil
         else
           @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id)
         end
         if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?
-          @error = "You need to have the nodes in your list connected and pointing to the next node"
-          @correct = false
-        #Check that each node has the correct instance data
-        elsif @firstnode.datatype1 != "String" || @secondnode.datatype1 != "String" || @thirdnode.datatype1 != "String"
-          @error = "You need to have the correct instance data in each of your nodes"
-          @correct = false
+        @error = "You need to have the nodes in your list connected and pointing to the next node"
+        @correct = false
         end
-        @error = "You nailed it! Way to go!"  
-      end
-    else
-      @error = "You are not signed in"
+      end     
     end
     return @error, @correct
   end
@@ -188,6 +864,7 @@ class ScenesController < ApplicationController
     if user_signed_in? && @scene.creator_id == current_user.id
       #Check if there is a list head
       @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false, visible: true)
       if @head.nil?
         @error = "You need a list head"
         @correct = false
@@ -196,35 +873,155 @@ class ScenesController < ApplicationController
         @error = "Make sure that you list head is pointing to the beginning of your list. 
         If you try to point to the node you want to add make sure you don't drop the rest of the list."
         @correct = false
-        #Check that there are 3 nodes in the list
-        @nodes = Node.where(scene_id: @scene.id, head: false)
       else
         if @nodes.nil? || @nodes.length < 3
           @error = "You need to have 3 nodes in your list.  Make sure you don't drop the rest of your list."
           @correct = false
-        end
-        #Check that nodes are in order
-        @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id)
+        else
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id, visible: true)
 
-        if @firstnode.nil?
-          @secondnode = nil
-        elsif !@firstnode.scene_count == 4
-          @error = "You didn't add the node to the front of the list.  Make sure that you put the node right after 
-          the list head and before any other nodes."
+          if @firstnode.nil?
+            @secondnode = nil
+          elsif !@firstnode.scene_count == 4
+            @error = "You didn't add the node to the front of the list.  Make sure that you put the node right after 
+            the list head and before any other nodes."
+            @correct = false
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id, visible: true)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id, visible: true)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          end
+        end
+        if @correct
+          @error = "You nailed it! Way to go!"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkAddToFront2(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false, visible: true)
+      if @head.nil?
+        @error = "You need a list head"
         @correct = false
-        else
-          @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
-        end
-        if @secondnode.nil?
-          @thirdnode = nil
-        else
-          @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id)
-        end
-        if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?
-          @error = "You need to have the nodes in your list connected and pointing to the next node"
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        if @nodes.nil? || @nodes.length < 5
+          @error = "You need to have 5 nodes in your list.  Make sure you don't drop the rest of your list."
           @correct = false
+        else
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id, visible: true)
+
+          if @firstnode.nil?
+            @secondnode = nil
+          elsif !@firstnode.scene_count == 6
+            @error = "You didn't add the node to the front of the list.  Make sure that you put the node right after 
+            the list head and before any other nodes."
+            @correct = false
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id, visible: true)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id, visible: true)
+          end
+          if @thirdnode.nil?
+            @fourthnode = nil
+          else
+            @fourthnode = Node.find_by(scene_id: @scene.id, scene_count: @thirdnode.next_pointer_target_id, visible: true)
+          end
+          if @fourthnode.nil?
+            @fifthnode = nil
+          else
+            @fifthnode = Node.find_by(scene_id: @scene.id, scene_count: @fourthnode.next_pointer_target_id, visible: true)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?|| @fourthnode.nil? || @fifthnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          end
         end
-        @error = "You nailed it! Way to go!"
+        if @correct
+          @error = "You nailed it! Way to go!"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkAddToFront3(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false, visible: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        if @nodes.nil? || @nodes.length < 3
+          @error = "You need to have 3 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        else
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id, visible: true)
+
+          if @firstnode.nil?
+            @secondnode = nil
+          elsif !@firstnode.scene_count == 6
+            @error = "You didn't add the node to the front of the list.  Make sure that you put the node right after 
+            the list head and before any other nodes."
+            @correct = false
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id, visible: true)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id, visible: true)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          elsif @firstnode.data1.to_i > @secondnode.data1.to_i || @secondnode.data1.to_i > @thirdnode.data1.to_i
+            @error = "You need to have the nodes in your list in numerically ascending order"
+            @correct = false
+          end
+        end
+        if @correct
+          @error = "You nailed it! Way to go!"
+        end
       end
     else
       @error = "You are not signed in or didn't work on this question"  
@@ -270,7 +1067,7 @@ class ScenesController < ApplicationController
             @error = "You need to have the nodes in your list connected and pointing to the next node"
             @correct = false
           end
-          if @correct && !(@firstnode.data1 < @secondnode.data1 && @secondnode.data1 < @thirdnode.data1)
+          if @correct && !(@firstnode.data1.to_i < @secondnode.data1.to_i && @secondnode.data1.to_i < @thirdnode.data1.to_i)
             @error = "Make sure that the nodes are in the correct numerical order"
           else
             @error = "You nailed it! Way to go!"
@@ -283,6 +1080,301 @@ class ScenesController < ApplicationController
     return @error, @correct
   end
 
+  def checkAddToMiddle2(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        #Check that there are 3 nodes in the list
+        @nodes = Node.where(scene_id: @scene.id, head: false)
+        if @nodes.nil? || @nodes.length < 5
+          @error = "You need to have 5 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        elsif
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id)
+          if @firstnode.nil?
+            @secondnode = nil
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id)
+          end
+          if @thirdnode.nil?
+            @fourthnode = nil
+          else
+            @fourthnode = Node.find_by(scene_id: @scene.id, scene_count: @thirdnode.next_pointer_target_id, visible: true)
+          end
+          if @fourthnode.nil?
+            @fifthnode = nil
+          else
+            @fifthnode = Node.find_by(scene_id: @scene.id, scene_count: @fourthnode.next_pointer_target_id, visible: true)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?|| @fourthnode.nil? || @fifthnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          end
+          if !(@firstnode.data1.to_i < @secondnode.data1.to_i && @secondnode.data1.to_i < @thirdnode.data1.to_i && @thirdnode.data1.to_i < @fourthnode.data1.to_i && @fourthnode.data1.to_i < @fifthnode.data1.to_i)
+            @error = "Make sure that the nodes are in the correct numerical order"
+            @correct = false
+          end
+          if @correct
+            @error = "You nailed it! Way to go!"
+          else
+            @error = "SOMETHING WENT WRONG"
+          end
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkAddToMiddle3(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        #Check that there are 3 nodes in the list
+        @nodes = Node.where(scene_id: @scene.id, head: false)
+        if @nodes.nil? || @nodes.length < 3
+          @error = "You need to have 3 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        elsif
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id)
+          if @firstnode.nil?
+            @secondnode = nil
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          end
+          #<=> returns -1 is left is first alphabetically as the data is strings
+          if (@firstnode.data1 <=> @secondnode.data1) != -1 && (@secondnode.data1 <=> @thirdnode.data1) != -1
+            @error = "Make sure that the nodes are in the correct alphabetical order"
+            @correct = false
+          end
+          if @correct
+            @error = "You nailed it! Way to go!"
+          end
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkAddToBack(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false, visible: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        if @nodes.nil? || @nodes.length < 3
+          @error = "You need to have 3 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        else
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id, visible: true)
+
+          if @firstnode.nil?
+            @secondnode = nil
+            @correct = false
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id, visible: true)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id, visible: true)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          end
+          if !@thirdnode.nil? && @thirdnode.scene_count != 4
+            @error = "You need to add the node to the end of the list"
+            @correct = false
+          end
+        end
+        if @correct
+          @error = "You nailed it! Way to go!"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkAddToBack2(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false, visible: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        if @nodes.nil? || @nodes.length < 5
+          @error = "You need to have 5 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        else
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id, visible: true)
+
+          if @firstnode.nil?
+            @secondnode = nil
+            @correct = false
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id, visible: true)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id, visible: true)
+          end
+          if @thirdnode.nil?
+            @fourthnode = nil
+          else
+            @fourthnode = Node.find_by(scene_id: @scene.id, scene_count: @thirdnode.next_pointer_target_id, visible: true)
+          end
+          if @fourthnode.nil?
+            @fifthnode = nil
+          else
+            @fifthnode = Node.find_by(scene_id: @scene.id, scene_count: @fourthnode.next_pointer_target_id, visible: true)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil? || @fourthnode.nil? || @fifthnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          end
+          if !@fifthnode.nil? && @fifthnode.scene_count != 6
+            @error = "You need to add the node to the end of the list"
+            @correct = false
+          end
+        end
+        if @correct
+          @error = "You nailed it! Way to go!"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkAddToBack3(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false, visible: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+      else
+        if @nodes.nil? || @nodes.length < 3
+          @error = "You need to have 3 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        else
+          #Check that nodes are in order
+          @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id, visible: true)
+
+          if @firstnode.nil?
+            @secondnode = nil
+            @correct = false
+          else
+            @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id, visible: true)
+          end
+          if @secondnode.nil?
+            @thirdnode = nil
+          else
+            @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id, visible: true)
+          end
+          if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?
+            @error = "You need to have the nodes in your list connected and pointing to the next node"
+            @correct = false
+          end
+          if !@thirdnode.nil? && @thirdnode.scene_count != 4
+            @error = "You need to add the node to the end of the list"
+            @correct = false
+          end
+          if @firstnode.data1.to_i > @secondnode.data1.to_i || @secondnode.data1.to_i > @thirdnode.data1.to_i
+            @error = "Make sure the list is still in numerically ascending order"
+            @correct = false
+          end
+        end
+        if @correct
+          @error = "You nailed it! Way to go!"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+  
   def checkRemoveFromBack(scene)
     @scene = scene
     @correct = true
@@ -310,10 +1402,6 @@ class ScenesController < ApplicationController
 
         if @firstnode.nil?
           @secondnode = nil
-        elsif !@firstnode.scene_count == 4
-          @error = "You didn't add the node to the front of the list.  Make sure that you put the node right after 
-          the list head and before any other nodes."
-        @correct = false
         else
           @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
         end
@@ -322,6 +1410,89 @@ class ScenesController < ApplicationController
           @correct = false
         end
         @error = "You nailed it! Way to go!"
+        @correct = true
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkRemoveFromBack2(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false, visible: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+        #Check that there are 3 nodes in the list
+      else
+        if @nodes.nil? || !@nodes.length == 3
+          @error = "You need to have 3 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        end
+        #Check that nodes are in order
+        @firstnode = Node.find_by(scene_id: @scene.id, scene_count: @head.next_pointer_target_id)
+
+        if @firstnode.nil?
+          @secondnode = nil
+        else
+          @secondnode = Node.find_by(scene_id: @scene.id, scene_count: @firstnode.next_pointer_target_id)
+        end
+
+        if @secondnode.nil?
+          @thirdnode = nil
+        else
+          @thirdnode = Node.find_by(scene_id: @scene.id, scene_count: @secondnode.next_pointer_target_id)
+        end
+        if @firstnode.nil? || @secondnode.nil? || @thirdnode.nil?
+          @error = "You need to have the nodes in your list connected and pointing to the next node"
+          @correct = false
+        end
+        if @correct
+          @error = "You nailed it! Way to go!"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkRemoveFromBack3(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false, visible: true)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        If you try to point to the node you want to add make sure you don't drop the rest of the list."
+        @correct = false
+        #Check that there are 3 nodes in the list
+      else
+        if @nodes.nil? || !@nodes.length == 0
+          @error = "You need to have 0 nodes in your list.  Make sure you don't drop the rest of your list."
+          @correct = false
+        end
+        if @correct
+          @error = "You nailed it! Way to go!"
+        end
       end
     else
       @error = "You are not signed in or didn't work on this question"  
@@ -379,4 +1550,210 @@ class ScenesController < ApplicationController
     return @error, @correct
   end
 
+  def checkRemoveFromList2(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        Don't drop the whole list unless you need to."
+        @correct = false
+      else
+        @nodes.each do |n| 
+          if n.visible
+            if n.scene_count < 6
+              if Integer(n.data1.to_i).even?
+                @error = "Make sure to remove all even nodes"
+                @correct = false
+              end
+            end
+          else
+            if !Integer(n.data1.to_i).even?
+              @error = "Make sure to keep all odd nodes in the list"
+              @correct = false
+            end
+          end
+        end
+        if @correct
+          @error = "Correct, way to go"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkRemoveFromList3(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        Don't drop the whole list unless you need to."
+        @correct = false
+      else
+        @nodes.each do |n| 
+          if n.visible
+            if n.scene_count < 6
+              if n.data1.nil?
+                @error = "Make sure to remove all nodes with no instance data"
+                @correct = false
+              end
+            end
+          else
+            if !n.data1.nil?
+              @error = "Make sure to keep all odd nodes in the list"
+              @correct = false
+            end
+          end
+        end
+        if @correct
+          @error = "Correct, way to go"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkRemoveFromFront(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        Don't drop the whole list unless you need to."
+        @correct = false
+      else
+        @nodes.each do |n| 
+          if n.visible
+            if n.scene_count < 6
+              if n.scene_count == 2
+                @error = "Make sure to remove the first node in the list"
+                @correct = false
+              end
+            end
+          else
+            if n.scene_count != 2
+              @error = "Make sure to keep all nodes in the list that aren't the first node"
+              @correct = false
+            end
+          end
+        end
+        if @correct
+          @error = "Correct, way to go"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkRemoveFromFront2(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        Don't drop the whole list unless you need to."
+        @correct = false
+      else
+        @nodes.each do |n| 
+          if n.visible
+            if n.scene_count < 6
+              if n.scene_count == 2
+                @error = "Make sure to remove the node with the smallest instance data in the list"
+                @correct = false
+              end
+            end
+          else
+            if n.scene_count != 2
+              @error = "Make sure to keep all nodes in the list that don't have the smallest instance data"
+              @correct = false
+            end
+          end
+        end
+        if @correct
+          @error = "Correct, way to go"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def checkRemoveFromFront3(scene)
+    @scene = scene
+    @correct = true
+    @error = ""
+    if user_signed_in? && @scene.creator_id == current_user.id
+      #Check if there is a list head
+      @head = Node.find_by(scene_id: @scene.id, head: true)
+      @nodes = Node.where(scene_id: @scene.id, head: false)
+      if @head.nil?
+        @error = "You need a list head"
+        @correct = false
+      #Check that the list head points to something
+      elsif @head.next_pointer_target_id.nil?
+        @error = "Make sure that you list head is pointing to the beginning of your list. 
+        Don't drop the whole list unless you need to."
+        @correct = false
+      else
+        @nodes.each do |n| 
+          if n.visible
+            if n.scene_count < 3
+              @error = "Remove the first node in the list"
+              @correct = false
+            end
+          end
+        end
+        if @correct
+          @error = "Correct, way to go"
+        end
+      end
+    else
+      @error = "You are not signed in or didn't work on this question"  
+    end
+    return @error, @correct
+  end
+
+  def scene_params
+      params.require(:scene).permit(:step)
+  end
 end

@@ -10,6 +10,11 @@
           NAME.className = "dropup open";  // Otherwise, use `second_name`
       }
     }
+
+    function hidechatelement(){
+      var NAME = document.getElementById("chat_element");
+      NAME.className = "dropup marker"
+    }
   
     function hold(){
 
@@ -21,28 +26,28 @@
       document.getElementsByTagName("html")[0].setAttribute("style","overflow:scroll");
     }
     
-    window.onload = function SetUp(){
-      $.ajax({
-            type:'GET',
-            url:"layouts/chat.js",
-          });
-      checkOnline();
-    }
+    // window.onload = function SetUp(){
+    //   $.ajax({
+    //         type:'GET',
+    //         url:"layouts/chat.js",
+    //       });
+    //   checkOnline();
+    // }
 
-    function checkOnline(){
-      if ($("#chat").is(':visible')){
-        $.ajax({
-            type:'GET',
-            url:"layouts/show.js",
-          });
-      } else{
-        $.ajax({
-            type:'GET',
-            url:"layouts/show.js",
-          });
-      }
-      setTimeout(checkOnline, 5000);
-    }
+    // function checkOnline(){
+    //   if ($("#chat").is(':visible')){
+    //     $.ajax({
+    //         type:'GET',
+    //         url:"layouts/show.js",
+    //       });
+    //   } else{
+    //     $.ajax({
+    //         type:'GET',
+    //         url:"layouts/show.js",
+    //       });
+    //   }
+    //   setTimeout(checkOnline, 5000);
+    // }
   </script>  
 </head>
 
@@ -50,7 +55,7 @@
   <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style = "border: 0px solid white; width: 100%" >
       <div class = "container" style= "width: 100%; padding: 0px">
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style = "background-color:black; width: 100%;margin-top:10px;">
-              <ul class="nav pull-right">
+              <ul class="nav pull-left">
                   <% if user_signed_in?%>  
                     <li id = "chat">
                       <div id = "chat_div">
