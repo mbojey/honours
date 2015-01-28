@@ -4,8 +4,12 @@
     </head>
     <body>
       <% if !user_signed_in? %>
-          <div class ="welcome">
-            Sign in plz, thanks.
+          <div class ="row">
+            Please Sign In or create an account
+          </div>
+          <div class = "row">
+            <li><%= link_to "Sign In", new_user_session_path, class: "btn btn-md btn-success" %></li> 
+            <li><%= link_to "Sign Up", "/terms", class: "btn btn-md btn-info" %></li>  
           </div>
       <% else %>
         <%= link_to "Tutorial", {:controller => "scenes", :action => "tutorial" }, class: "btn btn-md btn-warning" %>
