@@ -22,20 +22,14 @@ function update(){
 	    		if(current.next_pointer)
 	    			addPointer();
 	    		if(current.datatype1 != null){
-	  				focus.attrs.datatype1 = current.datatype1;
-	  				focus.attrs.data1 = current.data1;
-		  			focus.attrs.datatype2 = current.datatype2;
-	  				focus.attrs.data2 = current.data2;
+	  				setData(current.data1);
 	    		}
 	    	}
 	    	boxCount++
 	    }
 	    for (i = 0; i < nodes.length; i++) { 
 	    	var current = nodes[i];
-	    	if(current.next_pointer_target_id != null){
-	    		console.log("current id" + current.scene_count)
-	    		console.log("target id"  + current.next_pointer_target_id)
-	    		console.log(layer)
+	    	if(current.next_pointer_target_id != null && current.next_pointer_target_id != 0){
 	    		for(j = 0; j < layer.children.length; j++){
 	    			console.log(layer.children[j].attrs.id)
 	    			if (layer.children[j].attrs.id == current.next_pointer_target_id){
@@ -45,13 +39,25 @@ function update(){
 	    				var curfocus = layer.children[j];
 	    			}
 	    		}
-	    		console.log("source") 
-	    		console.log(curfocus)
-	    		console.log("target")
-	    		console.log(target)
 	    		forceConnection(curfocus, target)
 	    	}
 		    focusOff()
 	  	}
-	  }
+	}
+}
+function setData(intdata){
+	focus.attrs.datatype1 = "int"
+    focus.attrs.data1 = intdata;
+    var firstText = new Kinetic.Text({
+      x: focus.children[0].getX() + width/10,
+      y: focus.children[0].getY() + height/4,
+      text: focus.attrs.datatype1 + " - " + focus.attrs.data1,
+      fontSize: 14,
+      fontFamily: 'Calibri',
+      width: width-width/5,
+      align: 'left',    
+      fill: 'black'
+    });   
+    focus.add(firstText);
+    layer.drawScene();
 }

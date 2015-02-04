@@ -685,10 +685,57 @@ class ScenesController < ApplicationController
       @scene.update_attribute(:collab_id, @user.id)
       @online = User.where(last_seen_at: (Time.now-7.hours-15.seconds..Time.now-7.hours), available: true).where.not(id: @user.id)    
       @node = Node.new
-      if(@scene.question == 1)
-        render :tutorial
-      elsif(@scene.question == 2)
-        render :addtofront
+      @nodes = Node.where(scene_id: @scene.id)
+      @nodes = @nodes.to_json
+      case @scene.question
+        when 2
+          render :addtofront
+        when 3
+          render :addtofront2
+        when 4
+          render :addtofront3
+        when 5
+          render :addtomiddle
+        when 6
+          render :addtomiddle2
+        when 7
+          render :addtomiddle3
+        when 8
+          render :addtoback
+        when 9
+          render :addtoback2
+        when 10
+          render :addtoback3
+        when 11
+          render :removefromback
+        when 12
+          render :removefromback2
+        when 13
+          render :removefromback3
+        when 14
+          render :removefromlist
+        when 15
+          render :removefromlist2
+        when 16
+          render :removefromlist3
+        when 17
+          render :removefromfront
+        when 18
+          render :removefromfront2
+        when 19
+          render :removefromfront3
+        when 20
+          render :sort
+        when 21
+          render :sort2
+        when 22
+          render :sort3
+        when 23
+          render :reverse
+        when 24
+          render :reverse2
+        when 25
+          render :reverse3
       end
     end
   end
