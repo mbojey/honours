@@ -12,7 +12,9 @@
 	var old_x = 0;
 	var old_y = 0;
 		var nodes = []
-		nodes = <%= @nodes.to_s.html_safe %>;
+		<% if !(@nodes.nil? || @nodes.empty?) %>
+		nodes = <%= @nodes.to_s.html_safe %>
+		<% end %>
 		if(nodes.length > 0){
 			console.log(nodes)
 			update();
