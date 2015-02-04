@@ -15,18 +15,72 @@
 	var box1 = 0
 	var box2 = 0
 	var box3 = 0
-	setUp();
+	var nodes = []
+	nodes = <%= @nodes.to_s.html_safe %>;
+	if(nodes.length > 0){
+		console.log(nodes)
+		update();
+	} else{
+		setUp();
+	}
 
-	function setUp(){
-        head = addHead(50, 200);
-        box1 = addBox(150, 200);    
-        box2 = addBox(350, 200);
-        box3 = addBox(550, 200);
-        window.setTimeout(setUpData, 500)
-        forceConnectionnew(head, box1);
-        forceConnectionnew(box1, box2);
-        forceConnectionnew(box2, box3);
-      }
+	function update(){
+		if(nodes.length > 1){
+			layer.removeChildren();
+			stage.draw();
+			boxCount = 0;
+			//Now move onto adding and positioning all the nodes, filling in any data and putting and connections in place make sure to not make duplicates in the db
+		  	for (i = 0; i < nodes.length; i++) { 
+		    	var current = nodes[i];
+		    	if(current.head){
+		    		addHeadOld(current.scene_count);
+		    		moveFocus(current.x, current.y);
+		    	}
+		    	else{
+		    		addBoxOld(current.scene_count);
+		    		moveFocus(current.x, current.y);
+		    		if(current.next_pointer)
+		    			addPointer();
+		    		if(current.datatype1 != null){
+		  				setDataOld(current.data1);
+		    		}
+		    	}
+		    	boxCount++
+		    }
+		    for (i = 0; i < nodes.length; i++) { 
+		    	var current = nodes[i];
+		    	if(current.next_pointer_target_id != null && current.next_pointer_target_id != 0){
+		    		for(j = 0; j < layer.children.length; j++){
+		    			console.log(layer.children[j].attrs.id)
+		    			if (layer.children[j].attrs.id == current.next_pointer_target_id){
+		    				var target = layer.children[j];
+		    			}
+		    			if (layer.children[j].attrs.id == current.scene_count){
+		    				var curfocus = layer.children[j];
+		    			}
+		    		}
+		    		forceConnection(curfocus, target)
+		    	}
+			    focusOff()
+		  	}
+		}
+	}
+	function setDataOld(intdata){
+		focus.attrs.datatype1 = "int"
+	    focus.attrs.data1 = intdata;
+	    var firstText = new Kinetic.Text({
+	      x: focus.children[0].getX() + width/10,
+	      y: focus.children[0].getY() + height/4,
+	      text: focus.attrs.datatype1 + " - " + focus.attrs.data1,
+	      fontSize: 14,
+	      fontFamily: 'Calibri',
+	      width: width-width/5,
+	      align: 'left',    
+	      fill: 'black'
+	    });   
+	    focus.add(firstText);
+	    layer.drawScene();
+	}
 
       function setUpData(){
       	console.log("in set up data")

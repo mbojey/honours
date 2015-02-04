@@ -331,7 +331,7 @@ class ScenesController < ApplicationController
     @nodes = @nodes.to_json
     respond_to do |format|
         format.js { 
-          render :removefromback3
+          render :removefromback2
         }
       end
   end
