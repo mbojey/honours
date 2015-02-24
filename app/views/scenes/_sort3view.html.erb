@@ -11,44 +11,33 @@
 	var opacity = 0.45;
 	var old_x = 0;
 	var old_y = 0;
-	var head = 0
-	var box1 = 0
-	var box2 = 0
-	var box3 = 0
-	var box4 = 0
-	setUp();
+	<% if @user.id == @scene.creator_id %>
+		setUp();
+	<% end %>
 
 	function setUp(){
-        head = addHead(50, 200);
-        box1 = addBox(150, 200);    
-        box2 = addBox(350, 200);
-        box3 = addBox(550, 200);
-        box4 = addBox(750, 200);
-        window.setTimeout(setUpData, 500)
-        forceConnectionnew(head, box1);
-        forceConnectionnew(box1, box2);
-        forceConnectionnew(box2, box3);
-        forceConnectionnew(box3, box4);
-      }
-
-      function setUpData(){
-      	var lowest = Math.floor((Math.random()*4)+2);
+		var lowest = Math.floor((Math.random()*4)+2);
 		var low = Math.floor((Math.random()*4)+2+lowest);
         var high = Math.floor((Math.random()*5)+2+low);
         var highest = Math.floor((Math.random()*5)+2+high);
-        focus = box1
-        setData(String.fromCharCode(97 +low))
-        focus = box2
-        setData(String.fromCharCode(97 +high))
-        focus = box3
-        setData(String.fromCharCode(97 +lowest))
-        focus = box4
-        setData(String.fromCharCode(97 +highest))
-    }
+		addHead(50, 200);
+		setTimeout(function() {addBox(150, 200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(String.fromCharCode(97 +low));}, 100)
+		setTimeout(function() {addBox(350,200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(String.fromCharCode(97 +high));}, 100)
+		setTimeout(function() {addBox(550,200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(String.fromCharCode(97 +lowest));}, 100)
+		setTimeout(function() {addBox(750,200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(String.fromCharCode(97 +highest));}, 100)
+	}
 
-      function setData(chardata){
-		focus.attrs.datatype1 = "String"
-        focus.attrs.data1 = chardata;
+    function setData(intdata){
+		focus.attrs.datatype1 = "int"
+        focus.attrs.data1 = intdata;
         var firstText = new Kinetic.Text({
           x: focus.children[0].getX() + width/10,
           y: focus.children[0].getY() + height/4,
@@ -60,19 +49,11 @@
           fill: 'black'
         });   
         focus.add(firstText);
-        layer.drawScene();
-        setDataAjax(); 
-	}
-
-	function setDataAjax(){
-		console.log("setting data")
-		$.ajax({
+        layer.drawScene(); 
+        $.ajax({
           type: "GET",
           url: "/nodes",
-          data: {id: scene_id, scene_count: focus.id(), datatype1: focus.attrs.datatype1, datatype2: focus.attrs.datatype2, data1: focus.attrs.data1, data2: focus.attrs.data2},
-          error: function(jqXHR, textStatus, errorThrown) {
-  				setDataAjax();
-			}
+          data: {id: scene_id, scene_count: focus.id(), datatype1: focus.attrs.datatype1, datatype2: focus.attrs.datatype2, data1: focus.attrs.data1, data2: focus.attrs.data2}
           });
 	}
 
@@ -383,6 +364,7 @@
       $("#removeButton").show();
     }
     focus.drawScene();
+    layer.drawScene();
   }
 
 	function setDataForm(){
@@ -552,6 +534,7 @@
 	  node = i;
 	}
 	});
+	console.log(node);
 	node.parent.children.each(function(i){
 	if(i.attrs.parentid == node.attrs.id){
 	  i.destroy();
@@ -597,6 +580,7 @@
 		stage.draw();
 		connect = false;
 		lastfocus.attrs.arrow = true;
+		console.log(focus.id());
 		$.ajax({
 			type: "GET",
 			url: "/nodes",

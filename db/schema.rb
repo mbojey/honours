@@ -135,6 +135,9 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.integer "receiver_id"
     t.string "message"
     t.boolean "seen", default: false, null: false
+    t.boolean "invitation", default: false
+    t.boolean "sceneinvitation", default: false
+    t.integer "scene_id"
     t.datetime "sent_at"
   end
 

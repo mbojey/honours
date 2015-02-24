@@ -7,9 +7,6 @@
       <div onmouseover = "hold();" onmouseout = "scroll();" style = "overflow: scroll; max-height: 400px; margin: 0px; padding: 0px;", id = "chatbox_div">
         <%= render 'messages/privatechat' %>
       </div>
-      <% if @user.pending_invitation %>
-        <%= link_to "Accept Invitation", {:controller => "scenes", :action => "accept_inv"}, class: "btn btn-sm btn-success"%>
-      <% end %>
       <div style = "border-top: 1px solid black; padding: 2px; width: 100%;">
         <%= render 'messages/privatechatform' %>
       </div>

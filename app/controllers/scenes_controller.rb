@@ -85,6 +85,7 @@ class ScenesController < ApplicationController
       @step = 0
     end
   end
+  
   def tutorial6 
     if user_signed_in?
       @user = current_user
@@ -184,13 +185,24 @@ class ScenesController < ApplicationController
   def addtofront 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 2
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 2
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -208,13 +220,24 @@ class ScenesController < ApplicationController
   def addtofront2 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 3
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 3
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
   
@@ -232,13 +255,24 @@ class ScenesController < ApplicationController
   def addtofront3 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 4
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 4
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -256,13 +290,24 @@ class ScenesController < ApplicationController
   def addtomiddle 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 5
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 5
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
   
@@ -280,13 +325,24 @@ class ScenesController < ApplicationController
   def addtomiddle2 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 6
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 6
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -304,13 +360,24 @@ class ScenesController < ApplicationController
   def addtomiddle3
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 7
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 7
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -328,13 +395,24 @@ class ScenesController < ApplicationController
   def addtoback 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 8
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 8
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
   
@@ -352,13 +430,24 @@ class ScenesController < ApplicationController
   def addtoback2 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 9
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 9
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -376,13 +465,24 @@ class ScenesController < ApplicationController
   def addtoback3
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 10
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 10
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -398,15 +498,26 @@ class ScenesController < ApplicationController
   end
 
   def removefromback 
-    if user_signed_in?
+   if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 11
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 11
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -424,13 +535,24 @@ class ScenesController < ApplicationController
   def removefromback2
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 12
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 12
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -448,13 +570,24 @@ class ScenesController < ApplicationController
   def removefromback3 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 13
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 13
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -472,13 +605,24 @@ class ScenesController < ApplicationController
   def removefromlist 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 14
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 14
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -496,13 +640,24 @@ class ScenesController < ApplicationController
   def removefromlist2
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 15
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 15
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -520,13 +675,24 @@ class ScenesController < ApplicationController
   def removefromlist3
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 16
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 16
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -544,13 +710,24 @@ class ScenesController < ApplicationController
   def removefromfront 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 17
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 17
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -568,13 +745,24 @@ class ScenesController < ApplicationController
   def removefromfront2
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 18
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 18
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -592,13 +780,24 @@ class ScenesController < ApplicationController
   def removefromfront3 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 19
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 19
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -616,13 +815,24 @@ class ScenesController < ApplicationController
   def sort 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 20
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 20
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -640,13 +850,24 @@ class ScenesController < ApplicationController
   def sort2
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 21
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 21
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -664,13 +885,24 @@ class ScenesController < ApplicationController
   def sort3 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 22
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 22
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -688,13 +920,24 @@ class ScenesController < ApplicationController
   def reverse 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 23
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 23
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -712,13 +955,24 @@ class ScenesController < ApplicationController
   def reverse2
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 24
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 24
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -736,13 +990,24 @@ class ScenesController < ApplicationController
   def reverse3 
     if user_signed_in?
       @user = current_user
-      @scene = Scene.new
-      @scene.creator_id = @user.id
-      @scene.question = 25
-      @scene.created_at = DateTime.now
-      @scene.save
-      @node = Node.new
-      @user.update_attribute(:current_scene, @scene.id)
+      if(@user.current_scene.nil? || @user.current_scene = 0)
+        @scene = Scene.new
+        @scene.creator_id = @user.id
+        @scene.question = 25
+        @scene.created_at = DateTime.now
+        @scene.save
+        @node = Node.new
+        @user.update_attribute(:current_scene, @scene.id)
+        if !@user.partner_id.nil?
+          @message = Message.new(sender_id: @user.id, receiver_id: @user.partner_id, 
+            sent_at: DateTime.now-8.hours, 
+            message: "I am working on question "+(@scene.question-1).to_s+", come join!", 
+            sceneinvitation: true, scene_id: @scene.id )
+          @message.save
+        end
+      else
+        @scene = Scene.find(@user.current_scene)
+      end
     end
   end
 
@@ -762,12 +1027,29 @@ class ScenesController < ApplicationController
     end
   end
 
+  def decline_inv
+      @message = Message.find(params[:id])
+      @scene = Scene.find(@message.scene_id)
+      @receiver = User.find(@message.receiver_id)
+      @response = Message.new(sender_id: @receiver.id, receiver_id: @message.sender_id, 
+          sent_at: DateTime.now-8.hours, 
+          message: "I don't want to work on that question right now.")
+      @response.save
+  end
+
   def accept_inv
     if user_signed_in?
       @user = current_user
-      @inviter = User.find(@user.inviter)
-      @scene = Scene.find(@inviter.current_scene)
-      @scene.update_attribute(:collab_id, @user.id)
+      @message = Message.find(params[:id])
+      @scene = Scene.find(@message.scene_id)
+      @scene.collab_id = @message.receiver_id
+      @scene.save
+      @receiver = User.find(@message.receiver_id)
+      @receiver.update_attribute(:current_scene, @scene.id)
+      @response = Message.new(sender_id: @receiver.id, receiver_id: @message.sender_id, 
+          sent_at: DateTime.now-8.hours, 
+          message: "On my way!")
+      @response.save
       @online = User.where(last_seen_at: (Time.now-7.hours-15.seconds..Time.now-7.hours), available: true).where.not(id: @user.id)    
       @node = Node.new
       @nodes = Node.where(scene_id: @scene.id)
@@ -870,7 +1152,7 @@ class ScenesController < ApplicationController
       when 19
         @error, @correct = checkRemoveFromFront3(@scene)
       when 20
-        @error, @correct = checkSort(@scene)
+        @error, @correct = checkSort3(@scene)
       when 21
         @error, @correct = checkSort2(@scene)
       when 22

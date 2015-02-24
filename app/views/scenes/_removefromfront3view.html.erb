@@ -11,15 +11,17 @@
 	var opacity = 0.45;
 	var old_x = 0;
 	var old_y = 0;
-	setUp();
+	<% if @user.id == @scene.creator_id %>
+		setUp();
+	<% end %>
 
 	function setUp(){
-        head = addHead(50, 200);
-        box1 = addBox(150, 200);    
-        forceConnection(head, box1);
-      }
+		addHead(50, 200);
+		setTimeout(function() {addBox(150, 200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+	}
 
-      function setData(intdata){
+    function setData(intdata){
 		focus.attrs.datatype1 = "int"
         focus.attrs.data1 = intdata;
         var firstText = new Kinetic.Text({
@@ -308,6 +310,9 @@
   function focusOn(group){
     focus = group;
     focus.opacity(1);
+    if(focus.attrs.head){
+    	$("#addArrowButton").show();
+    }
     if(!focus.attrs.head){
       if(focus.attrs.pointer){
         $("#removePointerButton").show();
@@ -345,6 +350,7 @@
       $("#removeButton").show();
     }
     focus.drawScene();
+    layer.drawScene();
   }
 
 	function setDataForm(){

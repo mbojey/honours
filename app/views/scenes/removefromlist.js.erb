@@ -2,9 +2,9 @@ var nodes = []
   <% if !(@nodes.nil? || @nodes.empty?) %>
   nodes = <%= @nodes.to_s.html_safe %>;
   <% end %>
-  console.log(nodes)
 update();
 function update(){
+	var temp = focus;
 	if(nodes.length > 1){
 		layer.removeChildren();
 		stage.draw();
@@ -32,12 +32,8 @@ function update(){
 	    }
 	    for (i = 0; i < nodes.length; i++) { 
 	    	var current = nodes[i];
-	    	if(current.next_pointer_target_id != null){
-	    		console.log("current id" + current.scene_count)
-	    		console.log("target id"  + current.next_pointer_target_id)
-	    		console.log(layer)
+	    	if(current.next_pointer_target_id != null && current.next_pointer_target_id != 0){
 	    		for(j = 0; j < layer.children.length; j++){
-	    			console.log(layer.children[j].attrs.id)
 	    			if (layer.children[j].attrs.id == current.next_pointer_target_id){
 	    				var target = layer.children[j];
 	    			}
@@ -45,13 +41,12 @@ function update(){
 	    				var curfocus = layer.children[j];
 	    			}
 	    		}
-	    		console.log("source") 
-	    		console.log(curfocus)
-	    		console.log("target")
-	    		console.log(target)
 	    		forceConnection(curfocus, target)
 	    	}
 		    focusOff()
 	  	}
+	  	focusOn(temp)
+	  	layer.drawScene();
 	  }
+	console.log(temp)	
 }

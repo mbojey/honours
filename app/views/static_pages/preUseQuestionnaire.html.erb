@@ -1,5 +1,5 @@
 <p> Before you begin using the system please fill in this short questionnaire </p>
-<%= @questionnaire = PreQuestionnaire.new %>
+<% @questionnaire = PreQuestionnaire.new %>
 
 <%= simple_form_for @questionnaire, :url => { :action => "create", :controller => "pre_questionnaire"} do |f| %>
 	<%= f.hidden_field :user_id, :value => @user.id %>

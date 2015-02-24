@@ -76,15 +76,49 @@ class LayoutsController < ApplicationController
   	end
 
   	def openchat
-  		p "IN OPEN CHAT WITH " + params[:id1] + " AND " + params[:id2]
 		if user_signed_in?
 			@user = current_user
 			@other = User.find(params[:id2])
-			@user.update_attribute(:available, false)
-			@user.update_attribute(:partner_id, @other.id)
 		    @online = User.where(last_seen_at: (Time.now-7.hours-15.seconds..Time.now-7.hours), available: true).where.not(id: @user.id)
+		    @invitation = Message.new(sender_id: @user.id, receiver_id: @other.id, 
+		    	sent_at: DateTime.now-8.hours, 
+		    	message: "Would you like to work together on these questions?", 
+		    	invitation: true )
+		    @invitation.save
 		end
 		respond_to do |format|
+	      format.js { render :chat }
+	    end
+  	end
+
+  	def accept_inv
+  		@message = Message.find(params[:id])
+  		@message.update_attribute(:invitation, false)
+  		@sender = User.find(@message.sender_id)
+  		@receiver = User.find(@message.receiver_id)
+  		@sender.update_attribute(:available, false)
+  		@sender.update_attribute(:partner_id, @receiver.id)
+  		@receiver.update_attribute(:available, false)
+  		@receiver.update_attribute(:partner_id, @sender.id)
+  		@response = Message.new(sender_id: @receiver.id, receiver_id: @sender.id, 
+		    	sent_at: DateTime.now-8.hours, 
+		    	message: "Yes, thank-you")
+  		@response.save
+  		respond_to do |format|
+	      format.js { render :chat }
+	    end
+  	end
+
+  	def decline_inv
+  		@message = Message.find(params[:id])
+  		@message.update_attribute(:invitation, false)
+  		@sender = User.find(@message.sender_id)
+  		@receiver = User.find(@message.receiver_id)
+  		@response = Message.new(sender_id: @receiver.id, receiver_id: @sender.id, 
+		    	sent_at: DateTime.now-8.hours, 
+		    	message: "No thank you")
+  		@response.save
+  		respond_to do |format|
 	      format.js { render :chat }
 	    end
   	end

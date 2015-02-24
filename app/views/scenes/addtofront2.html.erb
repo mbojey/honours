@@ -4,17 +4,19 @@
 <head>
   <script type = "text/javascript">
     var scene_id = <%=@scene.id%>;
-    //window.onload = firstrun();
-    function firstrun(){
-      setTimeout(update_addtofront2(),20000);
-    }
-    function update_addtofront2(){
-        $.ajax({
-              type:'GET',
-              url:"scenes/"+scene_id+".js",
-            });
-         setTimeout(update_addtofront2, 10000);
+    <% if User.find(@scene.creator_id).partner_id %>
+      window.onload = firstrun();
+      function firstrun(){
+        setTimeout(update_addtoback(),20000);
       }
+      function update_addtoback(){
+          $.ajax({
+                type:'GET',
+                url:"scenes/"+scene_id+".js",
+              });
+           setTimeout(update_addtoback, 10000);
+        }
+    <% end %>
   </script>
 </head>
   <body>

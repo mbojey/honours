@@ -11,94 +11,30 @@
 	var opacity = 0.45;
 	var old_x = 0;
 	var old_y = 0;
-	var head = 0
-	var box1 = 0
-	var box2 = 0
-	var box3 = 0
-	var nodes = []
-	nodes = <%= @nodes.to_s.html_safe %>;
-	if(nodes.length > 0){
-		console.log(nodes)
-		update();
-	} else{
+	<% if @user.id == @scene.creator_id %>
 		setUp();
-	}
+	<% end %>
 
-	function update(){
-		if(nodes.length > 1){
-			layer.removeChildren();
-			stage.draw();
-			boxCount = 0;
-			//Now move onto adding and positioning all the nodes, filling in any data and putting and connections in place make sure to not make duplicates in the db
-		  	for (i = 0; i < nodes.length; i++) { 
-		    	var current = nodes[i];
-		    	if(current.head){
-		    		addHeadOld(current.scene_count);
-		    		moveFocus(current.x, current.y);
-		    	}
-		    	else{
-		    		addBoxOld(current.scene_count);
-		    		moveFocus(current.x, current.y);
-		    		if(current.next_pointer)
-		    			addPointer();
-		    		if(current.datatype1 != null){
-		  				setDataOld(current.data1);
-		    		}
-		    	}
-		    	boxCount++
-		    }
-		    for (i = 0; i < nodes.length; i++) { 
-		    	var current = nodes[i];
-		    	if(current.next_pointer_target_id != null && current.next_pointer_target_id != 0){
-		    		for(j = 0; j < layer.children.length; j++){
-		    			console.log(layer.children[j].attrs.id)
-		    			if (layer.children[j].attrs.id == current.next_pointer_target_id){
-		    				var target = layer.children[j];
-		    			}
-		    			if (layer.children[j].attrs.id == current.scene_count){
-		    				var curfocus = layer.children[j];
-		    			}
-		    		}
-		    		forceConnection(curfocus, target)
-		    	}
-			    focusOff()
-		  	}
-		}
-	}
-	function setDataOld(intdata){
-		focus.attrs.datatype1 = "int"
-	    focus.attrs.data1 = intdata;
-	    var firstText = new Kinetic.Text({
-	      x: focus.children[0].getX() + width/10,
-	      y: focus.children[0].getY() + height/4,
-	      text: focus.attrs.datatype1 + " - " + focus.attrs.data1,
-	      fontSize: 14,
-	      fontFamily: 'Calibri',
-	      width: width-width/5,
-	      align: 'left',    
-	      fill: 'black'
-	    });   
-	    focus.add(firstText);
-	    layer.drawScene();
-	}
-
-      function setUpData(){
-      	console.log("in set up data")
-      	var low = Math.floor((Math.random()*10)+2);
+	function setUp(){
+		var low = Math.floor((Math.random()*10)+2);
         var high = Math.floor((Math.random()*10)+2+low);
         var first = Math.floor((Math.random()*5)+1);
         while(first >= low){
           first = Math.floor((Math.random()*5)+1);
         }
-        focus = box1
-        setData(high)
-        focus = box2
-        setData(low)
-        focus = box3
-        setData(first)
-    }
+		addHead(50, 200);
+		setTimeout(function() {addBox(150, 200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(high);}, 100)
+		setTimeout(function() {addBox(350,200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(low);}, 100)
+		setTimeout(function() {addBox(550,200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(first);}, 100)
+	}
 
-      function setData(intdata){
+    function setData(intdata){
 		focus.attrs.datatype1 = "int"
         focus.attrs.data1 = intdata;
         var firstText = new Kinetic.Text({
@@ -112,19 +48,11 @@
           fill: 'black'
         });   
         focus.add(firstText);
-        layer.drawScene();
-        setDataAjax(); 
-	}
-
-	function setDataAjax(){
-		console.log("setting data")
-		$.ajax({
+        layer.drawScene(); 
+        $.ajax({
           type: "GET",
           url: "/nodes",
-          data: {id: scene_id, scene_count: focus.id(), datatype1: focus.attrs.datatype1, datatype2: focus.attrs.datatype2, data1: focus.attrs.data1, data2: focus.attrs.data2},
-          error: function(jqXHR, textStatus, errorThrown) {
-  				setDataAjax();
-			}
+          data: {id: scene_id, scene_count: focus.id(), datatype1: focus.attrs.datatype1, datatype2: focus.attrs.datatype2, data1: focus.attrs.data1, data2: focus.attrs.data2}
           });
 	}
 
@@ -435,6 +363,7 @@
       $("#removeButton").show();
     }
     focus.drawScene();
+    layer.drawScene();
   }
 
 	function setDataForm(){
@@ -604,6 +533,7 @@
 	  node = i;
 	}
 	});
+	console.log(node);
 	node.parent.children.each(function(i){
 	if(i.attrs.parentid == node.attrs.id){
 	  i.destroy();
@@ -649,6 +579,7 @@
 		stage.draw();
 		connect = false;
 		lastfocus.attrs.arrow = true;
+		console.log(focus.id());
 		$.ajax({
 			type: "GET",
 			url: "/nodes",

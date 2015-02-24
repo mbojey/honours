@@ -13,7 +13,29 @@
 			</div>
 		<% else %>
 			<div class = "reciever-message">
-				<div class = "message-body-reciever"><%= message.message %></div>
+				<div class = "message-body-reciever">
+					<%= message.message %>
+					<% if message.invitation %>
+					<div class = "row">
+						<div class = "col-md-6">
+							<%= link_to "Yes", {:controller => "layouts", :action => "accept_inv", :id => message.id, remote: true}, class: "btn btn-sm btn-success"%>
+						</div>
+						<div class = "col-md-6">
+							<%= link_to "No", {:controller => "layouts", :action => "decline_inv", :id => message.id, remote: true}, class: "btn btn-sm btn-danger"%>
+						</div>
+					</div>
+					<% end %>
+					<% if message.sceneinvitation %>
+					<div class = "row">
+						<div class = "col-md-6">
+							<%= link_to "Join", {:controller => "scenes", :action => "accept_inv", :id => message.id}, class: "btn btn-sm btn-success"%>
+						</div>
+						<div class = "col-md-6">
+							<%= link_to "Not Now", {:controller => "scenes", :action => "decline_inv", :id => message.id, remote: true}, class: "btn btn-sm btn-danger"%>
+						</div>
+					</div>
+					<% end %>
+				</div>
 				<div class = "message-time-reciever"> 
 					<% if message.sent_at > Date.yesterday %>
 						Sent at: <%= message.sent_at.strftime("%H:%M") %>

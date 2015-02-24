@@ -11,7 +11,9 @@
 	var opacity = 0.45;
 	var old_x = 0;
 	var old_y = 0;
-	setUp();
+	<% if @user.id == @scene.creator_id %>
+		setUp();
+	<% end %>
 
 	function setUp(){
 		var smallest = Math.floor((Math.random()*5)+1)*2;
@@ -21,26 +23,22 @@
         while(random == odd || random == even2){
           random = Math.floor((Math.random()*12)+1)+smallest;
         }
-        head = addHead(50, 200);
-        box1 = addBox(150, 200);    
-        box2 = addBox(350, 200);
-        box3 = addBox(550, 200);
-        box4 = addBox(750, 200);
-        forceConnection(head, box1);
-        forceConnection(box1, box2);
-        forceConnection(box2, box3);
-        forceConnection(box3, box4);
-        focus = box1
-        setData(smallest)
-        focus = box2
-        setData(odd)
-        focus = box3
-        setData(random)
-        focus = box4
-        setData(even2)
-      }
+		addHead(50, 200);
+		setTimeout(function() {addBox(150, 200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(smallest);}, 100)
+		setTimeout(function() {addBox(350,200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(odd);}, 100)
+		setTimeout(function() {addBox(550,200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(random);}, 100)
+		setTimeout(function() {addBox(750,200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(even2);}, 100)
+	}
 
-      function setData(intdata){
+    function setData(intdata){
 		focus.attrs.datatype1 = "int"
         focus.attrs.data1 = intdata;
         var firstText = new Kinetic.Text({
@@ -329,6 +327,9 @@
   function focusOn(group){
     focus = group;
     focus.opacity(1);
+    if(focus.attrs.head){
+    	$("#addArrowButton").show();
+    }
     if(!focus.attrs.head){
       if(focus.attrs.pointer){
         $("#removePointerButton").show();
@@ -366,6 +367,7 @@
       $("#removeButton").show();
     }
     focus.drawScene();
+    layer.drawScene();
   }
 
 	function setDataForm(){

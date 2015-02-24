@@ -2,9 +2,9 @@ var nodes = []
   <% if !(@nodes.nil? || @nodes.empty?) %>
   nodes = <%= @nodes.to_s.html_safe %>;
   <% end %>
-  console.log(nodes)
 update();
 function update(){
+	var temp = focus;
 	if(nodes.length > 1){
 		layer.removeChildren();
 		stage.draw();
@@ -22,7 +22,10 @@ function update(){
 	    		if(current.next_pointer)
 	    			addPointer();
 	    		if(current.datatype1 != null){
-	  				setData(current.data1);
+	  				focus.attrs.datatype1 = current.datatype1;
+	  				focus.attrs.data1 = current.data1;
+		  			focus.attrs.datatype2 = current.datatype2;
+	  				focus.attrs.data2 = current.data2;
 	    		}
 	    	}
 	    	boxCount++
@@ -31,7 +34,6 @@ function update(){
 	    	var current = nodes[i];
 	    	if(current.next_pointer_target_id != null && current.next_pointer_target_id != 0){
 	    		for(j = 0; j < layer.children.length; j++){
-	    			console.log(layer.children[j].attrs.id)
 	    			if (layer.children[j].attrs.id == current.next_pointer_target_id){
 	    				var target = layer.children[j];
 	    			}
@@ -43,21 +45,8 @@ function update(){
 	    	}
 		    focusOff()
 	  	}
-	}
-}
-function setData(intdata){
-	focus.attrs.datatype1 = "int"
-    focus.attrs.data1 = intdata;
-    var firstText = new Kinetic.Text({
-      x: focus.children[0].getX() + width/10,
-      y: focus.children[0].getY() + height/4,
-      text: focus.attrs.datatype1 + " - " + focus.attrs.data1,
-      fontSize: 14,
-      fontFamily: 'Calibri',
-      width: width-width/5,
-      align: 'left',    
-      fill: 'black'
-    });   
-    focus.add(firstText);
-    layer.drawScene();
+	  	focusOn(temp)
+	  	layer.drawScene();
+	  }
+	console.log(temp)	
 }

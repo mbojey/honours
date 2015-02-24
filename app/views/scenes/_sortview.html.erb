@@ -11,28 +11,31 @@
 	var opacity = 0.45;
 	var old_x = 0;
 	var old_y = 0;
-	setUp();
+	<% if @user.id == @scene.creator_id %>
+		setUp();
+	<% end %>
 
 	function setUp(){
-        head = addHead(50, 200);
-        box1 = addBox(150, 225);    
-        box2 = addBox(250, 100);
-        box3 = addBox(400, 200);
-        var low = Math.floor((Math.random()*10)+2);
-        var high = Math.floor((Math.random()*10)+2+low);
-        var first = Math.floor((Math.random()*5)+1);
-        while(first >= low){
-          first = Math.floor((Math.random()*5)+1);
-        }
-        focus = box1
-        setData(low)
-        focus = box2
-        setData(high)
-        focus = box3
-        setData(first)
-      }
+		var lowest = Math.floor((Math.random()*4)+2);
+		var low = Math.floor((Math.random()*4)+2+lowest);
+        var high = Math.floor((Math.random()*5)+2+low);
+        var highest = Math.floor((Math.random()*5)+2+high);
+		addHead(50, 200);
+		setTimeout(function() {addBox(150, 200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(String.fromCharCode(97 +low));}, 100)
+		setTimeout(function() {addBox(350,200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(String.fromCharCode(97 +high));}, 100)
+		setTimeout(function() {addBox(550,200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(String.fromCharCode(97 +lowest));}, 100)
+		setTimeout(function() {addBox(750,200);}, 100)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {setData(String.fromCharCode(97 +highest));}, 100)
+	}
 
-      function setData(intdata){
+    function setData(intdata){
 		focus.attrs.datatype1 = "int"
         focus.attrs.data1 = intdata;
         var firstText = new Kinetic.Text({
@@ -361,6 +364,7 @@
       $("#removeButton").show();
     }
     focus.drawScene();
+    layer.drawScene();
   }
 
 	function setDataForm(){
