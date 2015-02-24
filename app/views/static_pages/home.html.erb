@@ -4,13 +4,20 @@
     </head>
     <body>
       <% if !user_signed_in? %>
-          <div class ="row button-row">
+        <div class ="row button-row">
+            Welcome to the my linked list practice website!  This site is designed for students enrolled in COSC 121 at UBCO in the 2015 Spring semester.
+        </div>
+        <div class ="row button-row">
             Please Sign In or create an account
-          </div>
-          <div class = "row button-row">
-            <li><%= link_to "Sign In", new_user_session_path, class: "btn btn-md btn-success" %></li> 
-            <li><%= link_to "Sign Up", "/terms", class: "btn btn-md btn-info" %></li>  
-          </div>
+        </div>
+        <div class = "row button-row">
+            <div class = "col-md-1 col-md-offset-5">
+                <%= link_to "Sign In", new_user_session_path, class: "btn btn-md btn-success" %>
+            </div>
+            <div class = "col-md-1">
+                <%= link_to "Sign Up", "/terms", class: "btn btn-md btn-info" %>
+            </div>
+        </div>
       <% else %>
         <div class = "row button-row">
             <div class = "col-md-2">
