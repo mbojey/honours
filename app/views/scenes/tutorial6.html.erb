@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+  <body>
+    <% if !user_signed_in? %>
+      <div class ="welcome">
+        Please sign in.
+      </div>
+    <% else %>
+      <div class = "row">
+        <p>To work with a partner you must first select them from the list of online, available students in the bottom left of the screen.  If someone asks you to work with them you will see the invitation appear in the same area of the screen.</p>
+      </div>
+      <div class = "row">
+        Show screenshot of partner selection
+      </div>
+      <div class = "row">
+        <p>Once a partner is selected when either of you start and exercise the other will be prompted to come and join you.  If you are working with a partner you cannot submit an exercise that only you have worked on.</p>
+      </div>
+      <div class = "row">
+        <p>While you are working with your partner you can make use of the chat in the system to communicate with you partner and work together to solve the problem.  Any changes that you make to the workspace will be updated on your partner's screen and any changes they make will be updated on your screen.</p>
+      </div>
+      <div class = "row">
+        Show screenshot of chat in action while working on a problem
+      </div>
+      <div class = "row">
+        <p>When you are done all the exercises in the system please take a few minutes to fill out the post-use questionnaire.  This questionnaire needs to be completed in order for you to receive your bonus marks for using the system.  Thanks for taking the time to read this over and if you have any issues with the system please do not hesitate to send me an email so I can get them fixed: mbojey@gmail.com</p>
+      </div>
+      <div class = "row">
+        <%= link_to "Get Started!", root_path, class: "btn btn-md btn-success" %>
+      </div>
+    <%end%>
+  </body>
+</html>
+
+
+

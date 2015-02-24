@@ -19,10 +19,7 @@
   </head>
   <body>
     <%= render 'layouts/responsiveheader' %>
-    <div class="container-fluid">
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
+    <div class="container-fluid" style = "margin-bottom: 55px;">
       <%= yield %>
       <%= render 'layouts/footer' %>
     </div>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+  <body>
+    <% if !user_signed_in? %>
+      <div class ="welcome">
+        Please sign in.
+      </div>
+    <% else %>
+      <div class = "row">
+        <p>You are given the ability to interact with the workspace by using the buttons on the side.  You can create temporary variables, and add, move, and delete arrows from objects.  Be careful, once a node is in the list if it ever has no arrows pointing to it, it will disappear.</p>
+        <p>To add a temporary variable to the workspace just click the "Add a Temporary Variable" button. You can remove the temporary variable when it is selected by clicking the "Remove Selected" button.</p>
+        <p>To add an arrow click on the list element that the arrow will start at, click the "Add an Arrow" button and click the list element the arrow will point to.  Arrows can start from the list head, nodes with no current arrow or temporary variables</p>
+        <p>To move an arrow click a list element that has an arrow, click the "Move Arrow" button, and click where you want the arrow to point.  Careful, this can cause you to lose references to nodes in your list!</p>
+        <p>To remove an arrow just click the list element and click the "Remove Arrow" button, this can also cause you to lose references to nodes in your list.</p>
+      </div>
+      <div class = "row">
+       	<div class = "col-lg-2">
+          <div class = "row button-row", id = "addTemp" >
+            <button type="button", class ="btn btn-primary btn-success", onClick = "addTemp()">Add a Temporary Variable</button>
+          </div>
+          <div class = "row button-row", style = "display: none", id = "addArrowButton" >
+            <button type="button", class ="btn btn-primary btn-success", onClick = "addArrow()">Add an Arrow</button>
+          </div>
+          <div class = "row button-row" style = "display: none", id = "moveArrowButton">
+            <button type="button", class ="btn btn-primary btn-warning", onClick = "moveArrow()">Move an Arrow</button>
+          </div>
+          <div class = "row button-row" style = "display: none", id = "removeArrowButton">
+            <button type="button", class ="btn btn-primary btn-danger", onClick = "removeArrow()">Remove an Arrow</button>
+          </div>
+          <div class = "row button-row", style = "display: none", id = "removeButton">
+            <button type="button", class ="btn btn-primary btn-danger", onClick = "removeBox()">Remove Selected</button>
+          </div>
+        </div>
+        <div class = "col-lg-10" id = "body-col" style = "padding-bottom: 3px">
+          <div id="container" style = "border: 1px solid black;"></div>
+          <script defer="defer">
+            var stage = new Kinetic.Stage({container: 'container', width: $('#body-col').width(), height: window.innerHeight-235, stroke: 'black', strokeWidth: 4 });
+            var layer = new Kinetic.Layer();
+          </script>
+          <div id = "clearme">
+            <%= render 'scenes/sortview' %>
+          </div>
+        </div>
+      </div>
+      <div class = "row">
+        <p>When you are done with one of the exercises you can click submit to see if you got it correct.  If you are working with a partner your partner will have a chance to agree to submit or decide that changes are needed before submitting the work.  If you got a question incorrect don't worry you can retry as many times as you would like.</p>
+      </div>
+      <div class = "row">
+        <%= link_to "Next", {:controller => "scenes", :action => "tutorial6" }, class: "btn btn-md btn-success" %>
+      </div>
+    <%end%>
+  </body>
+</html>
+
+
+

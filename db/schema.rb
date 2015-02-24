@@ -53,9 +53,52 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.boolean  "correct"
   end
 
+  create_table  "pre_questionnaires", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "question_1"
+    t.integer  "question_2"
+    t.integer  "question_3"
+    t.integer  "question_4"
+    t.integer  "question_5"
+    t.integer  "question_6"
+    t.integer  "question_7"
+    t.integer  "question_8"
+    t.integer  "question_9"
+    t.integer  "question_10"
+    t.integer  "question_11"
+    t.integer  "question_12"
+    t.integer  "question_13"
+    t.integer  "question_14"
+    t.integer  "question_15"
+  end
+
+  create_table  "postQuestionnaires", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "question_1"
+    t.integer  "question_2"
+    t.integer  "question_3"
+    t.integer  "question_4"
+    t.integer  "question_5"
+    t.integer  "question_6"
+    t.integer  "question_7"
+    t.integer  "question_8"
+    t.integer  "question_9"
+    t.integer  "question_10"
+    t.integer  "question_11"
+    t.integer  "question_12"
+    t.integer  "question_13"
+    t.integer  "question_14"
+    t.integer  "question_15"
+    t.integer  "question_16"
+    t.integer  "question_17"
+    t.integer  "question_18"
+    t.integer  "question_19"
+    t.integer  "question_20"
+  end
+
   create_table "users", force: true do |t|
+    t.string   "email"
     t.string   "username"
-    t.string   "email",                  default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest"
@@ -79,6 +122,7 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.integer  "current_scene"
     t.boolean  "pending_invitation", default: false, null: false
     t.integer  "inviter"
+    t.boolean  "tutorial_done", default: false
   end
 
   create_table "messages", force: true do |t|

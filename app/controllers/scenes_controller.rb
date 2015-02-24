@@ -18,6 +18,91 @@ class ScenesController < ApplicationController
     end
   end
 
+  def tutorial2 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 1
+      @scene.created_at = DateTime.now
+      @scene.step = 1
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+      @instruction = ["In this exercise you need to make a list with a list head and 3 
+      nodes that are all connected via pointers. Start by creating a list head.", "Good job!  Now create 3 nodes."]
+      @step = 0
+    end
+  end
+
+  def tutorial3 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 1
+      @scene.created_at = DateTime.now
+      @scene.step = 2
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+      @instruction = ["In this exercise you need to make a list with a list head and 3 
+      nodes that are all connected via pointers. Start by creating a list head.", "Good job!  Now create 3 nodes."]
+      @step = 0
+    end
+  end
+
+  def tutorial4 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 1
+      @scene.created_at = DateTime.now
+      @scene.step = 3
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+      @instruction = ["In this exercise you need to make a list with a list head and 3 
+      nodes that are all connected via pointers. Start by creating a list head.", "Good job!  Now create 3 nodes."]
+      @step = 0
+    end
+  end
+
+  def tutorial5 
+    if user_signed_in?
+      @user = current_user
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 1
+      @scene.created_at = DateTime.now
+      @scene.step = 4
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+      @instruction = ["In this exercise you need to make a list with a list head and 3 
+      nodes that are all connected via pointers. Start by creating a list head.", "Good job!  Now create 3 nodes."]
+      @step = 0
+    end
+  end
+  def tutorial6 
+    if user_signed_in?
+      @user = current_user
+      @user.update_attribute(:tutorial_done, true)
+      @scene = Scene.new
+      @scene.creator_id = @user.id
+      @scene.question = 1
+      @scene.created_at = DateTime.now
+      @scene.step = 5
+      @scene.save
+      @node = Node.new
+      @user.update_attribute(:current_scene, @scene.id)
+      @instruction = ["In this exercise you need to make a list with a list head and 3 
+      nodes that are all connected via pointers. Start by creating a list head.", "Good job!  Now create 3 nodes."]
+      @step = 0
+    end
+  end
+
   def show
     @scene = Scene.find(params[:id])
     case @scene.question

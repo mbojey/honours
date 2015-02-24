@@ -1,17 +1,6 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <script type = "text/javascript">
-    var scene_id = <%=@scene.id%>;
-    //window.onload = update_tutorial();
-    function update_tutorial(){
-        $.ajax({
-              type:'GET',
-              url:"scenes/"+scene_id+".js",
-            });
-         setTimeout(update_tutorial, 10000);
-      }
-  </script>
 </head>
   <body>
     <% if !user_signed_in? %>
@@ -20,50 +9,30 @@
       </div>
     <% else %>
     	<div class = "row">
-    		<h5 id = "instructions"> <%= @instruction[@step] %></h5>
-    	</div>
+        <p>Welcome to the linked list practice website, before you begin using the site please take a couple minutes to read through this tutorial.</p>
+        <p>This website contains several exercises for you to complete alone or in pairs that will focus on three main functions with linked lists:</p>
+        <ul>
+          <li><p>adding nodes</p></li>
+          <li><p>removing nodes</p></li>
+          <li><p>re-ordering nodes</p></li>  
+        </ul>
+        <p>The activities are for bonus marks and you will recieve marks based on how many questions you do and if you get them correct</p>
+        <p>Each exercise will present you with a workspace like the one shown below where you can move list elements around.</p>
+      </div>
       <div class = "row">
-        <div class = "col-md-2">
-          <div class = "row button-row" id = "headButton">
-            <button type="button", class ="btn btn-primary btn-success", onClick = "addHead()">Add List Head</button>
-          </div>
-          <div class = "row button-row">
-            <button type="button", class ="btn btn-primary btn-success", onClick = "addBox()">Add a Node</button>
-          </div>
-          <div class = "row button-row", style = "display: none", id = "removeButton">
-            <button type="button", class ="btn btn-primary btn-danger", onClick = "removeBox()">Remove Node</button>
-          </div>
-          <div class = "row button-row", style = "display: none", id = "addPointerButton" >
-            <button type="button", class ="btn btn-primary btn-success", onClick = "addPointer()">Add a Pointer</button>
-          </div>
-          <div class = "row button-row", style = "display: none", id = "removePointerButton" >
-            <button type="button", class ="btn btn-primary btn-danger", onClick = "removePointer()">Remove a Pointer</button>
-          </div>
-          <div class = "row button-row", style = "display: none", id = "addArrowButton" >
-            <button type="button", class ="btn btn-primary btn-success", onClick = "addArrow()">Add an Arrow</button>
-          </div>
-          <div class = "row button-row", style = "display: none", id = "removeArrowButton" >
-            <button type="button", class ="btn btn-primary btn-danger", onClick = "removePointer()">Remove an Arrow</button>
-          </div>
-        </div>
-        <div class = "col-md-10" id = "body-col" style = "padding-bottom: 3px">
+        <div class = "col-lg-10" id = "body-col" style = "padding-bottom: 3px">
           <div id="container" style = "border: 1px solid black;"></div>
-            <script src="https://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
-            <script defer="defer">
+          <script defer="defer">
             var stage = new Kinetic.Stage({container: 'container', width: $('#body-col').width(), height: window.innerHeight-235, stroke: 'black', strokeWidth: 4 });
             var layer = new Kinetic.Layer();
-            </script>
+          </script>
           <div id = "clearme">
-            <%= render 'scenes/tutorialview' %>
-          </div>
-          <div class = "row">
-            <div class = "col-md-1 col-md-offset-10">
-              <%= simple_form_for @scene, :html => { :method => :put}, :remote => true do |f| %>
-              <%= f.submit "Next", class: "btn btn-medium btn-success" %>
-              <% end %>
-            </div>
+            <%= render 'scenes/tutorial1view' %>
           </div>
         </div>
+      </div>
+      <div class = "row">
+        <%= link_to "Next", {:controller => "scenes", :action => "tutorial2" }, class: "btn btn-md btn-success" %>
       </div>
     <%end%>
   </body>

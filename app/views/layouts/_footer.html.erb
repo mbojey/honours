@@ -52,11 +52,12 @@
 </head>
 
 <body>
+  <% if user_signed_in?%> 
   <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style = "border: 0px solid white; width: 100%" >
       <div class = "container" style= "width: 100%; padding: 0px">
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style = "background-color:black; width: 100%;margin-top:10px;">
               <ul class="nav pull-left">
-                  <% if user_signed_in?%>  
+                   
                     <li id = "chat">
                       <div id = "chat_div">
                       </div>
@@ -70,9 +71,10 @@
                           </div>
       					        </ul>
                     </li>
-                  <% end %>
+                  
               </ul>
           </div><!-- /.navbar-collapse -->
       </div>
   </nav>
+  <% end %>
 </body>

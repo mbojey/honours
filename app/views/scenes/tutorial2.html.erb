@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+  <body>
+    <% if !user_signed_in? %>
+      <div class ="welcome">
+        Please sign in.
+      </div>
+    <% else %>
+      <div class = "row">
+        <p>The purple rectangle in the work space is the <b>list head</b>.  This will always be the first thing in the list and will point to the first node in the list.  In code, this would be the only thing that you would need to access the entire list.</p>
+      </div>
+      <div class = "row">
+        <div class = "col-lg-10" id = "body-col" style = "padding-bottom: 3px">
+          <div id="container" style = "border: 1px solid black;"></div>
+          <script defer="defer">
+            var stage = new Kinetic.Stage({container: 'container', width: $('#body-col').width(), height: window.innerHeight-235, stroke: 'black', strokeWidth: 4 });
+            var layer = new Kinetic.Layer();
+          </script>
+          <div id = "clearme">
+            <%= render 'scenes/tutorial2view' %>
+          </div>
+        </div>
+      </div>
+      <div class = "row">
+        <%= link_to "Next", {:controller => "scenes", :action => "tutorial3" }, class: "btn btn-md btn-success" %>
+      </div>
+    <%end%>
+  </body>
+</html>
+
+
+

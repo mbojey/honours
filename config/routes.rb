@@ -5,11 +5,19 @@ resources :scenes
 resources :nodes
 resources :actions
 resources :messages
+resources :pre_questionnaire
  
 root to: 'static_pages#home'
 
 match '/terms', to: 'static_pages#terms', via:'get'
+match '/preUseQuestionnaire', to: 'static_pages#preUseQuestionnaire', via:'get'
+match '/pre_questionnaire', to: 'pre_questionnaire#create', via:'patch'
 match '/tutorial', to: 'scenes#tutorial', via:'get'
+match '/tutorial2', to: 'scenes#tutorial2', via:'get'
+match '/tutorial3', to: 'scenes#tutorial3', via:'get'
+match '/tutorial4', to: 'scenes#tutorial4', via:'get'
+match '/tutorial5', to: 'scenes#tutorial5', via:'get'
+match '/tutorial6', to: 'scenes#tutorial6', via:'get'
 match '/addtofront', to: 'scenes#addtofront', via:'get'
 match '/addtofront2', to: 'scenes#addtofront2', via:'get'
 match '/addtofront3', to: 'scenes#addtofront3', via:'get'

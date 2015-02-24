@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+  <body>
+    <% if !user_signed_in? %>
+      <div class ="welcome">
+        Please sign in.
+      </div>
+    <% else %>
+      <div class = "row">
+        <p>This is what a list will look like in the system.  The list head is connected to the first node with an arrow which is then connected to the second node. If a node in the list ever has no arrow pointing to it the node will be lost.  The list head cannot be lost and does not need an arrow pointing to it.</p>
+      </div>
+      <div class = "row">
+        <div class = "col-lg-10" id = "body-col" style = "padding-bottom: 3px">
+          <div id="container" style = "border: 1px solid black;"></div>
+          <script defer="defer">
+            var stage = new Kinetic.Stage({container: 'container', width: $('#body-col').width(), height: window.innerHeight-235, stroke: 'black', strokeWidth: 4 });
+            var layer = new Kinetic.Layer();
+          </script>
+          <div id = "clearme">
+            <%= render 'scenes/tutorial4view' %>
+          </div>
+        </div>
+      </div>
+      <div class = "row">
+        <%= link_to "Next", {:controller => "scenes", :action => "tutorial5" }, class: "btn btn-md btn-success" %>
+      </div>
+    <%end%>
+  </body>
+</html>
+
+
+

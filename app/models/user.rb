@@ -9,12 +9,7 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true
 
   validates :username, :fname, :lname, :lab, :studentnumber,  presence:  true
-  
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence:   true,
-                    format:     { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: true }
-  
+    
   private
 
     def self.find_for_database_authentication(conditions={})

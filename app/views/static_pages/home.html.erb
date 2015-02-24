@@ -4,54 +4,58 @@
     </head>
     <body>
       <% if !user_signed_in? %>
-          <div class ="row">
+          <div class ="row button-row">
             Please Sign In or create an account
           </div>
-          <div class = "row">
+          <div class = "row button-row">
             <li><%= link_to "Sign In", new_user_session_path, class: "btn btn-md btn-success" %></li> 
             <li><%= link_to "Sign Up", "/terms", class: "btn btn-md btn-info" %></li>  
           </div>
       <% else %>
-        <%= link_to "Tutorial", {:controller => "scenes", :action => "tutorial" }, class: "btn btn-md btn-warning" %>
-        <div class = "row" style = " text-align: center; vertical-align: center;height: 35px;">
+        <div class = "row button-row">
             <div class = "col-md-2">
-                <div class = "row" style = "text-align: center; vertical-align: center;height: 75px;">
+                <%= link_to "Tutorial", {:controller => "scenes", :action => "tutorial" }, class: "btn btn-md btn-success" %>
+            </div>
+        </div>
+        <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px;">
+            <div class = "col-md-2">
+                <div class = "row button-row" style = "text-align: center; vertical-align: center;height: 75px;">
                     <h3 style = "text-align: center;"> Adding Nodes </h3>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 1", {:controller => "scenes", :action => "addtofront" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 2", {:controller => "scenes", :action => "addtofront2" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 3", {:controller => "scenes", :action => "addtofront3" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 4", {:controller => "scenes", :action => "addtomiddle" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 5", {:controller => "scenes", :action => "addtomiddle2" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 6", {:controller => "scenes", :action => "addtomiddle3" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 7", {:controller => "scenes", :action => "addtoback" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 8", {:controller => "scenes", :action => "addtoback2" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 9", {:controller => "scenes", :action => "addtoback3" }, class: "btn btn-md btn-success" %>
                 </div>
             </div>
 
             <div class = "col-md-1">
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 75px;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 75px;">
                     <h3 style = "text-align: center;"> Status </h3>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 2, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 2, correct: false) %>
@@ -60,7 +64,7 @@
                         Not Attempted 
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 3, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 3, correct: false) %>
@@ -69,7 +73,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row " style = "text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 4, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 4, correct: false) %>
@@ -78,7 +82,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 5, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 5, correct: false) %>
@@ -87,7 +91,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 6, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 6, correct: false) %>
@@ -96,7 +100,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 7, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 7, correct: false) %>
@@ -105,7 +109,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 8, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 8, correct: false) %>
@@ -114,7 +118,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 9, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 9, correct: false) %>
@@ -123,7 +127,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 10, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 10, correct: false) %>
@@ -134,43 +138,43 @@
                 </div>
             </div>
             <div class = "col-md-2 col-md-offset-1">
-                <div class = "row" style = "text-align: center; vertical-align: center;height: 75px;">
+                <div class = "row button-row" style = "text-align: center; vertical-align: center;height: 75px;">
                     <h3 style = "text-align: center;"> Removing Nodes </h3>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 1", {:controller => "scenes", :action => "removefromback" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 2", {:controller => "scenes", :action => "removefromback2" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 3", {:controller => "scenes", :action => "removefromback3" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 4", {:controller => "scenes", :action => "removefromlist" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 5", {:controller => "scenes", :action => "removefromlist2" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 6", {:controller => "scenes", :action => "removefromlist3" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 7", {:controller => "scenes", :action => "removefromfront" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 8", {:controller => "scenes", :action => "removefromfront2" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 9", {:controller => "scenes", :action => "removefromfront3" }, class: "btn btn-md btn-success" %>
                 </div>
             </div>
 
             <div class = "col-md-1">
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 75px;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 75px;">
                     <h3 style = "text-align: center;"> Status </h3>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 11, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 11, correct: false) %>
@@ -179,7 +183,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 12, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 12, correct: false) %>
@@ -188,7 +192,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 13, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 13, correct: false) %>
@@ -197,7 +201,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 14, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 14, correct: false) %>
@@ -206,7 +210,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 15, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 15, correct: false) %>
@@ -215,7 +219,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 16, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 16, correct: false) %>
@@ -224,7 +228,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 17, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 17, correct: false) %>
@@ -233,7 +237,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 18, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 18, correct: false) %>
@@ -242,7 +246,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 19, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 19, correct: false) %>
@@ -253,34 +257,34 @@
                 </div>
             </div>
             <div class = "col-md-2 col-md-offset-1">
-                <div class = "row" style = "text-align: center; vertical-align: center;height: 75px;">
-                    <h3 style = "text-align: center;"> Ordering Lists </h3>
+                <div class = "row button-row" style = "text-align: center; vertical-align: center;height: 75px;">
+                    <h3 style = "text-align: center;"> Reordering Nodes </h3>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 1", {:controller => "scenes", :action => "sort" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 2", {:controller => "scenes", :action => "sort2" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 3", {:controller => "scenes", :action => "sort3" }, class: "btn btn-md btn-success
                     " %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 4", {:controller => "scenes", :action => "reverse" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 5", {:controller => "scenes", :action => "reverse2" }, class: "btn btn-md btn-success" %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <%= link_to "Question 6", {:controller => "scenes", :action => "reverse3" }, class: "btn btn-md btn-success" %>
                 </div>
             </div>
             <div class = "col-md-1">
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 75px;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 75px;">
                     <h3 style = "text-align: center;"> Status </h3>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 20, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 20, correct: false) %>
@@ -289,7 +293,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 21, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 21, correct: false) %>
@@ -298,7 +302,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 22, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 22, correct: false) %>
@@ -307,7 +311,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 23, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 23, correct: false) %>
@@ -316,7 +320,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 24, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 24, correct: false) %>
@@ -325,7 +329,7 @@
                         Not Attempted
                     <% end %>
                 </div>
-                <div class = "row" style = " text-align: center; vertical-align: center;height: 35px; border-bottom: 1px solid black;">
+                <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px; border-bottom: 1px solid black;">
                     <% if !@scenes.find_by(question: 25, correct: true).nil? %>
                         Completed
                     <% elsif @scenes.find_by(question: 25, correct: false) %>

@@ -17,9 +17,6 @@
 
 <%= simple_form_for(@user, :url => { :action => "create" }) do |f| %>
   <%= devise_error_messages! %>
-  
-  <div><%= f.label "Email" %><br />
-  <%= f.email_field :email %></div>
 
   <div><%= f.label "Username" %><br />
   <%= f.text_field :username, :onkeyup => "CheckMaxlength(this);", :maxlength => 16 %></div>
@@ -42,8 +39,8 @@
   <div><%= f.label "Student Number" %><br />
   <%= f.text_field :studentnumber, :onkeyup => "CheckMaxlength(this);", :maxlength => 8%></div>
 
- 
- <!-- ADD EMPLOYER OPTION HERE and extra fields that come with it-->
+  <%= f.hidden_field :email, :value => DateTime.now.to_s+"@test.ca" %>
+
 
   <div><%= f.submit "Sign up", class: "btn btn-medium btn-primary" %></div>
 <% end %>
