@@ -1,0 +1,942 @@
+<p> Thank you for using my system!  Note that any you are free to continue using the system if you wish but any work done after this questionnaire will not count for marks. </p>
+
+<%= simple_form_for @questionnaire, :url => { :action => "create", :controller => "post_questionnaire"} do |f| %>
+	<%= f.hidden_field :user_id, :value => @user.id %>
+	<div class = "row">
+	<p>1.	I am comfortable with using linked lists:</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_1, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_1, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_1, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_1, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_1, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>2.	I am confident in my ability to write code to make linked lists:</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_2, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_2, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_2, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_2, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_2, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>3.	I am confident in my ability to insert into linked lists:</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_3, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_3, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_3, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_3, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_3, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>4.	I am confident in my ability to find a given node in a linked list:</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_4, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_4, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_4, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_4, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_4, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>5.	I am confident in my ability to delete from linked lists:</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_5, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_5, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_5, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_5, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_5, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>6.	I am confident in my ability to write code to insert into linked lists:</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_6, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_6, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_6, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_6, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_6, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>7.	I am confident in my ability to write code to find a given node in a linked lists:</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_7, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_7, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_7, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_7, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_7, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>8.	I am confident in my ability to write code to delete from linked lists:</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_8, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_8, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_8, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_8, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_8, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>9.	It is easy for me to see the connection between the diagrams for lists and the code for them.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_9, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_9, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_9, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_9, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_9, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>10.	Drawing list operations in the previous questions helped me understand them better.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_10, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_10, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_10, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_10, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_10, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>11.	Drawing list operations helps me understand them better.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_11, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_11, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_11, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_11, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_11, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>12.	These types of linked list problems seem easier now that I’ve used the system.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_12, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_12, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_12, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_12, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_12, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>13.	Using the system has increased my confidence in my ability to solve these problems.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_13, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_13, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_13, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_13, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_13, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>14.	When I first used the system, it was easy to learn it and figure out how to use it.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_14, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_14, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_14, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_14, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_14, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>15.	I found the system very easy to use.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_15, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_15, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_15, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_15, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_15, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>16.	I found the system fun to use.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_16, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_16, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_16, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_16, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_16, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>17.	I would use the system to help study for Computer Science.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_17, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_17, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_17, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_17, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_17, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>18.	If the system had exercises for other subjects (e.g., Math), I would use it for them too.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_18, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_18, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_18, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_18, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_18, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>19.	I would recommend it to my friends to use the system.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_19, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_19, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_19, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_19, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_19, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>20.	I found the collaborative parts of the system helpful.</p>
+	</div>
+	<div class = "row">
+		<div class = "col-md-2"> 
+			<div class = "row" style = "text-align: center">
+				Strongly Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_20, 1%>
+			</div>
+		</div>
+		<div class = "col-md-2"> 	
+			<div class = "row" style = "text-align: center">
+				Disagree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_20, 2%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Neutral
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_20, 3%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_20, 4%>
+			</div>
+		</div>
+		<div class = "col-md-2">
+			<div class = "row" style = "text-align: center">
+				Strongly Agree
+			</div>
+			<div class = "row" style = "text-align: center">
+				<%= f.radio_button :question_20, 5%>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+	<p>21.	What is the best part of this system?</p>
+	</div>
+	<div class = "row">
+		<%= f.text_field :question_21 %>
+	</div>
+	<div class = "row">
+	<p>22.	If you used the collaborative parts of the system, what was the best part about them?</p>
+	</div>
+	<div class = "row">
+		<%= f.text_field :question_22 %>
+	</div>
+	<div class = "row">
+	<p>23.	What are some suggestions you have for making the system better?</p>
+	</div>
+	<div class = "row">
+		<%= f.text_field :question_23 %>
+	</div>
+	<div class = "row">
+	<p>24.	If you used the collaborative parts of the system, what are some suggestions you have for making them better?</p>
+	</div>
+	<div class = "row">
+		<%= f.text_field :question_24 %>
+	</div>
+	<div class = "row">
+	<p>25.	Did this system change your attitude towards or confidence in solving linked list problems? If so, how?</p>
+	</div>
+	<div class = "row">
+		<%= f.text_field :question_25 %>
+	</div>
+	<div class = "row">
+	<p>25.	Please provide additional comments you have about your experience in this project.</p>
+	</div>
+	<div class = "row">
+		<%= f.text_field :question_25 %>
+	</div>
+	<%= f.submit "Submit", class: "btn btn-medium btn-success" %>
+<% end %>

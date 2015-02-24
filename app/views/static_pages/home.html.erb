@@ -16,6 +16,11 @@
             <div class = "col-md-2">
                 <%= link_to "Tutorial", {:controller => "scenes", :action => "tutorial" }, class: "btn btn-md btn-success" %>
             </div>
+            <% if PostQuestionnaire.find_by(user_id: @user.id).nil? %>
+                <div class = "col-md-2">
+                    <%= link_to "PostUseQuestionnaire", {:controller => "static_pages", :action => "postUseQuestionnaire" }, class: "btn btn-md btn-success" %>
+                </div>
+            <% end %>
         </div>
         <div class = "row button-row" style = " text-align: center; vertical-align: center;height: 45px;">
             <div class = "col-md-2">

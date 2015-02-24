@@ -6,12 +6,15 @@ resources :nodes
 resources :actions
 resources :messages
 resources :pre_questionnaire
+resources :post_questionnaire
  
 root to: 'static_pages#home'
 
 match '/terms', to: 'static_pages#terms', via:'get'
 match '/preUseQuestionnaire', to: 'static_pages#preUseQuestionnaire', via:'get'
 match '/pre_questionnaire', to: 'pre_questionnaire#create', via:'patch'
+match '/postUseQuestionnaire', to: 'static_pages#postUseQuestionnaire', via:'get'
+match '/post_questionnaire', to: 'post_questionnaire#create', via:'patch'
 match '/tutorial', to: 'scenes#tutorial', via:'get'
 match '/tutorial2', to: 'scenes#tutorial2', via:'get'
 match '/tutorial3', to: 'scenes#tutorial3', via:'get'

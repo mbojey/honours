@@ -26,8 +26,12 @@ class StaticPagesController < ApplicationController
     if user_signed_in?
       @user = current_user
       @questionnaire = PreQuestionnaire.new
-      @questionnaire.user_id = @user.id
-      @questionnaire.save
+    end
+  end
+  def postUseQuestionnaire
+    if user_signed_in?
+      @user = current_user
+      @questionnaire = PostQuestionnaire.new
     end
   end
 end

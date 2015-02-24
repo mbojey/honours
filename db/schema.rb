@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.integer  "question_15"
   end
 
-  create_table  "postQuestionnaires", force: true do |t|
+  create_table  "post_questionnaires", force: true do |t|
     t.integer  "user_id"
     t.integer  "question_1"
     t.integer  "question_2"
@@ -94,6 +94,11 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.integer  "question_18"
     t.integer  "question_19"
     t.integer  "question_20"
+    t.text  "question_21"
+    t.text  "question_22"
+    t.text  "question_23"
+    t.text  "question_24"
+    t.text  "question_25"
   end
 
   create_table "users", force: true do |t|
