@@ -22,7 +22,7 @@ function update(){
 	    		if(current.next_pointer)
 	    			addPointer();
 	    		if(current.datatype1 != null){
-	  				setDataOld(current.data1)
+	  				setDataOld(current.data1, current.datatype1)
 	    		}
 	    	}
 	    	boxCount++
@@ -46,19 +46,19 @@ function update(){
 	  	layer.drawScene();
 	  }
 }
-function setDataOld(intdata){
-		focus.attrs.datatype1 = "int"
-        focus.attrs.data1 = intdata;
-        var firstText = new Kinetic.Text({
-          x: focus.children[0].getX() + width/10,
-          y: focus.children[0].getY() + height/4,
-          text: focus.attrs.datatype1 + " - " + focus.attrs.data1,
-          fontSize: 14,
-          fontFamily: 'Calibri',
-          width: width-width/5,
-          align: 'left',    
-          fill: 'black'
-        });   
-        focus.add(firstText);
-        layer.drawScene(); 
-	}
+function setDataOld(intdata, datatype){
+	focus.attrs.datatype1 = ""+datatype
+    focus.attrs.data1 = intdata;
+    var firstText = new Kinetic.Text({
+      x: focus.children[0].getX() + width/10,
+      y: focus.children[0].getY() + height/4,
+      text: focus.attrs.datatype1 + " - " + focus.attrs.data1,
+      fontSize: 14,
+      fontFamily: 'Calibri',
+      width: width-width/5,
+      align: 'left',    
+      fill: 'black'
+    });   
+    focus.add(firstText);
+    layer.drawScene(); 
+}

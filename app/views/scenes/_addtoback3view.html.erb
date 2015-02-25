@@ -23,14 +23,14 @@
           first = Math.floor((Math.random()*25)+1);
         }
 		addHead(50, 200);
-		setTimeout(function() {addBox(150, 200);}, 100)
+		setTimeout(function() {addBox(150, 200);}, 50)
 		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
-		setTimeout(function() {setData(low);}, 100)
-		setTimeout(function() {addBox(350,200);}, 100)
-		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
-		setTimeout(function() {setData(high);}, 100)
-		setTimeout(function() {addBox(100,75);}, 100)
-		setTimeout(function() {setData(first);}, 100)
+		setTimeout(function() {setData(low);}, 150)
+		setTimeout(function() {addBox(350,200);}, 200)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 250)
+		setTimeout(function() {setData(high);}, 300)
+		setTimeout(function() {addBox(100,75);}, 350)
+		setTimeout(function() {setData(first);}, 400)
 	}
 
     function setData(intdata){
@@ -115,11 +115,11 @@
           }
 
 	function addHead(setx, sety){
-		console.log($.ajax({
+		$.ajax({
 			type:'POST',
 			url:"/nodes",
 			data: {id: scene_id, scene_count: boxCount, head: true, x: setx, y: sety}
-		}))
+		})
 		var group = new Kinetic.Group({x: setx, y: sety, width: 2*width/3, height: height/2, draggable: true, id: boxCount++ , opacity: opacity, datatype1: "", data1: "", datatype2: "", data2: "", pointer: false, head: true, arrow: false});
 		//The box that represents the node
 		var box = new Kinetic.Rect({x: width/2, width: 2*width/3, height: height/2, fill: '#CC0099', stroke: 'black', strokeWidth: 2, id: "node"});

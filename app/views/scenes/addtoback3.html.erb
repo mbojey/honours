@@ -4,10 +4,10 @@
 <head>
   <script type = "text/javascript">
     var scene_id = <%=@scene.id%>;
-    <% if User.find(@scene.creator_id).partner_id %>
+    
       window.onload = firstrun();
       function firstrun(){
-        setTimeout(update_addtoback(),20000);
+        setTimeout(update_addtoback,2000);
       }
       function update_addtoback(){
           $.ajax({
@@ -16,7 +16,6 @@
               });
            setTimeout(update_addtoback, 10000);
         }
-    <% end %>
   </script>
 </head>
   <body>

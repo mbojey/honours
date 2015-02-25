@@ -17,18 +17,18 @@
 
 	function setUp(){
 		addHead(50, 200);
-		setTimeout(function() {addBox(150, 200);}, 100)
+		setTimeout(function() {addBox(150, 200);}, 50)
 		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
-		setTimeout(function() {addBox(350,200);}, 100)
-		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
-		setTimeout(function() {addBox(100,75);}, 100)
+		setTimeout(function() {addBox(350,200);}, 150)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 200)
+		setTimeout(function() {addBox(100,75);}, 250)
 	}
 
     function setData(intdata){
 		focus.attrs.datatype1 = "int"
         focus.attrs.data1 = intdata;
         var firstText = new Kinetic.Text({
-          x: focus.children[0].getX() + width/10,
+          x: focus.children[0].getX() + width/10,0
           y: focus.children[0].getY() + height/4,
           text: focus.attrs.datatype1 + " - " + focus.attrs.data1,
           fontSize: 14,

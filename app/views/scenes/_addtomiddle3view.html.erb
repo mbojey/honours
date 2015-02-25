@@ -23,18 +23,18 @@
           random = Math.floor((Math.random()*25)+1);
         }
 		addHead(50, 200);
-		setTimeout(function() {addBox(150, 200);}, 100)
+		setTimeout(function() {addBox(150, 200);}, 50)
 		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
-		setTimeout(function() {setData(String.fromCharCode(97 + low));}, 100)
-		setTimeout(function() {addBox(350,200);}, 100)
-		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
-		setTimeout(function() {setData(String.fromCharCode(97 + high));}, 100)
-		setTimeout(function() {addBox(100,75);}, 100)
-		setTimeout(function() {setData(String.fromCharCode(97 + random));}, 100)
+		setTimeout(function() {setData(String.fromCharCode(97 + low));}, 150)
+		setTimeout(function() {addBox(350,200);}, 200)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 250)
+		setTimeout(function() {setData(String.fromCharCode(97 + high));}, 300)
+		setTimeout(function() {addBox(100,75);}, 350)
+		setTimeout(function() {setData(String.fromCharCode(97 + random));}, 400)
 	}
 	
     function setData(intdata){
-		focus.attrs.datatype1 = "int"
+		focus.attrs.datatype1 = "char"
         focus.attrs.data1 = intdata;
         var firstText = new Kinetic.Text({
           x: focus.children[0].getX() + width/10,

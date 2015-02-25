@@ -17,11 +17,11 @@
 
 	function setUp(){
 		addHead(50, 200);
-		addBox(150, 200);
-		forceConnectionnew(lastfocus, focus);
-		addBox(350,200);
-		forceConnectionnew(lastfocus, focus);
-		addBox(100,75)
+		setTimeout(function() {addBox(150, 200);}, 50)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 100)
+		setTimeout(function() {addBox(350,200);}, 150)
+		setTimeout(function() {forceConnectionnew(lastfocus, focus);}, 200)
+		setTimeout(function() {addBox(100,75);}, 250)
 	}
 
     function setData(intdata){
