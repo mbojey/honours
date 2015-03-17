@@ -9,16 +9,23 @@ class LayoutsController < ApplicationController
 		    #check for unread messages
 		    @messagesreceived = Message.where(receiver_id: @user.id, seen: false).order(:sent_at)
 		    @messagessent = @messagesreceived
-		    if !@messagesreceived.empty?
-		    	#can only recieve messages from one person at a time
-		    	@user.update_attribute(:available, false)
+		    if !@messagesreceived.empty? || !@user.partner_id.nil? || @user.partner_id != -1		    	
 		    	#find the sender of the most recent unread message
-		    	@other = User.find(@messagesreceived.first.sender_id)
-		    	@user.update_attribute(:partner_id, @other.id)
-		    	#find all messages send to current user
-		    	@messagesreceived = Message.where(sender_id: @other.id, receiver_id: @user.id).order(:sent_at)
-		    	#find all messages sent from user to other messager
-		    	@messagessent = Message.where(sender_id: @user.id, receiver_id: @other.id).order(:sent_at)
+		    	if(@messagesreceived.first)
+		    		@other = User.find(@messagesreceived.first.sender_id)
+		    		if(@other.partner_id = @user.id)
+		    			@user.update_attribute(:partner_id, @other.id)
+		    		end
+		    	elsif(!@user.partner_id.nil? && @user.partner_id != -1)
+		    		@other = User.find(@user.partner_id)
+		    	end
+		    	if(!@other.nil?)
+		    		@user.update_attribute(:available, false)
+			    	#find all messages send to current user
+			    	@messagesreceived = Message.where(sender_id: @other.id, receiver_id: @user.id).order(:sent_at)
+			    	#find all messages sent from user to other messager
+			    	@messagessent = Message.where(sender_id: @user.id, receiver_id: @other.id).order(:sent_at)
+			    end
 		    end		    
 		    @messages = @messagesreceived + @messagessent
 		    #order all messages between these two and store it in messages
@@ -28,46 +35,8 @@ class LayoutsController < ApplicationController
 	      format.js { 
 	      	if @messages.nil? || @messages.empty?
 	      		render :online 
-	      	else
-	      		render :chat
-	      	end
-	      }
-	    end
-  	end
-
-  	def chat
-  		if user_signed_in?
-			#This checks for currently online users
-			@user = current_user
-		    @unavailable = User.where(last_seen_at: (Time.now-7.hours-15.seconds..Time.now-7.hours)).where.not(id: @user.id)
-		    @online = User.where(last_seen_at: (Time.now-7.hours-15.seconds..Time.now-7.hours), available: true).where.not(id: @user.id)
-		    #check for unread messages
-		    @messagesreceived = Message.where(receiver_id: @user.id, seen: false).order(:sent_at)
-		    @messagessent = @messagesreceived
-		    if !@messagesreceived.empty?
-		    	#can only recieve messages from one person at a time
-		    	@user.update_attribute(:available, false)
-		    	#find the sender of the most recent unread message
-		    	@other = User.find(@messagesreceived.first.sender_id)
-		    	@user.update_attribute(:partner_id, @other.id)
-		    	#find all messages send to current user
-		    	@messagesreceived = Message.where(sender_id: @other.id, receiver_id: @user.id).order(:sent_at)
-		    	#find all messages sent from user to other messager
-		    	@messagessent = Message.where(sender_id: @user.id, receiver_id: @other.id).order(:sent_at)
-		    elsif !@user.partner_id.nil?
-		    	@messagesreceived = Message.where(receiver_id: @user.id, sender_id: @user.partner_id).order(:sent_at)
-		    	@messagessent = @messagesreceived
-		    	@messagessent = Message.where(sender_id: @user.id, receiver_id: @user.partner_id).order(:sent_at)
-		    	@other = User.find(@user.partner_id)
-		    end		    
-		    @messages = @messagesreceived + @messagessent
-		    #order all messages between these two and store it in messages
-		    @messages = @messages.sort_by { |obj| obj.sent_at }
-		end
-		respond_to do |format|
-	      format.js { 
-	      	if @messages.nil? || @messages.empty?
-	      		render :online 
+	      	elsif @user.partner_id == -1
+	      		render :nochat
 	      	else
 	      		render :chat
 	      	end
@@ -114,12 +83,28 @@ class LayoutsController < ApplicationController
   		@message.update_attribute(:invitation, false)
   		@sender = User.find(@message.sender_id)
   		@receiver = User.find(@message.receiver_id)
-  		@response = Message.new(sender_id: @receiver.id, receiver_id: @sender.id, 
+  		@sender.update_attribute(:available, true)
+  		@sender.update_attribute(:partner_id, 0)
+  		@receiver.update_attribute(:available, true)
+  		@receiver.update_attribute(:partner_id, 0)
+  		@response = Message.new(sender_id: @sender.id, receiver_id: @receiver.id, 
 		    	sent_at: DateTime.now-8.hours, 
 		    	message: "No thank you")
   		@response.save
   		respond_to do |format|
-	      format.js { render :chat }
+	      format.js { render :nochat }
+	    end
+  	end
+
+  	def endchat
+  		@sender = User.find(params[:id1])
+  		@receiver = User.find(params[:id2])
+  		@sender.update_attribute(:available, true)
+  		@sender.update_attribute(:partner_id, -1)
+  		@receiver.update_attribute(:available, true)
+  		@receiver.update_attribute(:partner_id, -1)
+  		respond_to do |format|
+	      format.js { render :nochat }
 	    end
   	end
 end

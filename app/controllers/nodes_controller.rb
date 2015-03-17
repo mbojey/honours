@@ -14,6 +14,9 @@ class NodesController < ApplicationController
     	      @node.created_at = DateTime.now
             @node.scene_count = params[:scene_count]
             @node.head = params[:head]
+            if(params[:temp])
+              @node.temp = params[:temp]
+            end
             @node.x = params[:x]
             @node.y = params[:y]
             @node.next_pointer = params[:next_pointer]

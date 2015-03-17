@@ -4,18 +4,31 @@
 <head>
   <script type = "text/javascript">
     var scene_id = <%=@scene.id%>;
-    
+    var working = false;
+    function showHint(){
+          console.log("in show hint");
+          $("#hint").show();
+          $.ajax({
+                type:'GET',
+                url:"scenes/"+scene_id+".js",
+                data: {hint: true}
+              });
+        }
+    <% if !User.find(@scene.creator_id).partner_id.nil? && User.find(@scene.creator_id).partner_id != -1 %>
       window.onload = firstrun();
       function firstrun(){
-        setTimeout(update_addtoback,2000);
+        setTimeout(update_addtoback, 5000);
       }
       function update_addtoback(){
+        if(!working){
           $.ajax({
                 type:'GET',
                 url:"scenes/"+scene_id+".js",
               });
+        }
            setTimeout(update_addtoback, 10000);
         }
+    <% end %>
   </script>
 </head>
   <body>
@@ -25,7 +38,19 @@
     </div>
     <% else %>
       <div class = "row">
-        <h5> In this exercise you need to make a new node and add it to the list making sure that the list is still in numerical order. Make sure that when you are done the list still has all 3 nodes.</h5>
+        <h5> In this exercise you need to take the unconnected node and add it to the list making sure that the list is still in numerical order. Make sure that when you are done the list has all 3 nodes.</h5>
+      </div>
+      <div class = "row" style = "display: none;" id = "hint">
+        <h5> To add the node to the end of the list:
+          <ul>
+            <li>Click on the current last node.</li>
+            <li>Click the Add a Pointer button</li>
+            <li>Click the unconnected node.</li>
+          </ul> 
+        </h5>
+      </div>
+      <div class = "row">
+        <button type="button", class ="btn btn-primary btn-warning", onClick = "showHint()">Show Hint</button>
       </div>
       <div class = "row button-row">
         <div class = "col-lg-2">
@@ -35,6 +60,11 @@
           <div class = "row button-row" style = "display: none", id = "moveArrowButton">
             <button type="button", class ="btn btn-primary btn-warning", onClick = "moveArrow()">Move an Arrow</button>
           </div>
+          <% if User.find(@scene.creator_id).partner_id.nil? || User.find(@scene.creator_id).partner_id == -1 %>
+            <div class = "row button-row">
+              <button type="button", class ="btn btn-primary btn-info", onClick = "restart()">Restart</button>
+            </div>
+          <% end %>
         </div>
         <div class = "col-lg-10" id = "body-col" style = "padding-bottom: 3px">
           <div id="container" style = "border: 1px solid black;"></div>

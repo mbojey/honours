@@ -17,6 +17,7 @@ match '/postUseQuestionnaire', to: 'static_pages#postUseQuestionnaire', via:'get
 match '/post_questionnaire', to: 'post_questionnaire#create', via:'patch'
 match '/accept_inv', to: 'layouts#accept_inv', via:'get'
 match '/decline_inv', to: 'layouts#decline_inv', via:'get'
+match '/end_collab', to: 'layouts#endchat', via:'get'
 match '/tutorial', to: 'scenes#tutorial', via:'get'
 match '/tutorial2', to: 'scenes#tutorial2', via:'get'
 match '/tutorial3', to: 'scenes#tutorial3', via:'get'

@@ -9,14 +9,17 @@ function update(){
 		layer.removeChildren();
 		stage.draw();
 		boxCount = 0;
-		//Now move onto adding and positioning all the nodes, filling in any data and putting and connections in place make sure to not make duplicates in the db
+		//Now move onto adding and positioning all the nodes, filling in any data and 
+		//putting and connections in place make sure to not make duplicates in the db
 	  	for (i = 0; i < nodes.length; i++) { 
 	    	var current = nodes[i];
 	    	if(current.head){
 	    		addHeadOld(current.scene_count);
 	    		moveFocus(current.x, current.y);
-	    	}
-	    	else{
+	    	}else if(current.temp){
+	    		addTempOld(current.scene_count);
+	    		moveFocus(current.x, current.y);
+	    	}else{
 	    		addBoxOld(current.scene_count);
 	    		moveFocus(current.x, current.y);
 	    		if(current.next_pointer)

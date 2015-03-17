@@ -23,8 +23,18 @@
             <div class = "col-md-2">
                 <%= link_to "Tutorial", {:controller => "scenes", :action => "tutorial" }, class: "btn btn-md btn-success" %>
             </div>
+            <div class  = "col-md-2">
+                <div class = "row">
+                    <h4>Current Marks<h4>
+                </div>
+                <div class = "row">
+                    <%= 2*@scenes.where(correct: true, hint: true).count + 4*@scenes.where(correct: true, hint: nil, collab_id: 0).count + 5*(@scenes.where(correct: true, hint: nil).count - @scenes.where(correct: true, hint: nil, collab_id: 0).count) %> / 80 = 
+                    <%= ((2*@scenes.where(correct: true, hint: true).count + 4*@scenes.where(correct: true, hint: nil, collab_id: 0).count + 5*(@scenes.where(correct: true, hint: nil).count - @scenes.where(correct: true, hint: nil, collab_id: 0).count))/80.0)*30 %> / 30
+                </div>
+            </div>
             <% if PostQuestionnaire.find_by(user_id: @user.id).nil? %>
-                <div class = "col-md-2">
+                <div class = "col-md-4">
+                    Done as much as you want? Please take a few minutes to fill out this post-use questionnaire then enjoy your bonus marks!  Note - the questionnaire must be completed to receive bonus marks.
                     <%= link_to "PostUseQuestionnaire", {:controller => "static_pages", :action => "postUseQuestionnaire" }, class: "btn btn-md btn-success" %>
                 </div>
             <% end %>

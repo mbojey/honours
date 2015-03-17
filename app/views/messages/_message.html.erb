@@ -12,6 +12,7 @@
 				</div>
 			</div>
 		<% else %>
+			<% message.update_attribute(:seen, true) %>
 			<div class = "reciever-message">
 				<div class = "message-body-reciever">
 					<%= message.message %>

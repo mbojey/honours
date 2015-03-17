@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.boolean  "head"
     t.integer  "x"
     t.integer  "y"
-    t.boolean  "temp", default: false, null: false
+    t.boolean  "temp", default: false
     t.boolean  "visible", default: true, null: false
   end
 
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 20150104000444) do
     t.integer  "question"
     t.integer  "step"
     t.boolean  "correct"
+    t.datetime "submitted_at"
+    t.boolean  "hint"
   end
 
   create_table  "pre_questionnaires", force: true do |t|

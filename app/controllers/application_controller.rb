@@ -26,6 +26,9 @@ class ApplicationController < ActionController::Base
       current_user.update_attribute(:available, true)
     end
     current_user.update_attribute(:last_seen_at, Time.now-7.hours)
+    if(current_user.partner_id == -1)
+      current_user.update_attribute(:available, true)
+    end
     
   end
 
