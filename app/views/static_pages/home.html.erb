@@ -28,8 +28,8 @@
                     <h4>Current Marks<h4>
                 </div>
                 <div class = "row">
-                    <%= 2*@scenes.where(correct: true, hint: true).count + 4*@scenes.where(correct: true, hint: nil, collab_id: 0).count + 5*(@scenes.where(correct: true, hint: nil).count - @scenes.where(correct: true, hint: nil, collab_id: 0).count) %> / 80 = 
-                    <%= ((2*@scenes.where(correct: true, hint: true).count + 4*@scenes.where(correct: true, hint: nil, collab_id: 0).count + 5*(@scenes.where(correct: true, hint: nil).count - @scenes.where(correct: true, hint: nil, collab_id: 0).count))/80.0)*30 %> / 30
+                    <%= 2*@scenes.where(correct: true, hint: true).uniq.pluck(:question).count + 4*@scenes.where(correct: true, hint: nil, collab_id: 0).uniq.pluck(:question).count + 5*(@scenes.where(correct: true, hint: nil).uniq.pluck(:question).count - @scenes.where(correct: true, hint: nil, collab_id: 0).uniq.pluck(:question).count) %> / 80 = 
+                    <%= ((2*@scenes.where(correct: true, hint: true).uniq.pluck(:question).count + 4*@scenes.where(correct: true, hint: nil, collab_id: 0).uniq.pluck(:question).count + 5*(@scenes.where(correct: true, hint: nil).uniq.pluck(:question).count - @scenes.where(correct: true, hint: nil, collab_id: 0).uniq.pluck(:question).count))/80.0)*30 %> / 30
                 </div>
             </div>
             <% if PostQuestionnaire.find_by(user_id: @user.id).nil? %>
