@@ -2066,6 +2066,7 @@ class ScenesController < ApplicationController
         @correct = false
       else
         @nodes.each do |n| 
+          p n
           if n.visible
             if n.scene_count < 6
               if n.scene_count == 2

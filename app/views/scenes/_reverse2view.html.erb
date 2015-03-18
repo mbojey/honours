@@ -520,21 +520,22 @@
 		if(move){
 			focus.parent.children.each(function(i){
 				if(i.attrs.parentid == focus.attrs.id){
+					console.log(i);
 					i.destroy();
+					var con = addConnection(focus, target);
+					layer.add(con);
+					layer.moveToTop(con);
+					stage.draw();
 					checkLost(i.attrs.childid);
 				}
 			});
-			$.ajax({
-				type: "GET",
-				url: "/nodes",
-				data: {id: scene_id, scene_count: focus.id(), next_pointer_target: null}
-			});
 			layer.drawScene();
+		}else{
+			var con = addConnection(focus, target);
+			layer.add(con);
+			layer.moveToTop(con);
+			stage.draw();
 		}
-		var con = addConnection(focus, target);
-		layer.add(con);
-		layer.moveToTop(con);
-		stage.draw();
 		connect = false;
 		move = false;
 		focus.attrs.arrow = true;
@@ -545,6 +546,7 @@
 		});
 		working = false;
 	}
+	
 
 	function forceConnection(lastfocus, focus){
 	    var con = addConnection(lastfocus, focus);
