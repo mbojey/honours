@@ -7,7 +7,7 @@ class ScenesController < ApplicationController
       @scene = Scene.new
       @scene.creator_id = @user.id
       @scene.question = 1
-      @scene.created_at = DateTime.now
+      @scene.created_at = DateTime.now-8.hours
       @scene.step = 0
       @scene.save
       @node = Node.new
@@ -24,7 +24,7 @@ class ScenesController < ApplicationController
       @scene = Scene.new
       @scene.creator_id = @user.id
       @scene.question = 1
-      @scene.created_at = DateTime.now
+      @scene.created_at = DateTime.now-8.hours
       @scene.step = 1
       @scene.save
       @node = Node.new
@@ -41,7 +41,7 @@ class ScenesController < ApplicationController
       @scene = Scene.new
       @scene.creator_id = @user.id
       @scene.question = 1
-      @scene.created_at = DateTime.now
+      @scene.created_at = DateTime.now-8.hours
       @scene.step = 2
       @scene.save
       @node = Node.new
@@ -58,7 +58,7 @@ class ScenesController < ApplicationController
       @scene = Scene.new
       @scene.creator_id = @user.id
       @scene.question = 1
-      @scene.created_at = DateTime.now
+      @scene.created_at = DateTime.now-8.hours
       @scene.step = 3
       @scene.save
       @node = Node.new
@@ -75,7 +75,7 @@ class ScenesController < ApplicationController
       @scene = Scene.new
       @scene.creator_id = @user.id
       @scene.question = 1
-      @scene.created_at = DateTime.now
+      @scene.created_at = DateTime.now-8.hours
       @scene.step = 4
       @scene.save
       @node = Node.new
@@ -93,7 +93,7 @@ class ScenesController < ApplicationController
       @scene = Scene.new
       @scene.creator_id = @user.id
       @scene.question = 1
-      @scene.created_at = DateTime.now
+      @scene.created_at = DateTime.now-8.hours
       @scene.step = 5
       @scene.save
       @node = Node.new
@@ -197,7 +197,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 2, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -232,7 +232,7 @@ class ScenesController < ApplicationController
         @scene = Scene.new
         @scene.creator_id = @user.id
         @scene.question = 3
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scenes = Scene.where("creator_id = ? or collab_id = ?", @user.id, @user.id)
         if !@scenes.find_by(question: 3, hint: true).nil?
           @scene.hint = true;
@@ -271,7 +271,7 @@ class ScenesController < ApplicationController
         @scene = Scene.new
         @scene.creator_id = @user.id
         @scene.question = 4
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scenes = Scene.where("creator_id = ? or collab_id = ?", @user.id, @user.id)
         if !@scenes.find_by(question: 4, hint: true).nil?
           @scene.hint = true;
@@ -314,7 +314,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 5, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -353,7 +353,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 6, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -392,7 +392,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 7, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -431,7 +431,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 8, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -470,7 +470,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 9, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -509,7 +509,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 10, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -548,7 +548,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 11, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -587,7 +587,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 12, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -626,7 +626,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 13, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -665,7 +665,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 14, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -704,7 +704,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 15, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -743,7 +743,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 16, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -782,7 +782,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 17, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -821,7 +821,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 18, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -860,7 +860,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 19, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -899,7 +899,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 20, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -938,7 +938,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 21, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -977,7 +977,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 22, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -1018,7 +1018,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 23, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -1057,7 +1057,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 24, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -1096,7 +1096,7 @@ class ScenesController < ApplicationController
         if !@scenes.find_by(question: 25, hint: true).nil?
           @scene.hint = true;
         end
-        @scene.created_at = DateTime.now
+        @scene.created_at = DateTime.now-8.hours
         @scene.save
         @node = Node.new
         @user.update_attribute(:current_scene, @scene.id)
@@ -1267,7 +1267,7 @@ class ScenesController < ApplicationController
         @error, @correct = checkReverse3(@scene)
       end
       @scene.update_attribute(:correct, @correct)
-      @scene.update_attribute(:submitted_at, DateTime.now-8)
+      @scene.update_attribute(:submitted_at, DateTime.now-8.hours)
     end
   end
 
