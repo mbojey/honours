@@ -2026,7 +2026,7 @@ class ScenesController < ApplicationController
         @nodes.each do |n| 
           if n.visible
             if n.scene_count < 6
-              if n.data1.nil?
+              if n.data1.nil? || n.head
                 @error = "Make sure to remove all nodes with no instance data"
                 @correct = false
               end
