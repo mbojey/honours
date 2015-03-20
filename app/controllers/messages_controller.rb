@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   	puts "Creating the message"
   	@user = current_user
     @message = Message.new(msg_params)
-    @message.sent_at = DateTime.now - 8.hours
+    @message.sent_at = DateTime.now - 7.hours
     @temp1 = @message.sender_id
     @temp2 = @message.receiver_id
     respond_to do |format|

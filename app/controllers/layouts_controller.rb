@@ -50,7 +50,7 @@ class LayoutsController < ApplicationController
 			@other = User.find(params[:id2])
 		    @online = User.where(last_seen_at: (Time.now-7.hours-15.seconds..Time.now-7.hours), available: true).where.not(id: @user.id)
 		    @invitation = Message.new(sender_id: @user.id, receiver_id: @other.id, 
-		    	sent_at: DateTime.now-8.hours, 
+		    	sent_at: DateTime.now-7.hours, 
 		    	message: "Would you like to work together on these questions?", 
 		    	invitation: true )
 		    @invitation.save
@@ -70,7 +70,7 @@ class LayoutsController < ApplicationController
   		@receiver.update_attribute(:available, false)
   		@receiver.update_attribute(:partner_id, @sender.id)
   		@response = Message.new(sender_id: @receiver.id, receiver_id: @sender.id, 
-		    	sent_at: DateTime.now-8.hours, 
+		    	sent_at: DateTime.now-7.hours, 
 		    	message: "Yes, thank-you")
   		@response.save
   		respond_to do |format|
@@ -88,7 +88,7 @@ class LayoutsController < ApplicationController
   		@receiver.update_attribute(:available, true)
   		@receiver.update_attribute(:partner_id, 0)
   		@response = Message.new(sender_id: @sender.id, receiver_id: @receiver.id, 
-		    	sent_at: DateTime.now-8.hours, 
+		    	sent_at: DateTime.now-7.hours, 
 		    	message: "No thank you")
   		@response.save
   		respond_to do |format|
