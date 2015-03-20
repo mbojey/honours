@@ -35,10 +35,12 @@ class LayoutsController < ApplicationController
 	      format.js { 
 	      	if @messages.nil? || @messages.empty?
 	      		render :online 
-	      	elsif @user.partner_id == -1
+	      	elsif @user.partner_id == -1 || 
 	      		render :nochat
-	      	else
+	      	elsif !@messages.where(seen: false).nil? && !@messages.where(seen: false).empty?
 	      		render :chat
+	      	else
+	      		render :online
 	      	end
 	      }
 	    end
