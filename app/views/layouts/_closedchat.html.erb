@@ -1,0 +1,18 @@
+<li class="dropup" id="chatbox">  
+  <a class="dropdown-toggle marker" id = "brand" onclick = "open_chatbox()" style = "text-shadow: none;  cursor:pointer; background: black;" > 
+    <%= @other.fname + " " + @other.lname%>
+    <b class="caret"></b>
+  </a> 
+  <div class = "dropdown-menu dropdown-menu-chat" style = "max-height: 440px; border: 1px solid black; width: 200px; padding-bottom: -10px;">
+      <div class = "row" style = "text-align: center; padding: 2px; border-bottom: 1px solid black; margin-left: 1px; margin-right: 1px;">
+        <%= link_to "End Partnership", {controller: "layouts", action: "endchat", id1: @user.id, id2: @other.id}, remote: true, class: "btn btn-md btn-danger", style: "padding: 0px;"%>
+      </div>
+      <div onmouseover = "hold();" onmouseout = "scroll();" style = "overflow: scroll; max-height: 360px; margin: 0px; padding: 0px;", id = "chatbox_div">
+        <%= render 'messages/privatechat' %>
+      </div>
+      <div style = "border-top: 1px solid black; padding: 2px; width: 100%;">
+        <%= render 'messages/privatechatform' %>
+      </div>
+      
+  </div>
+</li>

@@ -1,0 +1,11 @@
+$("#online_div").html("<%= j(render('layouts/online')) %>");
+var NAME = document.getElementById("chatbox");
+console.log(NAME)
+if (NAME != null && NAME.className == "dropup open") { // Check the current class name
+    $("#chat_div").html("<%= j(render('layouts/chat')) %>");
+	$("#chatbox_div").load('layouts/_chat.html.erb').scrollTop($("#chatbox_div").load('layouts/_chat.html.erb')[0].scrollHeight);
+} else {
+  	$("#chat_div").html("<%= j(render('layouts/closedchat')) %>");
+  	$("#chatbox_div").load('layouts/_chat.html.erb').scrollTop($("#chatbox_div").load('layouts/_chat.html.erb')[0].scrollHeight);
+}
+
