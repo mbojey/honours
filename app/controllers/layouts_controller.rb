@@ -24,8 +24,15 @@ class LayoutsController < ApplicationController
 			    	#find all messages sent from user to other messager
 			    	@messagessent = Message.where(sender_id: @user.id, receiver_id: @other.id).order(:sent_at)
 			    end
-		    end		    
-		    @messages = @messagesreceived+@messagessent
+		    end
+		    if !@messagesreceived.nil?
+		    	@messages = @messagesreceived
+		    else
+		    	@messages = []
+		    end
+		    if !@messagessent.nil?		    
+		    	@messages = @messages+@messagessent
+		    end
 		    #order all messages between these two and store it in messages
 		    @messages = @messages.sort_by { |obj| obj.sent_at }
 		    p @messages.nil? || @messages.empty?
