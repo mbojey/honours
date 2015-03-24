@@ -407,6 +407,7 @@ class ScenesController < ApplicationController
         @scene = Scene.find(@user.current_scene)
       end
     end
+    render :addtomiddle3
   end
 
   def update_addtoback
@@ -2376,8 +2377,6 @@ class ScenesController < ApplicationController
           end
           if @correct
             @error = "You nailed it! Way to go!"
-          else
-            @error = "SOMETHING WENT WRONG"
           end
         end
       end
@@ -2436,8 +2435,6 @@ class ScenesController < ApplicationController
           end
           if @correct
             @error = "You nailed it! Way to go!"
-          else
-            @error = "SOMETHING WENT WRONG"
           end
         end
       end

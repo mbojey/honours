@@ -35,8 +35,6 @@ class LayoutsController < ApplicationController
 		    end
 		    #order all messages between these two and store it in messages
 		    @messages = @messages.sort_by { |obj| obj.sent_at }
-		    p @messages.nil? || @messages.empty?
-		    p @user.partner_id == -1
 		    @unseen = @messagesreceived.where(seen: false)
 		end
 		respond_to do |format|
