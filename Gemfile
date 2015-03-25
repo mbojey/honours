@@ -18,6 +18,7 @@ gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem "ckeditor"
+gem "taps"
 
 
 
