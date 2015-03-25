@@ -2,8 +2,7 @@
 
 @userary = [];
 @marksary = [];
-file = File.open("results.csv", "w+")
-file.write("" + "Student Number" + ", " + "Score" + "\n")
+p ("" + "Student Number" + ", " + "Score" + "\n")
 @users.each do |u|
 	@scenes = Scene.where("creator_id = ? or collab_id = ?", u.id, u.id)
 	@score = ((2*@scenes.where(correct: true, hint: true).uniq.pluck(:question).count + 
@@ -13,7 +12,7 @@ file.write("" + "Student Number" + ", " + "Score" + "\n")
 	@userary.push(u.studentnumber)
 	@marksary.push(@score)
 	begin
-  		file.write("" + u.studentnumber.to_s + ", " + @score.to_s + "\n") 
+  		p ("" + u.studentnumber.to_s + ", " + @score.to_s + "\n") 
 	rescue IOError => e
   	#some error occur, dir not writable etc.
 	end
